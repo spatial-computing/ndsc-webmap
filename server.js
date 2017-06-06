@@ -4,8 +4,8 @@ var http = require("http");
 var fs = require("fs");
 var express = require("express");
 var app = express();
-var dataset_main, dataset_carousel, dataset_region, dataset_neighborhood, dataset_metadata;
-var dataset_variables, dataset_composite, dataset_policy, dataset_other, sheet;
+var dataset_main, dataset_carousel, dataset_region, dataset_neighborhood, dataset_datasets;
+var dataset_variables, dataset_composite, dataset_policy, dataset_tooltips, dataset_about;
 
 app.use(function(req, res, next) { //allow cross origin requests
         res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
@@ -32,7 +32,7 @@ main.getRows(4, function (err, rows) {
     dataset_neighborhood=rows;
   });
 main.getRows(5, function (err, rows) {
-    dataset_metadata=rows;
+    dataset_datasets=rows;
   });
 main.getRows(6, function (err, rows) {
     dataset_variables=rows;
@@ -44,7 +44,10 @@ main.getRows(8, function (err, rows) {
     dataset_policy=rows;
   });
 main.getRows(9, function (err, rows) {
-    dataset_other=rows;
+    dataset_tooltips=rows;
+  });
+main.getRows(10, function (err, rows) {
+    dataset_about=rows;
   });
 });
 
@@ -60,8 +63,8 @@ app.get("/GS-Region",function(req,res){
 app.get("/GS-Neighborhood",function(req,res){
   res.json({"data":dataset_neighborhood});
 });
-app.get("/GS-Metadata",function(req,res){
-  res.json({"data":dataset_metadata});
+app.get("/GS-Datasets",function(req,res){
+  res.json({"data":dataset_datasets});
 });
 app.get("/GS-Variables",function(req,res){
   res.json({"data":dataset_variables});
@@ -72,8 +75,11 @@ app.get("/GS-Composite",function(req,res){
 app.get("/GS-Policy",function(req,res){
   res.json({"data":dataset_policy});
 });
-app.get("/GS-Other",function(req,res){
-  res.json({"data":dataset_other});
+app.get("/GS-Tooltips",function(req,res){
+  res.json({"data":dataset_tooltips});
+});
+app.get("/GS-About",function(req,res){
+  res.json({"data":dataset_about});
 });
 
 app.listen(3000);

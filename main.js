@@ -1,4 +1,4 @@
-var app = angular.module('myModule', ['angular.filter']);
+var app = angular.module('myModule', ['angular.filter','esri.map']);
 app.controller('myController', function($scope,$http) {
 
   var refresh = function() {
@@ -40,9 +40,9 @@ app.controller('myController', function($scope,$http) {
 
     $http({
         method: 'GET',
-        url: 'http://localhost:3000/GS-Metadata'
+        url: 'http://localhost:3000/GS-Datasets'
     }).then(function (response) {
-        $scope.metadata = response.data.data;
+        $scope.datasets = response.data.data;
     },function(err){
         console.log(err);
     });
@@ -76,9 +76,18 @@ app.controller('myController', function($scope,$http) {
 
     $http({
         method: 'GET',
-        url: 'http://localhost:3000/GS-Other'
+        url: 'http://localhost:3000/GS-Tooltips'
     }).then(function (response) {
-        $scope.other = response.data.data;
+        $scope.tooltips = response.data.data;
+    },function(err){
+        console.log(err);
+    });
+
+    $http({
+        method: 'GET',
+        url: 'http://localhost:3000/GS-About'
+    }).then(function (response) {
+        $scope.about = response.data.data;
     },function(err){
         console.log(err);
     });
