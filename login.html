@@ -1,0 +1,172 @@
+<html ng-app='myModule' ng-controller='myController'>
+  <head>
+    <title>Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/loading.css">
+  </head>
+  <body style="font-family:Lato;">
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+
+    <div id="content">
+      <nav id="main-nav" class="navbar">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html"><span id="home-icon" class="glyphicon glyphicon-home"></span><span class="sr-only">(current)</span></a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li><a href="about.html">About</a></li>
+              <li><a href="#">Data Dictionary</a></li>
+              <li><a href="explorevariables.html">Explore Variables</a></li>
+              <li><a href="#">Explore Neighborhoods</a></li>
+              <li><a href="#">Explore Composite Indicators</a></li>
+              <li><a href="#">Data Stories</a></li>
+              <li><a href="#">Learn About The Data</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="login.html">Login/Signup</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-2 col-sm-1 col-md-1">
+            <img src="img/price.png" id="price-logo">
+          </div>
+          <div class="col-xs-8 col-sm-10 col-md-10" style="position:relative;">
+            <img src="img/title-image.jpg" id="title-image" >
+  			<h1 class="title-text-homepage">
+  			<b> NEIGHBORHOOD DATA FOR SOCIAL CHANGE</b><br>
+  			</h1>
+  			<h5 class="title-text_line2">
+  				<b>LOCAL DATA FOR COMMUNITY PROBLEM SOLVING</b></h5>
+
+          </div>
+          <div class="col-xs-2 col-sm-1 col-md-1">
+            <img src="img/dornsife.png" id="dornsife-logo">
+          </div>
+        </div>
+      </div>
+
+      <div id="header-band"><h4 class="text-center">&nbsp;</h4></div>
+
+
+
+  <div class="row equal">
+  	<!-- Log in -->
+      <div class="col-lg-6">
+        <br>
+              <div class="panel panel-default">
+  			<div class="panel-heading panel-heading-custom">
+              EXISTING USERS
+              </div>
+              <div class="panel-body panel-body-custom">
+              <form id="loginpage">
+                  LOG IN
+                  <br>
+                  <label for="email">Username</label>
+                  <input type="email"  id="email">
+                  <br><br><br>
+                  <label for="pwd">Password</label>
+                  <input type="password" id="pwd">
+                  <br><br>
+  				<span style="text-decoration:underline;">Forgot username/password?</span>
+  				<br>
+  				<br>
+  				<br>
+  				<br>
+  				<br>
+
+                  <button type="submit" class="login_button">Go to my Profile</button>
+
+              </form>
+              </div>
+  		</div>
+      </div>
+  	<!--Signup -->
+      <div class="col-lg-6" style="border-left: 15px solid #003333;">
+        <br>
+              <div class="panel panel-default">
+  			<div class="panel-heading panel-heading-custom1">
+              NEW USERS
+              </div>
+              <div class="panel-body panel-body-custom1">
+              <form>
+                  SIGNUP
+
+  				<table>
+  				<tr>
+  					<td><label for="email" >name</label></td>
+  					<td>&nbsp;</td>
+  					<td><input type="email"  id="email" class="signup_width" ></td>
+  				</tr>
+                 <tr><td><br></td></tr>
+  				<tr>
+  					<td><label for="email" >username</label></td>
+  					<td>&nbsp;</td>
+  					<td><input type="email"  id="email"class="signup_width" ></td>
+  				</tr>
+                 <tr><td><br></td></tr>
+  				<tr>
+  					<td><label for="pwd" >password</label></td>
+  					<td>&nbsp;</td>
+  					<td><input type="password" id="pwd" class="signup_width"></td>
+  				</tr>
+                 <tr><td><br></td></tr>
+  				<tr>
+  					<td><label for="email" >email</label></td>
+  					<td>&nbsp;</td>
+  					<td><input type="email"  id="email" class="signup_width"></td>
+  				</tr>
+                 <tr><td><br></td></tr>
+  				<tr>
+  					<td><label for="email ">confirm e-mail</label></td>
+  					<td>&nbsp;</td>
+  					<td><input type="email"  id="email" class="signup_width"></td>
+  				</tr>
+                 <tr><td><br></td></tr>
+                  </table>
+
+                  <button type="submit" class="login_button" class="signup_width">Create new profile</button>
+
+              </form>
+              </div>
+
+      </div>
+  		<br>
+  	</div>
+    </div>
+  	<div id="header-band"><h4 class="text-center">&nbsp;</h4></div>
+  </div>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://js.arcgis.com/3.20"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
+  <script src="http://unpkg.com/angular-esri-map@1"></script>
+  <script src="js/main.js"></script>
+  <script src="js/loading.js"></script>
+</body>
+</html>

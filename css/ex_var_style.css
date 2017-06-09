@@ -1,0 +1,106 @@
+html {
+  overflow: -moz-scrollbars-vertical;
+  overflow-y: scroll;
+}
+
+#nav1 ul li {
+  display:inline-block;
+  width:500px;
+  padding-right: 30px;
+  overflow: visible;
+}
+
+#nav2 ul li {
+  display:inline-block;
+  width:500px;
+  padding-right: 30px;
+  overflow: visible;
+}
+
+#first a,visited
+{
+  display:block;
+  text-decoration:none;
+  border: 1.45px solid #004d4d;
+  padding: 30px;
+  background-color: #d9ead3;
+  text-align: center;
+  color: #004d4d;
+  text-transform: uppercase;
+  overflow: visible;
+  line-height: 1px;
+}
+
+#second a,visited
+{
+  display:block;
+  padding: 15px;
+  text-decoration:none;
+  border: 1.45px solid #004d4d;
+  background-color: #d9ead3;
+  text-align: center;
+  color: #004d4d;
+  text-transform: uppercase;
+  height: 4px;
+  overflow: hidden;
+}
+
+#nav1 ul li:hover > ul {
+  display:block;
+}
+
+#nav1 ul li a:hover {
+  background-color: cadetblue;
+  border: 2px solid #00ffff;
+}
+
+#nav1 ul li {
+  display:block;
+  font-weight: bold;
+}
+
+#nav1 ul ul {
+  display:none;
+  position:absolute;
+}
+
+#nav2 ul li:hover > ul {
+  display:block;
+  left: auto;
+  right: 260px;
+}
+
+#nav2 ul li a:hover {
+  background-color: cadetblue;
+}
+
+#nav2 ul li {
+  display:block;
+  font-weight: bold;
+}
+
+#nav2 ul ul {
+  display:none;
+  position:absolute;
+}
+
+#second {
+  margin: -47px 0 0 214px;
+  overflow: hidden;
+}
+
+#third {
+  margin: -47px 0 0 214px;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 400px) {
+  #nav1 {
+    float: none;
+    margin-right:0;
+  }
+
+  .header-band {
+    position: relative;
+  }
+}

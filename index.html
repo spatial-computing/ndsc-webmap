@@ -1,0 +1,159 @@
+<html ng-app='myModule' ng-controller='myController'>
+  <head>
+    <title>NDSC Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/loading.css">
+  </head>
+  <body style="font-family:Lato;">
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+
+    <div id="content">
+      <nav id="main-nav" class="navbar">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html"><span id="home-icon" class="glyphicon glyphicon-home"></span><span class="sr-only">(current)</span></a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li><a href="about.html">About</a></li>
+              <li><a href="#">Data Dictionary</a></li>
+              <li><a href="explorevariables.html">Explore Variables</a></li>
+              <li><a href="#">Explore Neighborhoods</a></li>
+              <li><a href="#">Explore Composite Indicators</a></li>
+              <li><a href="#">Data Stories</a></li>
+              <li><a href="#">Learn About The Data</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="login.html">Login/Signup</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-2 col-sm-1 col-md-1">
+            <img src="img/price.png" id="price-logo">
+          </div>
+          <div class="col-xs-8 col-sm-10 col-md-10" style="position:relative;">
+            <img src="img/title-image.jpg" id="title-image" >
+            <h1 class="title-text-homepage">
+            <b> NEIGHBORHOOD DATA FOR SOCIAL CHANGE</b><br>
+            </h1>
+            <h5 class="title-text_line2">
+            <b>LOCAL DATA FOR COMMUNITY PROBLEM SOLVING</b></h5>
+          </div>
+          <div class="col-xs-2 col-sm-1 col-md-1">
+            <img src="img/dornsife.png" id="dornsife-logo">
+          </div>
+        </div>
+      </div>
+
+      <div id="header-band" ><h4 class="text-center" style="line-height:1.4;">STORYTELLING WITH DATA</h4></div>
+
+      <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="4000" style="transform: translate3d(0px, 0px, 0px)!important;">
+
+        <ol class="carousel-indicators">
+    			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    			<li data-target="#myCarousel" data-slide-to="1"></li>
+    			<li data-target="#myCarousel" data-slide-to="2"></li>
+    			<li data-target="#myCarousel" data-slide-to="3"></li>
+    		</ol>
+
+        <div class="carousel-inner">
+          <div class="item active">
+            <img src="img/carousel1.jpg" style="width:100%;height:33%;object-fit: cover;overflow:hidden;">
+            <div class="carousel-caption">
+              <h1><b>{{carousel[0].imagetext}}</b></h1>
+            </div>
+          </div>
+
+          <div class="item">
+            <img src="img/carousel2.jpg" style="width:100%;height:33%;object-fit: cover;overflow:hidden;">
+            <div class="carousel-caption">
+              <h1><b>{{carousel[1].imagetext}}</b></h1>
+            </div>
+          </div>
+
+          <div class="item">
+            <img src="img/carousel3.jpg"  style="width:100%;height:33%; object-fit: cover;overflow:hidden;">
+            <div class="carousel-caption">
+              <h1><b>{{carousel[2].imagetext}}</b></h1>
+            </div>
+          </div>
+          <div class="item">
+            <img src="img/carousel4.jpg"  style="width:100%;height:33%;object-fit: cover;overflow:hidden;">
+            <div class="carousel-caption">
+              <h1><b>{{carousel[3].imagetext}}</b></h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="header-band"><h4 class="text-center">&nbsp;</h4></div>
+      <div id="footer-band"><h4 class="text-center">&nbsp;</h4></div>
+
+      <div >
+  			<div class="row">
+  				 <div class="col-md-2 col-xs-2" class="responsive " >
+  					  <div class="middle-div">&nbsp;<br><br><span id="get_started">Get Started</span></div>
+  					  <div class="arrow-right"></div>
+  				</div>
+
+
+  						<div class="col-md-8 col-xs-8" class="responsive image-section" >
+  							<div class="col-md-4 col-xs-4" class="responsive " >
+  									<img src="img/exp_neighborhoods.jpg" id="picture1" class="img-responsive" style="height:23%; width:100%"/>
+  									<h4 class="text_thumbnails_comp" style="left:20%;"><b> Economic opportunity</b></h4>
+
+  							</div>
+  							<div class="col-md-4 col-xs-4" class="responsive ">
+  								<img src="img/exp_variable.jpg" id="picture2" class="img-responsive"style="height:23% ; width:100%" />
+  								<h4 class="text_thumbnails_comp"style="left:15%;"><b>Risk & Vulnerability</b></h4>
+
+
+  							</div>
+  							<div class="col-md-4 col-xs-4" class="responsive ">
+  								<img src="img/Exp_comp_ind.jpg" id="picture3" class="img-responsive" style="height:23%; width:100%"/>
+  								<h4 class="text_thumbnails_comp" style="left:20%;"><b>Connectedness</b></h4>
+  							</div>
+  					</div>
+  			  <div class="col-md-2 col-xs-2 " class="responsive">
+  			  <div class="arrow-left"></div>
+  			 </div>
+  			</div>
+  	  </div>
+
+      <div id="footer-band"><h4 class="text-center" style="line-height:1.4">LEARN MORE ABOUT THE DATA</h4></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://js.arcgis.com/3.20"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
+    <script src="http://unpkg.com/angular-esri-map@1"></script>
+    <script src="js/main.js"></script>
+    <script src="js/loading.js"></script>
+  </body>
+</html>
