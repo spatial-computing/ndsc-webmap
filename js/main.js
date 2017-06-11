@@ -5,14 +5,34 @@ app.controller('myController', function($scope,$http,$filter) {
   var items;
   var result = [];
 
+  $scope.back = function() {
+    $('#myCarousel').carousel('prev');
+  };
+
+  $scope.getDts = function(menuPA) {
+    $scope.menuDtsList = $filter('filter')($scope.main, { policyarea : menuPA.policyarea });
+    $('#myCarousel').carousel('next');
+  };
+
+  $scope.getVar = function(menuD){
+    $scope.menuVarList = $filter('filter')($scope.menuDtsList, { dataset : menuD.dataset });
+    $('#myCarousel').carousel('next');
+  };
+
+  $scope.dataMap = function(dataset){
+    $scope.mapData = dataset;
+    sessionStorage.mapStore =  JSON.stringify($scope.mapData);
+    sessionStorage.mapYear =  JSON.stringify($scope.mapData.year);
+  };
+
   $scope.sendDomain = function(topic){
     $scope.menuRes = topic;
     $scope.menuDomain = $filter('filter')($scope.main, { policyarea : topic});
-  }
+  };
 
   $scope.sendVariable = function(topic){
     $scope.menuVariable = $filter('filter')($scope.menuDomain, { dataset : topic.dataset});
-  }
+  };
 
   var refresh = function() {
     $http({
@@ -20,7 +40,7 @@ app.controller('myController', function($scope,$http,$filter) {
         url: 'http://localhost:3000/GS-Main'
     }).then(function (response) {
         $scope.main = response.data.data;
-        items = $scope.main;
+        items = angular.copy($scope.main);
         for (var item, i = 0; item = items[i++];) {
           var name = item.policyarea;
 

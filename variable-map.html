@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html ng-app='myModule' ng-controller='myController'>
+	<head>
+		<title>Variable Map</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
+		<link rel="stylesheet" href="css/variable-map.css">
+		<link rel="stylesheet" href="css/loading.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.2.2/rzslider.min.css">
+
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
+		<script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vega/2.6.1/vega.min.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/arcgis-cedar@0.9.1/dist/cedar.min.js"></script>
+		<script>
+      var chart = new Cedar({"type": "bar"});
+    </script>
+	</head>
+	<body>
+		<div id="loader-wrapper">
+      <div id="loader"></div>
+
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+
+		<div id="content">
+    <nav id="main-nav" class="navbar">
+			<div class="container-fluid">
+				<div class="navbar-header">
+				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+					<a class="navbar-brand" href="index.html"><span id="home-icon" class="glyphicon glyphicon-home"></span><span class="sr-only">(current)</span></a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li><a href="about.html">About</a></li>
+						<li><a href="#">Data Dictionary</a></li>
+						<li><a href="explorevariables.html">Explore Variables</a></li>
+						<li><a href="neighborhood.html">Explore Neighborhoods</a></li>
+						<li><a href="exp_comp_ind.html">Explore Composite Indicators</a></li>
+						<li><a href="#">Data Stories</a></li>
+						<li><a href="#">Learn About The Data</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="login.html">Login/Signup</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+    <div class="container-fluid" style="padding-top: 15px;">
+      <div class="row content">
+
+      <!-- left panel   -->
+      <div class="col-sm-2 sidenav">
+          <div class="col-sm-12 white">
+            <h5>About {{ mapData["variable"] }}</h5>
+            <div ng-repeat="data in variables" style="list-style:none; margin-bottom: 20px">
+                <!-- <div ng-if="data.variable == mapData['variable']" style="font-size:12px; overflow-y: scroll">{{data['learnvariableaboutthevariableondashboard']}}</div> -->
+                <div ng-if="data.variable == mapData['variable']" style="font-size:12px; height: 150px; overflow-y: scroll; margin-bottom: 30px">
+                  The Economic Opportunity indicator measures the conditions of possibility present in neighborhoods; that is, the factors that interact to contribute in creating economic opportunity. While opportunity is generally taken to be the availability of certain assets, or measured by the presence of positive outcomes (such as education or income) (Acevedo-Garcia et al., 2016), the proposed Economic Opportunity index centers on the set of factors that come together to create opportunity as a potential for the generation of such positive outcomes. To use Galster and Killen’s terms, most of the focus in measuring economic opportunity has been on its ‘outcomes’, our proposed indicator centers on assessing the underlying ‘process’ (Galster & Killen, 1995). As opposed to the presence of outcomes, the driver for this measurement is access to factors that contribute to the creation of economic opportunity. There are three key variables in our proposed measurement of economic opportunity: access to jobs, access to housing, and access to transportation.
+                </div>
+            </div>
+          </div>
+        <div class="col-sm-12 col12">
+            <div id="legend" style="font-size:12px;">
+            </div>
+        </div>
+      </div>
+
+      <!-- center panel -->
+      <div class="col-sm-6 col2" >
+          <div class="col-sm-12 col21">
+            <p style="text-align: center; font-weight: bold; font-size: 15px">{{ mapData["variable"] | uppercase}} ({{mapData["year"]}})</p>
+          </div>
+          <div class="col-sm-12 col22">
+            <div id="mapDiv" style="display: inline-block; width:100%	;">
+              <esri-map id="map" map-options="{ basemap: 'gray', center: [-118.2437, 34.2522], zoom: 9,showLabels : true }" load="onMapLoad">
+                <esri-feature-layer url={{mapUrl}}></esri-feature-layer>
+                <div esri-legend target-id="legend"></div>
+              </esri-map>
+            </div>
+          </div>
+          <div class="col-sm-12">
+          <div class="col-sm-6 col23">
+						<rzslider ng-hide="!bool" style="width:150px; " rz-slider-model="slider_ticks_values_tooltip.value" rz-slider-options="slider_ticks_values_tooltip.options"></rzslider>
+					</div>
+          <div class="col-sm-3 col231">
+						<button class="btn btn-default">Download All Data</button>
+					</div>
+          <div class="col-sm-3 col232">
+						<button class="btn btn-default">Save/Print Map</button>
+					</div>
+        </div>
+          <div class="col-sm-12 col24">
+              <table class="table table-hover" style="border:1px solid black">
+                <thead>
+                  <tr>
+                    <th>Neighborhood</th>
+                    <th>{{ mapData["variable"] }}</th>
+                    <th>Change Across Years</th>
+                  </tr>
+                </thead>
+              <tbody>
+                <tr style="background-color:#edd840;">
+                  <td>Pasadena</td>
+                  <td>$2,200</td>
+                  <td>255</td>
+                </tr>
+              </tbody>
+           </table>
+        </div>
+      </div>
+
+
+      <!-- right panel -->
+      <div class="col-sm-4 sidenav">
+        <div class="row row31">
+          <div class="col-sm-5 col31">
+            <div class="col-sm-12 col311">
+                <div class="varButton"><a href=#>Select a Different Variable<a></div>
+                  <ul class="dropdown-content">
+                    <li class="main" ng-repeat="topic in main | unique: 'Policy Area'" ng-mouseover=dispMenu(topic)>{{topic["Policy Area"]}}</a> -->
+                      <ul class="sub-content">
+                          <li class="sub" ng-repeat="topic in main | filter: ds | unique: 'Dataset'" ng-mouseover=dispSubMenu(topic)>{{topic.Dataset}}</a>
+                      <ul class="sub-content-two">
+                        <li class="sub-two" ng-repeat="topic in main | filter: var | unique: 'Variable'" ng-click=newMap(topic)>{{topic.Variable}}</a>
+                      </ul>
+                    </ul>
+                  </ul>
+            </div>
+            <div class="col-sm-12 col312">
+              <div class="exploreButton"><a href=#>Explore More About Region<a></div>
+            </div>
+            <div class="col-sm-12 col313">
+              <p>Median Value for L.A. County</p>
+            </div>
+          </div>
+          <div class="col-sm-7 col32" style="font-size:12px;">
+            <div class="aboutContent">
+            <h5 class="text-center" style="padding-top:0">About the Data</h5>
+            <ul ng-repeat="data in variables | filter: mapData['variable']" style="list-style:none; padding-left:0; padding-top:0">
+              <li><em>Definition:</em> {{data['variabledefinition']}}<br></li>
+              <li><br></li>
+              <li><em>Source:</em> {{data['datasource']}}<br></li>
+              <li><br></li>
+              <li><em>Years:</em> {{data['yearsavailable']}}<br></li>
+              <li><br></li>
+              <li><em>Methodology:</em> {{data['answer2methodology']}}</li>
+            </ul>
+          </div>
+          </div>
+        </div>
+        <div class="row row32" style="padding-top: 5px;">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8 row2col2 text-center">
+            <p style="vertical-align: center; color: black; font-weight: bold">Data for {{ mapData["variable"] }} in {{mapData["year"]}}</p>
+          </div>
+          <div class="col-sm-2"></div>
+        </div>
+        <div class="row row33" style="padding: 5px;">
+          <div id="chart">
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-6">
+          <button class="btn btn-default">Download Your Selection</button>
+        </div>
+        <div class="col-md-6">
+        <button class="btn btn-default">Save/Print Graph</button>
+      </div>
+        </div>
+
+
+
+
+
+      </div>
+    </div>
+	</div>
+
+
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="https://js.arcgis.com/3.20"></script>
+
+		<script src="http://unpkg.com/angular-esri-map@1"></script>
+		<script src="js/variable-map.js"></script>
+		<script src="js/loading.js"></script>
+	</body>
+</html>

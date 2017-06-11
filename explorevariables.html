@@ -8,8 +8,20 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/ex_var_style.css">
+    <!-- <link rel="stylesheet" href="css/ex_var_style.css"> -->
     <link rel="stylesheet" href="css/loading.css">
+    <style>
+      #liDesign {
+        text-align: center;
+        vertical-align: middle;
+        line-height: 40px;
+        list-style-type: none;
+        border: solid;
+        margin: 10px;
+        margin-right: 50px;
+        margin-left: 110px;
+      }
+    </style>
   </head>
   <body style="font-family:Lato;">
     <div id="loader-wrapper">
@@ -37,7 +49,7 @@
               <li><a href="about.html">About</a></li>
               <li><a href="#">Data Dictionary</a></li>
               <li><a href="explorevariables.html">Explore Variables</a></li>
-              <li><a href="#">Explore Neighborhoods</a></li>
+              <li><a href="neighborhood.html">Explore Neighborhoods</a></li>
               <li><a href="exp_comp_ind.html">Explore Composite Indicators</a></li>
               <li><a href="#">Data Stories</a></li>
               <li><a href="#">Learn About The Data</a></li>
@@ -71,47 +83,50 @@
 
       <br>
 
-      <div id="nav1" style="float: left;">
-        <ul id="first">
-           <li ng-repeat="menu in left " ng-mouseover=sendDomain(menu)>
-             <a href="#">{{menu}}</a>
-             <ul id="second" style="overflow-y: visible;overflow-x: visible;">
-             <li><a href="#" style='background-color: #004d4d; color: white;'>Datasets</a></li>
-               <li ng-repeat="a in menuDomain| unique: 'dataset'" ng-mouseover=sendVariable(a)>
-                 <a href="#">{{a.dataset}}</a>
-                   <ul id="third">
-                   <li><a href="#" style='background-color: #004d4d; color: white;overflow: visible;'>Variables</a></li>
-                     <li ng-repeat="b in menuVariable | unique: 'variable'" >
-                       <a href="page.html">{{b.variable}}</a>
-                     </li>
-                   </ul>
-               </li>
-             </ul>
-           </li>
-         </ul>
-       </div>
-
-       <div id="nav2" style="float: right;">
-         <ul id="first">
-           <li ng-repeat="menu in right" ng-mouseover=sendDomain(menu)>
-             <a href="#">{{menu}}</a>
-               <ul id="second" style="overflow: visible;">
-               <li><a href="#" style='background-color: #004d4d; color: white;'>Datasets</a></li>
-                 <li ng-repeat="a in menuDomain | unique: 'dataset'" ng-mouseover=sendVariable(a)>
-                   <a href="#">{{a.dataset}}</a>
-                     <ul id="third" style="overflow: visible;">
-                     <li><a href="#" style='background-color: #004d4d; color: white;'>Variables</a></li>
-                       <li ng-repeat="b in menuVariable | unique: 'variable'" >
-                         <a href="page.html">{{b.variable}}</a>
-                       </li>
-                     </ul>
+      <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+        <div class="carousel-inner">
+          <div class="item active container-fluid">
+            <div id="nav1">
+              <ul id="first">
+                 <li id ="liDesign" class="col-sm-4 col-md-4" ng-repeat="menu1 in main | unique: 'policyarea'" ng-click=getDts(menu1)>
+                   <a href="#">{{menu1.policyarea}}</a>
                  </li>
                </ul>
-           </li>
-         </ul>
+             </div>
+           </div>
+
+           <div class="item container-fluid">
+             <button type="button" class="btn btn-primary btn-sm" ng-click=back()>
+               <span class="glyphicon glyphicon-chevron-left"></span> Back
+             </button>
+             <div id="nav1">
+               <ul id="first">
+                  <li id ="liDesign" class="col-sm-4 col-md-4" ng-repeat="menu2 in menuDtsList | unique: 'dataset'" ng-click=getVar(menu2)>
+                    <a href="#">{{menu2.dataset}}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="item container-fluid">
+              <button type="button" class="btn btn-default btn-sm" ng-click=back()>
+                <span class="glyphicon glyphicon-chevron-left"></span> Back
+              </button>
+              <div id="nav1">
+                <ul id="first">
+                   <li id ="liDesign" class="col-sm-4 col-md-4" ng-repeat="menu3 in menuVarList | unique: 'variable'">
+                     <a ng-click="dataMap(menu3)" href="variable-map.html">
+                     {{menu3.variable}}
+                     </a>
+                   </li>
+                 </ul>
+               </div>
+             </div>
+
+         </div>
        </div>
 
-      <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+      <br> <br> <br> <br> <br> <br> <br> <br> <br>
       <div id="header-band"><h4 class="text-center">&nbsp;</h4></div>
       <div id="footer-band"><h4 class="text-center">VISIT OUR DATA DICTIONARY</h4></div>
     </div>
