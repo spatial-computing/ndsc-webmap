@@ -227,19 +227,35 @@ map.on("click", function(evt){
     });
 
     function showResults (results) {
+      var count = 0;
+      var select = 0;
+
       var resultItems = [];
       var resultCount = results.features.length;
       for (var i = 0; i < resultCount; i++) {
         var featureAttributes = results.features[i].attributes;
         for (var attr in featureAttributes) {
           resultItems.push(featureAttributes[attr]);
+          count++;
+          if (select == 0 && attr == $scope.varMapDash[0].fieldname) {
+            select = count;
+          }
         }
       }
-      for (var i = 3; i < resultItems.length; i+=6) {
+
+      for (var i = (select-1); i < resultItems.length; i+=(count/results.features.length)) {
         $scope.sum += resultItems[i];
       }
-      $scope.avg = Math.round(($scope.sum/results.features.length) * 100) / 100;
-      console.log($scope.avg);
+
+      if ($scope.varMapDash[0].fieldtype == "total") {
+        $scope.tableAnswer = $scope.sum;
+      }
+      else if($scope.varMapDash[0].fieldtype == "percentage") {
+        $scope.tableAnswer = (Math.round(($scope.sum/results.features.length) * 100) / 100) + " %" ;
+      }
+      else if($scope.varMapDash[0].fieldtype == "income") {
+        $scope.tableAnswer = "$ " + (Math.round(($scope.sum/results.features.length) * 100) / 100);
+      }
       $scope.$apply();
     }
 

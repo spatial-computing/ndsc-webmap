@@ -222,19 +222,24 @@ map.on("click", function(evt){
     });
 
     function showResults (results) {
+      var count = 0;
+      var select = 0;
       var resultItems = [];
       var resultCount = results.features.length;
       for (var i = 0; i < resultCount; i++) {
         var featureAttributes = results.features[i].attributes;
         for (var attr in featureAttributes) {
           resultItems.push(featureAttributes[attr]);
+          count++;
+          if (select == 0 && attr == $scope.mapData.fieldname) {
+            select = count;
+          }
         }
       }
-      for (var i = 4; i < resultItems.length; i+=7) {
+      for (var i = (select-1); i < resultItems.length; i+=(count/results.features.length)) {
         $scope.sum += resultItems[i];
       }
       $scope.avg = Math.round(($scope.sum/results.features.length) * 10000) / 10000;
-      console.log($scope.avg);
       $scope.$apply();
     }
 

@@ -336,7 +336,8 @@ arrayUtils, parser) {
     query.geometry = $scope.geom;
     queryTask.execute(query, function(results){
       //console.log(results);
-
+      var count = 0;
+      var select = 0;
       var resultItems = [];
       var sum=0;
       var resultCount = results.features.length;
@@ -344,18 +345,26 @@ arrayUtils, parser) {
         var featureAttributes = results.features[i].attributes;
         for (var attr in featureAttributes) {
           resultItems.push(featureAttributes[attr]);
+          count++;
+          if (select == 0 && attr == $scope.varMapDash[0].fieldname) {
+            select = count;
+          }
         }
       }
-      for (var i = 2; i < resultItems.length; i+=5) {
-        sum += resultItems[i];
+      for (var i = (select-1); i < resultItems.length; i+=(count/results.features.length)) {
+        $scope.sum += resultItems[i];
+      }
+      if ($scope.varMapDash[0].fieldtype == "total") {
+        $scope.tableAnswer = $scope.sum;
+      }
+      else if($scope.varMapDash[0].fieldtype == "percentage") {
+        $scope.tableAnswer = (Math.round(($scope.sum/results.features.length) * 100) / 100) + " %" ;
+      }
+      else if($scope.varMapDash[0].fieldtype == "income") {
+        $scope.tableAnswer = "$ " + (Math.round(($scope.sum/results.features.length) * 100) / 100);
       }
 
-      $scope.sum = sum;
-
   }).then(function(){
-      console.log($scope.sum);
-
-
 
   var url = "http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Neighborhoods_LAT_2017_NDSC/FeatureServer/0";
   //var url2 = "http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Regions_LAT_2017_NDSC/FeatureServer/0";
@@ -384,7 +393,7 @@ arrayUtils, parser) {
     });
     if (layerInfo.length > 0) {
       var legendDijit = new Legend({
-        map: map,
+        map: map2,
         layerInfos: layerInfo
       }, "legendDiv");
       legendDijit.startup();

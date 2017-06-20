@@ -24,9 +24,7 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                     url: 'http://localhost:3000/GS-Variables'
                 }).then(function (response) {
                     $scope.variables = response.data.data;
-                    console.log($scope.variable);
                     $scope.varMapDash = $filter('filter')($scope.variables, { variable: $scope.variable });
-                    console.log($scope.varMapDash);
                   });
 
                   $http({
@@ -267,19 +265,33 @@ map.on("click", function(evt){
     });
 
     function showResults (results) {
+      var count = 0;
+      var select = 0;
       var resultItems = [];
       var resultCount = results.features.length;
       for (var i = 0; i < resultCount; i++) {
         var featureAttributes = results.features[i].attributes;
         for (var attr in featureAttributes) {
           resultItems.push(featureAttributes[attr]);
+          count++;
+          if (select == 0 && attr == $scope.varMapDash[0].fieldname) {
+            select = count;
+          }
         }
       }
-      for (var i = 2; i < resultItems.length; i+=5) {
+      for (var i = (select-1); i < resultItems.length; i+=(count/results.features.length)) {
         $scope.sum += resultItems[i];
       }
-      $scope.avg = Math.round(($scope.sum/results.features.length) * 100) / 100;
-      console.log($scope.avg);
+
+      if ($scope.varMapDash[0].fieldtype == "total") {
+        $scope.tableAnswer = $scope.sum;
+      }
+      else if($scope.varMapDash[0].fieldtype == "percentage") {
+        $scope.tableAnswer = (Math.round(($scope.sum/results.features.length) * 100) / 100) + " %" ;
+      }
+      else if($scope.varMapDash[0].fieldtype == "income") {
+        $scope.tableAnswer = "$ " + (Math.round(($scope.sum/results.features.length) * 100) / 100);
+      }
       $scope.$apply();
     }
 
