@@ -229,6 +229,7 @@ map.on("click", function(evt){
     function showResults (results) {
       var count = 0;
       var select = 0;
+
       var resultItems = [];
       var resultCount = results.features.length;
       for (var i = 0; i < resultCount; i++) {
