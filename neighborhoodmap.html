@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html ng-app='myModule' ng-controller='myController'>
+	<head>
+		<title>Neighborhood Map</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
+		<link rel="stylesheet" href="css/neighborhoodmap.css">
+		<link rel="stylesheet" href="css/loading.css">
+		    <!-- <link rel="stylesheet" href="style.css"> -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.2.2/rzslider.min.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
+		<script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vega/2.6.1/vega.min.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/arcgis-cedar@0.9.1/dist/cedar.min.js"></script>
+		<script>
+      var chart = new Cedar({"type": "bar"});
+    </script>
+		<style>
+			@media (max-width: 1350px) {
+	  .navbar-header {
+	      float: none;
+	  }
+	  .navbar-left,.navbar-right {
+	      float: none !important;
+	  }
+	  .navbar-toggle {
+	      display: block;
+	  }
+	  .navbar-collapse {
+	      border-top: 1px solid transparent;
+	      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+	  }
+	  .navbar-fixed-top {
+	      top: 0;
+	      border-width: 0 0 1px;
+	  }
+	  .navbar-collapse.collapse {
+	      display: none!important;
+	  }
+	  .navbar-nav {
+	      float: none!important;
+	      margin-top: 7.5px;
+	  }
+	  .navbar-nav>li {
+	      float: none;
+	  }
+	  .navbar-nav>li>a {
+	      padding-top: 10px;
+	      padding-bottom: 10px;
+	  }
+	  .collapse.in{
+	      display:block !important;
+	  }
+	}
+		</style>
+	</head>
+	<body>
+		<div id="loader-wrapper">
+      <div id="loader"></div>
+
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+
+    <div id="content">
+    <nav id="main-nav" class="navbar">
+			<div class="container-fluid">
+				<div class="navbar-header">
+				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+					<a class="navbar-brand" href="index.html"><span id="home-icon" class="glyphicon glyphicon-home"></span><span class="sr-only">(current)</span></a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li><a href="about.html">About</a></li>
+						<li><a href="data_dictionary.html">Data Dictionary</a></li>
+						<li><a href="explorevariables.html">Explore Variables</a></li>
+						<li><a href="neighborhood_lp.html">Explore Neighborhoods</a></li>
+						<li><a href="exp_comp_ind.html">Explore Composite Indicators</a></li>
+						<li><a href="data_stories.html">Data Stories</a></li>
+						<li><a href="about_data.html">Learn About The Data</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="login.html">Login/Sign Up</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+    <div id="header-band" style=""><h4 class="text-center">NEIGHBORHOOD: {{ nhood }}</h4></div>
+    <div class="container-fluid" style="padding-top: 15px;">
+      <div class="row content">
+
+      <!-- left panel   -->
+      <div class="col-sm-2 sidenav">
+          <div class="col-sm-12 white" style="overflow-y: scroll;height:40%;">
+						<h5 style="font-weight:bold;">About {{variable}}</h5>
+						{{varMapDash[0].learnvariableaboutthevariableondashboard}}
+          </div>
+        <div class="col-sm-12 col12">
+            <div id="legend" style="font-size:12px;">
+            </div>
+        </div>
+      </div>
+
+      <!-- center panel -->
+      <div class="col-sm-6 col2" >
+          <div class="col-sm-12 col21">
+            <p style="text-align: center; font-weight: bold; font-size: 15px">{{ variable | uppercase}}</p>
+          </div>
+          <div class="col-sm-12 col22">
+            <div id="mapDiv" style="display: inline-block; width:100%	;">
+              <esri-map id="map" map-options="{ basemap: 'gray', center: [-118.2437, 34.2522], zoom: 9,showLabels : true }" load="onMapLoad">
+                <div esri-legend target-id="legend"></div>
+              </esri-map>
+            </div>
+          </div>
+          <div class="col-sm-12">
+          <div class="col-sm-6 col23">
+					</div>
+          <div class="col-sm-3 col231">
+						<a href="{{ varDataUrl }}" target="_blank" class="btn btn-default">Download All Data</a>
+					</div>
+          <div class="col-sm-3 col232">
+						<button class="btn btn-default">Save/Print Map</button>
+					</div>
+        </div>
+          <div class="col-sm-12 col24" ng-show="table == 'true'">
+              <table class="table table-hover" style="border:1px solid black">
+                <thead>
+                  <tr>
+                    <th>Neighborhood</th>
+                    <th>{{ variable }}</th>
+                  </tr>
+                </thead>
+              <tbody>
+                <tr style="background-color:#edd840;">
+                  <td>{{pick}}</td>
+                  <td>{{tableAnswer}}</td>
+                </tr>
+              </tbody>
+           </table>
+        </div>
+      </div>
+
+
+      <!-- right panel -->
+      <div class="col-sm-4 sidenav">
+        <div class="row row31">
+          <div class="col-sm-12 col310" >
+            <h5 style="text-align: center;font-weight:bold;">About {{ nhood }}</h5>
+            <p style="height: 80px; overflow-y: scroll">{{ about["aboutneighborhood"] }}</p>
+          </div>
+          <div class="col-sm-5 col31">
+            <div class="col-sm-12 col311">
+                <div class="varButton"><a href="explorevariables.html">Select a Different Variable<a></div>
+
+            </div>
+            <!-- <div class="col-sm-12 col312">
+               <div class="exploreButton"><a href=#>Explore More About Region<a></div>
+            </div> -->
+            <div class="col-sm-12 col313">
+              <p>Median Value for L.A. County</p>
+            </div>
+          </div>
+					<div class="col-sm-7 col32" style="overflow-y: scroll;font-size:12px;">
+            <div class="aboutContent">
+            <h5 class="text-center" style="padding-top:0;font-weight: bold;">About the Data</h5>
+            <ul style="list-style:none; padding-left:0; padding-top:0">
+              <li><em>Definition:</em> {{varMapDash[0]['variabledefinition']}}<br></li>
+              <li><br></li>
+              <li><em>Source:</em> {{varMapDash[0]['datasource']}}<br></li>
+              <li><br></li>
+              <li><em>Years:</em> {{varMapDash[0]['yearsavailable']}}<br></li>
+              <li><br></li>
+              <li><em>Methodology:</em> {{varMapDash[0]['answer2methodology']}}</li>
+            </ul>
+          </div>
+          </div>
+        </div>
+        <div class="row row32" style="padding-top: 5px;">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8 row2col2 text-center">
+            <p style="vertical-align: center; color: black; font-weight: bold">Data for {{ variable }} in {{mdata["year"]}}</p>
+          </div>
+          <div class="col-sm-2"></div>
+        </div>
+        <div class="row row33" style="padding: 5px;">
+          <div id="chart">
+          </div>
+        </div>
+        <div class="col-md-12" style="margin-top: 180px">
+          <div class="col-md-6">
+          <button class="btn btn-default">Download Your Selection</button>
+        </div>
+        <div class="col-md-6">
+        <button class="btn btn-default">Save/Print Graph</button>
+      </div>
+        </div>
+
+
+
+
+
+      </div>
+    </div>
+</div>
+
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="https://js.arcgis.com/3.20"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
+		<script src="http://unpkg.com/angular-esri-map@1"></script>
+		<script src="js/neighborhoodmap.js"></script>
+		<script src="js/loading.js"></script>
+	</body>
+</html>

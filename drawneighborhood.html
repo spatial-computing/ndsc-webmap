@@ -1,0 +1,285 @@
+<html ng-app='myModule' ng-controller='myController'>
+  <head>
+    <title>Draw Neighborhood</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/drawneighborhood.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.2.2/rzslider.min.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vega/2.6.1/vega.min.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/arcgis-cedar@0.9.1/dist/cedar.min.js"></script>
+		<script>
+      var chart = new Cedar({"type": "bar"});
+    </script>
+  </head>
+  <body style="font-family:Lato;">
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+
+    <div id="content">
+    <nav id="main-nav" class="navbar fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html"><span id="home-icon" class="glyphicon glyphicon-home"></span><span class="sr-only">(current)</span></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="about.html">About</a></li>
+            <li><a href="data_dictionary.html">Data Dictionary</a></li>
+            <li><a href="explorevariables.html">Explore Variables</a></li>
+            <li><a href="neighborhood_lp.html">Explore Neighborhoods</a></li>
+            <li><a href="exp_comp_ind.html">Explore Composite Indicators</a></li>
+            <li><a href="data_stories.html">Data Stories</a></li>
+            <li><a href="about_data.html">Learn About The Data</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="login.html">Login/Sign Up</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="mapCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+        <div class="carousel-inner">
+
+    <div class="item active">
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-2 col-sm-1 col-md-1">
+          <img src="img/price.png" id="price-logo">
+        </div>
+        <div class="col-xs-8 col-sm-10 col-md-10" style="position:relative;">
+          <h1 style="z-index: 100; position: absolute; margin-left: 240px; margin-top: 50px; font-weight: bold; color: white">EXPLORE YOUR NEIGHBORHOOD</h1>
+          <img id="title-image" src="img/exp_neighborhoods.jpg" >
+
+        </div>
+        <div class="col-xs-2 col-sm-1 col-md-1">
+          <img src="img/dornsife.png" id="dornsife-logo">
+        </div>
+      </div>
+    </div>
+
+
+    <!-- <div id="mapCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+        <div class="carousel-inner">
+
+    <div class="item active"> -->
+      <div id="header-band" style=""><h4 class="text-center">CREATE YOUR OWN NEIGHBORHOOD</h4></div>
+
+    <div class="col-md-3" style="display:inline-block; margin-top: 50px; height: 400px; width: 300px;">
+
+
+      <div class="col-lg-4 circle_div>" style="height: 100%; width: 100%">
+      <div id="circle">
+      <h2>Draw your own Neighborhood</h2>
+        <h1><span class="glyphicon glyphicon-pencil"></span></h1>
+      </div>
+      </div>
+
+  </div>
+<div class="col-md-6" style="display:inline-block">
+    <!-- <h4 class="mapTitle" style="text-align: center; margin-bottom:3px">Select a Region Using Map or List</h4> -->
+<div id="mapDiv" style="margin-top: 20px">
+<esri-map id="map" map-options="{ basemap: 'gray', center: [-118.2437, 34.2522], zoom: 9,showLabels : true }" load="onMapLoad">
+</esri-map>
+</div>
+</div>
+<div class="col-md-3">
+<p style="margin-top: 10px; margin-left: 10px; color: #004d4d; text-align: center">Use cursor to draw your neighborhood on the map</p>
+<div class="search" style="height: 300px">
+  <button ng-click="activateDrawTool('FreehandPolyline')" style="margin-left: 60px; margin-top: 20px">Click here to start drawing!</button>
+  <button ng-click="clearMap()" style="margin-left: 90px; margin-top: 20px">Clear Selection</button>
+  <a href=""><button ng-click="goToMap()" style="margin-left: 50px; margin-top: 50px; font-weight: bold; color: white; background-color: #76a5af">Explore Your Neighborhood &rarr;</button></a>
+  <!-- <h4>SEARCH BY NEIGHBORHOOD NAME</h4>
+  <input type="text" placeholder="Enter a neighborhood" disabled> -->
+</div>
+<!-- <div class="search">
+</div> -->
+</div>
+<div class="band" style=""></div>
+</div>
+
+
+<!--
+
+
+
+
+
+
+
+
+
+-->
+
+
+
+<div class="item">
+
+  <div id="header-band" style=""><h4 class="text-center">OWN NEIGHBORHOOD</h4></div>
+  <div class="container-fluid" style="padding-top: 15px;">
+    <div class="row content">
+
+    <!-- left panel   -->
+        <div class="col-sm-2 sidenav">
+      <div class="col-sm-12 white" style="overflow-y: scroll;height:40%;">
+        <h5 style="font-weight:bold;">About {{ variable}}</h5>
+        {{varMapDash[0].learnvariableaboutthevariableondashboard}}
+      </div>
+      <div class="col-sm-12 col12">
+          <div id="legendDiv"></div>
+      </div>
+    </div>
+
+    <!-- center panel -->
+    <div class="col-sm-6 col2" >
+        <div class="col-sm-12 col21">
+          <p style="text-align: center; font-weight: bold; font-size: 15px">{{ variable | uppercase}}</p>
+        </div>
+        <div class="col-sm-12 col22">
+          <div id="mapDiv" style="display: inline-block; width:100%	;">
+            <!-- <esri-map id="map" map-options="{ basemap: 'gray', center: [-118.2437, 34.2522], zoom: 9,showLabels : true }" load="onMapLoad">
+              <esri-feature-layer url={{mapUrl}}></esri-feature-layer>
+              <div esri-legend target-id="legend"></div>
+            </esri-map> -->
+            <div id="map2" style="height: 390px">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+        <div class="col-sm-6 col23">
+          <rzslider ng-hide="!bool" style="width:150px; " rz-slider-model="slider_ticks_values_tooltip.value" rz-slider-options="slider_ticks_values_tooltip.options"></rzslider>
+        </div>
+        <div class="col-sm-3 col231">
+          <button class="btn btn-default">Download All Data</button>
+        </div>
+        <div class="col-sm-3 col232">
+          <button class="btn btn-default">Save/Print Map</button>
+        </div>
+      </div>
+        <div class="col-sm-12 col24">
+            <table class="table table-hover" style="border:1px solid black">
+              <thead>
+                <tr>
+                  <th>Neighborhood</th>
+                  <th>{{ variable }}</th>
+                </tr>
+              </thead>
+            <tbody>
+              <tr style="background-color:#edd840;">
+                <td>Custom</td>
+                <td>{{ tableAnswer }}</td>
+              </tr>
+              <!-- <p>{{ sum }}</p> -->
+            </tbody>
+         </table>
+      </div>
+    </div>
+
+
+    <!-- right panel -->
+    <div class="col-sm-4 sidenav">
+      <div class="row row31">
+        <!-- <div class="col-sm-12 col310" >
+          <h5 style="text-align: center">About {{ nhood["neighborhood"] }}</h5>
+          <p style="height: 80px; overflow-y: scroll">{{ nhood["aboutneighborhood"]}}</p>
+        </div> -->
+        <div class="col-sm-5 col31">
+          <div class="col-sm-12 col311">
+              <div class="varButton"><a href=#>Select a Different Variable<a></div>
+                <!-- <ul class="dropdown-content">
+                  <li class="main" ng-repeat="topic in main | unique: 'Policy Area'" ng-mouseover=dispMenu(topic)>{{topic["Policy Area"]}}</a>
+                    <ul class="sub-content">
+                        <li class="sub" ng-repeat="topic in main | filter: ds | unique: 'Dataset'" ng-mouseover=dispSubMenu(topic)>{{topic.Dataset}}</a>
+                    <ul class="sub-content-two">
+                      <li class="sub-two" ng-repeat="topic in main | filter: var | unique: 'Variable'" ng-click=newMap(topic)>{{topic.Variable}}</a>
+                    </ul>
+                  </ul>
+                </ul> -->
+          </div>
+          <div class="col-sm-12 col312">
+            <!-- <div class="exploreButton"><a href=#>Explore More About Region<a></div> -->
+          </div>
+          <div class="col-sm-12 col313">
+            <p>Median Value for L.A. County</p>
+          </div>
+        </div>
+        <div class="col-sm-7 col32" style="overflow-y: scroll;font-size:12px;">
+          <div class="aboutContent">
+          <h5 class="text-center" style="padding-top:0; font-weight:bold;">About the Data</h5>
+          <ul style="list-style:none; padding-left:0; padding-top:0">
+            <li><em>Definition:</em> {{varMapDash[0]['variabledefinition']}}<br></li>
+            <li><br></li>
+            <li><em>Source:</em> {{varMapDash[0]['datasource']}}<br></li>
+            <li><br></li>
+            <li><em>Years:</em> {{varMapDash[0]['yearsavailable']}}<br></li>
+            <li><br></li>
+            <li><em>Methodology:</em> {{varMapDash[0]['answer2methodology']}}</li>
+          </ul>
+        </div>
+        </div>
+      </div>
+      <div class="row row32" style="padding-top: 5px;">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 row2col2 text-center">
+          <p style="vertical-align: center; color: black; font-weight: bold">Data for {{ variable }}</p>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+      <div class="row row33" style="padding: 5px;">
+        <div id="chart">
+        </div>
+      </div>
+      <div class="col-md-12" style="margin-top: 180px">
+        <div class="col-md-6">
+        <button class="btn btn-default">Download Your Selection</button>
+      </div>
+      <div class="col-md-6">
+      <button class="btn btn-default">Save/Print Graph</button>
+    </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+
+</div>
+</div>
+</div>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://js.arcgis.com/3.20"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
+    <script src="http://unpkg.com/angular-esri-map@1"></script>
+    <script src="js/drawneighborhood.js"></script>
+    <script src="js/loading.js"></script>
+  </body>
+</html>

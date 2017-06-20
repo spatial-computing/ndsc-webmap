@@ -1,6 +1,6 @@
 <html ng-app='myModule' ng-controller='myController'>
   <head>
-    <title>Explore Composite Indicators</title>
+    <title>Neighborhood</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/loading.css">
+	 <link rel="stylesheet" href="css/neighborhood.css">
+   <link rel="stylesheet" href="css/loading.css">
   </head>
   <body style="font-family:Lato;">
     <div id="loader-wrapper">
@@ -54,7 +55,7 @@
           <img src="img/price.png" id="price-logo" style="width:60%;">
         </div>
         <div class="col-xs-8" style="position:relative;">
-          <img src="img/Explore_Composite_Indicators_Title_Image.jpg" id="title-image" >
+          <img src="img/exp_neighborhoods.jpg" id="title-image" >
 			<h1 class="title-text_composite">
 			<b> EXPLORE OUR COMPOSITE INDICATOR</b>
 
@@ -70,48 +71,60 @@
 
 
 
-    <div id="header-band"><h4 class="text-center">&nbsp;</h4></div>
-    <div id="text_comp_indicator">
-	<br>
-	  <h4 class="text-center" style="color:white;">WHAT IS A COMPOSITE INDICATOR?</h4>
-		<span style="color:white"><h4>
-	   In order to better understand how neighborhood environments contribute to resident well-being and social mobility, we created three custom indicators. <br>These indicators were developed by selecting and combining specific variables to create comprehensive measurements of three key dimensions of neighborhood<br> opportunity:economic opportunity,risk & vulnerability, and connectedness.
-		<br>
-		<br>
-		CLick "Learn More" below for more information about how individual indicators were created.
-	  <br>
-		<br>
-			</h4>
-		</span>
-	  </div>
+    <div id="header-band" ><h5 style="line-height:1.8;margin-left:1.5%;"><u>Where do I start?</u>&nbsp;</h5></div>
 
-	     <div class="container">
-<div class="row">
-	<br>
-    <div class="col-xs-4" class="responsive nowrap">
-        <img src="img/Economic%20Opportunity_Square.jpg" id="picture1" class="img-responsive" style="height:30%;margin-left:3%;"/>
-		<h4 class="text_thumbnails_comp"style="left: 8%;" ><b> Economic Opportunity</b></h4>
-  		<br>
-		<a href="economic_opportunity.html" ><button class="comp_indicators_button">Learn more</button></a>
-    </div>
-    <div class="col-xs-4" class="responsive nowrap">
-        <img src="img/Risk-Vulnerability-%20Square.jpg" id="picture2" class="img-responsive"style="height:30%;margin-left:3%;" />
-		<h4 class="text_thumbnails_comp"><b>Risk & Vulnerability</b></h4>
-  		<br>
-		<a href="risk_vulnerability.html" ><button class="comp_indicators_button">Learn more</button></a>
-    </div>
-    <div class="col-xs-4" class="responsive nowrap">
-        <img src="img/Connectedness_Sqaure.jpg" id="picture3" class="img-responsive" style="height:30%;margin-left:3%;"/>
-		<h4 class="text_thumbnails_comp" style="left: 16%;" ><b>Connectedness</b></h4>
-  		<br>
-		<a href="connectedness.html" ><button class="comp_indicators_button">Learn more</button></a>
-    </div>
-</div>
-	  </div>
-    <br>
-    <div id="header-band"><h4 class="text-center">&nbsp;</h4></div>
-</div>
+   <div class="row equal">
 
+    <div class="col-lg-7">
+		  <div class="header">
+			<span style="line-height:1.8;margin-left:1.5%;">NEIGHBORHOODS</span>
+		  </div>
+			<div class="second_header">
+			<span id="find">Find a Neighborhood:</span> <span id="create">Create your own:</span>
+			</div>
+			<div class="col-lg-4 circle_div" style="margin-right:10%; margin-left:8%;">
+			<a href="neighborhood.html" style="color:black;">
+      <div id="circle">
+			<h2>Search <br>Neighborhoods</h2>
+				<h1><span class="glyphicon glyphicon-search"></span></h1>
+			</div></a>
+			</div>
+			<div class="col-lg-4 circle_div">
+        <a href="drawneighborhood.html" style="color:black;">
+			<div id="circle" on-click="setVariables()">
+			<h2>Draw your own Neighborhoods</h2>
+				<h1><span class="glyphicon glyphicon-pencil"></span></h1>
+			</div></a>
+			</div>
+
+    </div>
+
+    <div class="col-lg-5" style="border-left: 15px solid #003333;">
+      	<div class="header">
+			<span style="line-height:1.8;margin-left:1.5%;"> CITIES</span>
+	  </div>
+		<div class="second_header">
+			<span style="line-height:1.8; margin-left:1.5%;">Not looking for a neighborhood? Select a city instead:</span>
+
+		</div>
+		<h2 class="text-center">Coming Soon!</h2>
+		<!--
+		<div id="diamond">
+			<h2 >Search Cities</h2>
+		<h1><span class="glyphicon glyphicon-search"></span></h1>
+		</div> -->
+		<div id="margin-bottom"></div>
+	</div>
+  </div>
+
+    <div id="header-band"><h4 class="text-center">&nbsp;</h4></div>
+    </div>
+    <script>
+    function setVariables(){
+      sessionStorage.var = JSON.stringify("Median Household Income");
+      sessionStorage.varURL = JSON.stringify("http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/Income_MedianHouseholdIncome_2015_NDSC/FeatureServer/0");
+    }
+    </script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
