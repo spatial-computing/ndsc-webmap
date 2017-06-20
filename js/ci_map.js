@@ -10,14 +10,14 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
 
                 $http({
                     method: 'GET',
-                    url: 'http://localhost:3000/GS-Variables'
+                    url: 'http://b4fa31bb.ngrok.io/GS-Variables'
                 }).then(function (response) {
                     $scope.variables = response.data.data;
                   });
 
                   $http({
                       method: 'GET',
-                      url: 'http://localhost:3000/GS-Region'
+                      url: 'http://b4fa31bb.ngrok.io/GS-Region'
                   }).then(function (response) {
                       $scope.regionData = response.data.data;
                     });
@@ -26,7 +26,7 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
 
                 $http({
                     method: 'GET',
-                    url: 'http://localhost:3000/GS-Main'
+                    url: 'http://b4fa31bb.ngrok.io/GS-Main'
                 }).then(function (response) {
                     $scope.main = response.data.data;
 
@@ -72,7 +72,7 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
 
 			// $http({
       //               method: 'GET',
-      //               url: 'http://localhost:3000/ndsc3'
+      //               url: 'http://b4fa31bb.ngrok.io/ndsc3'
       //           }).then(function (response) {
 			// 	$scope.about = response.data.data;});
 
@@ -222,24 +222,19 @@ map.on("click", function(evt){
     });
 
     function showResults (results) {
-      var count = 0;
-      var select = 0;
       var resultItems = [];
       var resultCount = results.features.length;
       for (var i = 0; i < resultCount; i++) {
         var featureAttributes = results.features[i].attributes;
         for (var attr in featureAttributes) {
           resultItems.push(featureAttributes[attr]);
-          count++;
-          if (select == 0 && attr == $scope.mapData.fieldname) {
-            select = count;
-          }
         }
       }
-      for (var i = (select-1); i < resultItems.length; i+=(count/results.features.length)) {
+      for (var i = 4; i < resultItems.length; i+=7) {
         $scope.sum += resultItems[i];
       }
       $scope.avg = Math.round(($scope.sum/results.features.length) * 10000) / 10000;
+      console.log($scope.avg);
       $scope.$apply();
     }
 
@@ -339,14 +334,14 @@ map.on("click", function(evt){
 //
 //                 $http({
 //                     method: 'GET',
-//                     url: 'http://localhost:3000/GS-Variables'
+//                     url: 'http://b4fa31bb.ngrok.io/GS-Variables'
 //                 }).then(function (response) {
 //                     $scope.variables = response.data.data;
 //                   });
 //
 //                   $http({
 //                       method: 'GET',
-//                       url: 'http://localhost:3000/GS-Region'
+//                       url: 'http://b4fa31bb.ngrok.io/GS-Region'
 //                   }).then(function (response) {
 //                       $scope.regionData = response.data.data;
 //                     });
@@ -355,7 +350,7 @@ map.on("click", function(evt){
 //
 //                 $http({
 //                     method: 'GET',
-//                     url: 'http://localhost:3000/GS-Main'
+//                     url: 'http://b4fa31bb.ngrok.io/GS-Main'
 //                 }).then(function (response) {
 //                     $scope.main = response.data.data;
 //             },function(err){
@@ -365,7 +360,7 @@ map.on("click", function(evt){
 //
 // 			// $http({
 //       //               method: 'GET',
-//       //               url: 'http://localhost:3000/ndsc3'
+//       //               url: 'http://b4fa31bb.ngrok.io/ndsc3'
 //       //           }).then(function (response) {
 // 			// 	$scope.about = response.data.data;});
 //

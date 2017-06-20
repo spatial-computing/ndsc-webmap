@@ -147,7 +147,8 @@
         {{varMapDash[0].learnvariableaboutthevariableondashboard}}
       </div>
       <div class="col-sm-12 col12">
-          <div id="legendDiv"></div>
+          <div id="legend" style="font-size:12px;">
+          </div>
       </div>
     </div>
 
@@ -181,15 +182,16 @@
             <table class="table table-hover" style="border:1px solid black">
               <thead>
                 <tr>
-                  <th>Neighborhood</th>
+                  <!-- <th>Neighborhood</th> -->
                   <th>{{ variable }}</th>
                 </tr>
               </thead>
             <tbody>
               <tr style="background-color:#edd840;">
-                <td>Custom</td>
-                <td>{{ tableAnswer }}</td>
+                <!-- <td>{{nhood["neighborhood"]}}</td> -->
+                <td>{{ sum }}</td>
               </tr>
+              <!-- <p>{{ sum }}</p> -->
             </tbody>
          </table>
       </div>

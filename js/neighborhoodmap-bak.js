@@ -41,8 +41,6 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                         url: 'http://b4fa31bb.ngrok.io/GS-Neighborhood'
                     }).then(function (response) {
                         $scope.neighborhood = response.data.data;
-						$scope.about = $filter('filter')($scope.neighborhood, { neighborhood: $scope.nhood });
-						console.log($scope.about);
                       });
 
                 $http({
@@ -50,18 +48,9 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                     url: 'http://b4fa31bb.ngrok.io/GS-Main'
                 }).then(function (response) {
                     $scope.main = response.data.data;
-					
-					
 
 
               var pop = $filter('filter')($scope.main, { variable: $scope.variable });
-			  
-			  
-			  
-			  $scope.varDataUrl = pop[0]["open-dataurl"];
-			  console.log($scope.varDataUrl);
-			  
-			  
 
               if (pop.length!=0) {
                   $scope.max=parseInt(pop[0].year);
@@ -214,7 +203,7 @@ map.on("layers-add-result", function (evt) {
 map.addLayers([waterbodies,states]);
 //states.setLabelingInfo([ labelClass ]);
 
-var nObject = $filter('filter')($scope.neighborhood, { neighborhood : $scope.nhood });
+var nObject = $filter('filter')($scope.neighborhood, { neighborhood : $scope.nhood["neighborhood"]});
 
 var startExtent = new Extent();
 startExtent.xmin = nObject[0].minpointx;

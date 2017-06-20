@@ -97,7 +97,7 @@
 				</div>
 			</div>
 		</nav>
-    <div id="header-band" style=""><h4 class="text-center">NEIGHBORHOOD: {{ nhood }}</h4></div>
+    <div id="header-band" style=""><h4 class="text-center">NEIGHBORHOOD: {{ nhood["neighborhood"] }}</h4></div>
     <div class="container-fluid" style="padding-top: 15px;">
       <div class="row content">
 
@@ -129,7 +129,7 @@
           <div class="col-sm-6 col23">
 					</div>
           <div class="col-sm-3 col231">
-						<a href="{{ varDataUrl }}" target="_blank" class="btn btn-default">Download All Data</a>
+						<button class="btn btn-default">Download All Data</button>
 					</div>
           <div class="col-sm-3 col232">
 						<button class="btn btn-default">Save/Print Map</button>
@@ -158,17 +158,17 @@
       <div class="col-sm-4 sidenav">
         <div class="row row31">
           <div class="col-sm-12 col310" >
-            <h5 style="text-align: center;font-weight:bold;">About {{ nhood }}</h5>
-            <p style="height: 80px; overflow-y: scroll">{{ about["aboutneighborhood"] }}</p>
+            <h5 style="text-align: center;font-weight:bold;">About {{ nhood["neighborhood"] }}</h5>
+            <p style="height: 80px; overflow-y: scroll">{{ nhood["aboutneighborhood"]}}</p>
           </div>
           <div class="col-sm-5 col31">
             <div class="col-sm-12 col311">
                 <div class="varButton"><a href="explorevariables.html">Select a Different Variable<a></div>
 
             </div>
-            <!-- <div class="col-sm-12 col312">
-               <div class="exploreButton"><a href=#>Explore More About Region<a></div>
-            </div> -->
+            <div class="col-sm-12 col312">
+              <div class="exploreButton"><a href=#>Explore More About Region<a></div>
+            </div>
             <div class="col-sm-12 col313">
               <p>Median Value for L.A. County</p>
             </div>

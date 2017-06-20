@@ -122,7 +122,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
     mapLayer.setRenderer(new SimpleRenderer(symbol));
     map2.removeLayer("https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer");
     map2.addLayer(mapLayer);
-    //map2.addLayer(regionMapLayer);
+    map2.addLayer(regionMapLayer);
 
     var regionObject = $filter('filter')($scope.regionData, { region : $scope.regionpick});
     var startExtent = new Extent();
@@ -147,7 +147,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
               query.returnGeometry = true;
               query.where = "Name = '" + $scope.regionpick + "'";
 
-              /* queryTask.execute(query, function(result){
+              queryTask.execute(query, function(result){
 
               console.log(result.features[0]);
 
@@ -169,55 +169,17 @@ angular.module('myModule', ['angular.filter','esri.map'])
               // var highlightGraphic = new Graphic($scope.regionGraphic.geometry,highlightSymbol);
               // map2.graphics.add(highlightGraphic);
 
-             }); */
+             });
 
-			
-			map2.graphics.on("mouse-out", function() {
-                       map2.graphics.clear();
-                       map2.infoWindow.hide();
-                     });
-
-
-            mapLayer.on("mouse-over", function(evt){
-                               var t = "<b>${name}</b>";
-                               var content = esriLang.substitute(evt.graphic.attributes,t);
-                               var highlightGraphic = new Graphic(evt.graphic.geometry,highlightSymbol);
-                               console.log(evt);
-                               map2.graphics.add(highlightGraphic);
-                               map2.infoWindow.setContent(content);
-                               map2.infoWindow.setTitle("Neighborhood");
-                               map2.infoWindow.show(evt.screenPoint,map2.getInfoWindowAnchor(evt.screenPoint));
-                             });
-							 
-			var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(
+            var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(
                                                   SimpleLineSymbol.STYLE_SOLID,new Color("#191165"), 1),new Color([ 0, 197, 255, 0.35]));
 
 
-            //console.log($scope.regionGraphic.geometry);
+            console.log($scope.regionGraphic.geometry);
             var highlightGraphic = new Graphic($scope.regionGraphic.geometry,highlightSymbol);
             map2.graphics.add(highlightGraphic);
 
         });//end of on load function
-		
-		var queryTask = new esri.tasks.QueryTask("http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Neighborhoods_LAT_2017_NDSC/FeatureServer/0");
-        var query = new esri.tasks.Query();
-        query.returnGeometry = true;
-        query.outFields = ["name"];
-
-        map2.on("click", function(evt){
-            //console.log(evt.graphic);
-            $scope.regionGraphic = evt.graphic;
-            query.geometry = evt.mapPoint;
-            //console.log(evt.mapPoint);
-            queryTask.execute(query, function(result){
-            $scope.regionpick = result.features[0].attributes.name;
-            $scope.neighborhoodmap($scope.regionpick);
-
-            window.location.href = 'neighborhoodmap.html';
-
-          })
-        });
-		
 
     // map2.graphics.on("mouse-out", function() {
     //           map2.graphics.clear();

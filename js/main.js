@@ -67,7 +67,7 @@ app.controller('myController', function($scope,$http,$filter) {
   var refresh = function() {
     $http({
         method: 'GET',
-        url: 'http://localhost:3000/GS-Main'
+        url: ' http://b4fa31bb.ngrok.io/GS-Main'
     }).then(function (response) {
         $scope.main = response.data.data;
         items = angular.copy($scope.main);
@@ -87,7 +87,7 @@ app.controller('myController', function($scope,$http,$filter) {
 
     $http({
         method: 'GET',
-        url: 'http://localhost:3000/GS-Carousel'
+        url: '  http://b4fa31bb.ngrok.io/GS-Carousel'
     }).then(function (response) {
         $scope.carousel = response.data.data;
     },function(err){
@@ -96,7 +96,7 @@ app.controller('myController', function($scope,$http,$filter) {
 
     $http({
         method: 'GET',
-        url: 'http://localhost:3000/GS-Region'
+        url: '  http://b4fa31bb.ngrok.io/GS-Region'
     }).then(function (response) {
         $scope.region = response.data.data;
     },function(err){
@@ -105,7 +105,7 @@ app.controller('myController', function($scope,$http,$filter) {
 
     $http({
         method: 'GET',
-        url: 'http://localhost:3000/GS-Neighborhood'
+        url: '  http://b4fa31bb.ngrok.io/GS-Neighborhood'
     }).then(function (response) {
         $scope.neighborhood = response.data.data;
     },function(err){
@@ -114,7 +114,7 @@ app.controller('myController', function($scope,$http,$filter) {
 
     $http({
         method: 'GET',
-        url: 'http://localhost:3000/GS-Datasets'
+        url: '  http://b4fa31bb.ngrok.io/GS-Datasets'
     }).then(function (response) {
         $scope.datasets = response.data.data;
     },function(err){
@@ -123,7 +123,7 @@ app.controller('myController', function($scope,$http,$filter) {
 
     $http({
         method: 'GET',
-        url: 'http://localhost:3000/GS-Variables'
+        url: '  http://b4fa31bb.ngrok.io/GS-Variables'
     }).then(function (response) {
         $scope.variables = response.data.data;
     },function(err){
@@ -132,7 +132,7 @@ app.controller('myController', function($scope,$http,$filter) {
 
     $http({
         method: 'GET',
-        url: 'http://localhost:3000/GS-Composite'
+        url: '  http://b4fa31bb.ngrok.io/GS-Composite'
     }).then(function (response) {
         $scope.composite = response.data.data;
     },function(err){
@@ -141,7 +141,7 @@ app.controller('myController', function($scope,$http,$filter) {
 
     $http({
         method: 'GET',
-        url: 'http://localhost:3000/GS-Policy'
+        url: '  http://b4fa31bb.ngrok.io/GS-Policy'
     }).then(function (response) {
         $scope.policy = response.data.data;
         $scope.showDiv = (function (selected_policy,policy)
@@ -169,7 +169,7 @@ app.controller('myController', function($scope,$http,$filter) {
 
     $http({
         method: 'GET',
-        url: 'http://localhost:3000/GS-Tooltips'
+        url: '  http://b4fa31bb.ngrok.io/GS-Tooltips'
     }).then(function (response) {
         $scope.tooltips = response.data.data;
     },function(err){
@@ -178,7 +178,7 @@ app.controller('myController', function($scope,$http,$filter) {
 
     $http({
         method: 'GET',
-        url: 'http://localhost:3000/GS-About'
+        url: '  http://b4fa31bb.ngrok.io/GS-About'
     }).then(function (response) {
         $scope.about = response.data.data;
     },function(err){
