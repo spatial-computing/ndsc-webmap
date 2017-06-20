@@ -3,11 +3,10 @@
   border-radius: 0px;
 }
 
-
 #main-nav a {
   color: #FFFFFF;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 #main-nav a:hover {
@@ -104,7 +103,7 @@
   float: right;
 }
 /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 800px}
+    .row.content {height: 950px}
 
     /* Set gray background color and 100% height */
     .sidenav {
@@ -118,10 +117,7 @@
 	.white {
 	  background-color: #bcdbe0;
 	  border: 1px solid black;
-	  height: 25%;
-    overflow: hidden;
-    padding-bottom: 20px;
-    border-radius: 3%;
+	  height: 50%;
 	}
 	.col12 {
 	  padding-top:15px;
@@ -129,11 +125,10 @@
 	  height: 35%;
 	}
 	.col21 {
-	  padding-top:1px;
+	  padding-top:15px;
 	  background-color: #f1f1f1;
 	  border: 1px solid black;
-	  height: 3%;
-    border-radius: 3%;
+	  height: 5%;
 	}
 	.col22 {
 	  padding-top:15px;
@@ -141,9 +136,9 @@
 	  height: 50%;
 	}
 	.col23 {
-	  padding-top:20px;
+	  padding-top:5px;
 	  background-color: #ffffff;
-	  height: 7%;
+	  height: 8%;
 	}
 	.col24 {
 	  padding-top:5px;
@@ -159,30 +154,16 @@
 	  background-color: #ffffff;
 	  height: 40%;
 	}
-
-  .col312 {
-	  background-color: #ffffff;
-	  height: 40%;
-	}
-
-	.col313 {
+	.col312 {
 	  background-color: #f1f1f1;
 	  border:1px solid #000000;
 	  height: 50%;
-    margin-top: 10px;
-    color: black;
-    text-align: center;
-    margin-left: 15px;
-    width: 130px;
-    border-radius: 3%;
 	}
 	.col32 {
 	  padding-top:15px;
 	  background-color: #bcdbe0;
 	  border: 1px solid black;
-	  height: 262px;
-    width: 230px;
-    border-radius: 3%;
+	  height: 100%;
 	}
 	.row31{
 		height:25%;
@@ -192,87 +173,17 @@
 	}
 	.row33{
 		background-color:#ffffff;
-
-    margin-top: 30px
+		height:40%;
 	}
-
-  #chart {
-    height:300px;
-    width: 350px
-  }
-
 	.row2col2{
 		background-color:#f1f1f1;
 		border: 1px solid black;
-		height:100%;
-    margin-top: 10px;
-    padding-top: 2px;
-    width: auto;
-
+		height:100%
 	}
-
-
-  .varButton{
-
-    background-color: #bcdbe0;
-	  border: 1px solid black;
-    height: 50px;
-    width: 130px;
-    margin-bottom: 0px;
-    border-radius: 3%;
-  }
-
-  .exploreButton{
-    background-color: #bcdbe0;
-	  border: 1px solid black;
-    height: 70px;
-    width: 130px;
-    margin-top: 0px;
-    border-radius: 3%;
-
-  }
-  .varButton a{
-
-    text-decoration: none;
-    font-size: 12px;
-    color: black;
-    display: table-cell;
-    padding-left: 10px;
-
-  }
-
-  .exploreButton a{
-
-    text-decoration: none;
-    font-size: 12px;
-    color: black;
-    display: table-cell;
-    padding-left: 20px;
-    padding-top: 10px;
-
-  }
-
-  .aboutContent {
-
-    color: black;
-    margin-left: 0
-
-  }
-
-  .col231 button, .col232 button {
-    color: #0c343d
-   /*padding-top:20px;*/
-
-  }
-  .col231, .col232 {
-
-   padding-top:30px;
-
-
-  }
-
-
-
+	#chart {
+		width:100%;
+		height:100%;
+	}
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
       .sidenav {

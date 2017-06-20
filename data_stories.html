@@ -1,0 +1,488 @@
+<html ng-app='myModule' ng-controller='myController'>
+  <head>
+    <title>Data Stories</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
+    <link rel="stylesheet" href="css/style.css">
+	 <link rel="stylesheet" href="css/datastories.css">
+   <link rel="stylesheet" href="css/loading.css">
+  </head>
+  <body style="font-family:Lato;">
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+
+    <div id="content">
+    <nav id="main-nav" class="navbar">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html"><span id="home-icon" class="glyphicon glyphicon-home"></span><span class="sr-only">(current)</span></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="about.html">About</a></li>
+            <li><a href="data_dictionary.html">Data Dictionary</a></li>
+            <li><a href="explorevariables.html">Explore Variables</a></li>
+            <li><a href="neighborhood_lp.html">Explore Neighborhoods</a></li>
+            <li><a href="exp_comp_ind.html">Explore Composite Indicators</a></li>
+            <li><a href="data_stories.html">Data Stories</a></li>
+            <li><a href="about_data.html">Learn About The Data</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="login.html">Login/Sign Up</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-2 ">
+          <img src="img/price.png" id="price-logo" style="width:60%;">
+        </div>
+        <div class="col-xs-8" style="position:relative; ">
+          <img src="img/Data%20Stories%20Title%20Image.jpg" id="title-image" >
+			<h1 class="title-text">
+
+			<b>DATA STORIES</b>
+			</h1>
+
+
+        </div>
+        <div class="col-xs-2">
+          <img src="img/dornsife.png" id="dornsife-logo" style="width:60%;">
+        </div>
+      </div>
+    </div>
+
+
+
+    <div id="header-band" ><h5 style="line-height:1.8;margin-left:1.5%;"><u>Where do I start?</u>&nbsp;</h5></div>
+
+    <div id="wrapper" >
+		  <div id="sidebar-wrapper" class="col-xs-1">
+					<div id="sidebar">
+					<div class="browse_by_policy_areas">Browse by policy areas</div>
+						<ul class="nav list-group">
+							<li ng-repeat="x in policy">
+								<a class="list-group-item" href="#" ng-click="showDiv(x,policy)"><i class="icon-home icon-1x"></i>{{x.policyarea}}</a>
+							</li>
+
+						</ul>
+					</div>
+			</div>
+			<div id="main-wrapper" class="col-xs-9" >
+				<div id="mainContent">
+				<div class="main-header"><h4 class="text-center" style="line-height:1.4; margin:0;">DATA STORIES ABOUT HEALTH</h4></div>
+					  <div class="row" style="left:10%;">
+							<br>
+							<div class="col-xs-4" class="responsive nowrap">
+								<a href="{{carousel[2].storymapurl}}" target="_blank">
+								<img src="img/Copy%20of%20Demography%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:20%"/>
+								<h4 class="text_thumbnails_datastories" style="left:30%; color:white;"><b>{{carousel[2].imagetext}}</b></h4>
+								</a>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<a href="{{carousel[3].storymapurl}}" target="_blank">
+								<img src="img/Copy%20of%20Employment-Income%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:20%"/>
+								<h4 class="text_thumbnails_datastories" style="left:20%; color:white;"><b>{{carousel[3].imagetext}}</b></h4>
+								</a>
+									<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<a href="{{carousel[1].storymapurl}}" target="_blank">
+								<img src="img/Copy%20of%20Housing-Real%20Estate%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:20%"/>
+								<h4 class="text_thumbnails_datastories" style="left:30%; color:white;"><b> {{carousel[1].imagetext}} </b></h4>
+								</a>
+									<br>
+
+							</div>
+
+
+					</div>
+
+					<div class="row" style="left:10%;">
+							`<div class="col-xs-4" class="responsive nowrap">
+										<a href="{{carousel[0].storymapurl}}" target="_blank">
+										<img src="img/Copy%20of%20Health%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:20%"/>
+										<h4 class="text_thumbnails_datastories" style="left:30%;color:white;"><b>{{carousel[0].imagetext}} </b></h4>
+						</a>
+										<br>
+
+									</div>
+					</div>
+					<div style="margin:bottom:40%;"></div>
+					<!--
+					<div class="row" style="left:10%;">
+							<br>
+							<div class="col-xs-3" class="responsive nowrap">
+								<img src="img/Copy%20of%20Food%20Scarcity%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:20%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b></b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-3" class="responsive nowrap">
+								<img src="img/Copy%20of%20Education%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:20%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b></b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-3" class="responsive nowrap">
+								<img src="img/Copy%20of%20Transportation%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:20%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b></b></h4>
+								<br>
+
+							</div>
+						<div class="col-xs-3" class="responsive nowrap">
+								<img src="img/Copy%20of%20Environment%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:20%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+					</div>
+					<div class="row" style="left:10%;">
+							<br>
+							<div class="col-xs-3" class="responsive nowrap">
+								<img src="img/Copy%20of%20Public%20Safety%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:20%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-3" class="responsive nowrap">
+								<img src="img/Copy%20of%20Social%20Connectedness%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:20%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+
+					</div>-->
+				</div>
+				<!--
+					<div id="Health">
+
+						<div class="main-header"><h4 class="text-center" style="line-height:1.4; margin:0;">DATA STORIES ABOUT HEALTH</h4></div>
+					  <div class="row" style="left:10%;">
+							<br>
+						  	<br>
+							<br>
+						  	<br>
+							<br>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Health%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" ><b>Childhood Obesity </b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Health%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" ><b>Health Insurance </b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Health%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" ><b>Low Birth Weight </b></h4>
+								<br>
+
+							</div>
+					</div>
+
+					</div>
+
+					<div id="Demography">
+						<div class="main-header"><h4 class="text-center" style="line-height:1.4; margin:0;">DATA STORIES ABOUT DEMOGRAPHY</h4></div>
+						  <div class="row" style="left:10%;">
+								<br>
+						  	<br>
+							<br>
+						  	<br>
+							<br>
+								<div class="col-xs-4" class="responsive nowrap">
+									<img src="img/Copy%20of%20Demography%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+									<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+									<br>
+
+								</div>
+								<div class="col-xs-4" class="responsive nowrap">
+									<img src="img/Copy%20of%20Demography%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+									<h4 class="text_thumbnails_datastories" style="left:10%;"><b></b></h4>
+									<br>
+
+								</div>
+								<div class="col-xs-4" class="responsive nowrap">
+									<img src="img/Copy%20of%20Demography%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+									<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+									<br>
+
+								</div>
+						</div>
+
+					</div>
+					<div id="EmploymentIncome">
+							<div class="main-header"><h4 class="text-center" style="line-height:1.4; margin:0;">DATA STORIES ABOUT EMPLOYMENT & INCOME</h4></div>
+					  		<div class="row" style="left:10%;">
+							<br>
+						  	<br>
+							<br>
+						  	<br>
+							<br>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Employment-Income%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Employment-Income%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b></b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Employment-Income%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b></b></h4>
+								<br>
+
+							</div>
+					</div>
+
+					</div>
+					<div id="HousingRealEstate">
+					<div class="main-header"><h4 class="text-center" style="line-height:1.4; margin:0;">DATA STORIES ABOUT HOUSING & REAL ESTATE</h4></div>
+					  <div class="row" style="left:10%;">
+							<br>
+						  	<br>
+							<br>
+						  	<br>
+							<br>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Housing-Real%20Estate%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Housing-Real%20Estate%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Housing-Real%20Estate%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+					</div>
+
+					</div>
+					<div id="Education">
+						<div class="main-header"><h4 class="text-center" style="line-height:1.4; margin:0;">DATA STORIES ABOUT EDUCATION</h4></div>
+					  <div class="row" style="left:10%;">
+							<br>
+						  	<br>
+							<br>
+						  	<br>
+							<br>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Education%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Education%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Education%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+					</div>
+
+					</div>
+					<div id="FoodInsecurity">
+						<div class="main-header"><h4 class="text-center" style="line-height:1.4; margin:0;">DATA STORIES ABOUT FOOD INSECURITY</h4></div>
+					  <div class="row" style="left:10%;">
+							<br>
+						  	<br>
+							<br>
+						  	<br>
+							<br>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Food%20Scarcity%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b></b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Food%20Scarcity%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Food%20Scarcity%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+					</div>
+
+					</div>
+					<div id="Transportation">
+						<div class="main-header"><h4 class="text-center" style="line-height:1.4; margin:0;">DATA STORIES ABOUT TRANSPORTATION</h4></div>
+					  <div class="row" style="left:10%;">
+							<br>
+						  	<br>
+							<br>
+						  	<br>
+							<br>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Transportation%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Transportation%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b></b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Transportation%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b></b></h4>
+								<br>
+
+							</div>
+					</div>
+
+					</div>
+					<div id="Environment">
+						<div class="main-header"><h4 class="text-center" style="line-height:1.4; margin:0;">DATA STORIES ABOUT ENVIRONMENT</h4></div>
+					  <div class="row" style="left:10%;">
+							<br>
+						  	<br>
+							<br>
+						  	<br>
+							<br>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Environment%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Environment%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Environment%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+					</div>
+
+					</div>
+					<div id="PublicSafety">
+							<div class="main-header"><h4 class="text-center" style="line-height:1.4; margin:0;">DATA STORIES ABOUT PUBLIC SAFETY</h4></div>
+					  <div class="row" style="left:10%;">
+							<br>
+						  	<br>
+							<br>
+						  	<br>
+							<br>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Public%20Safety%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Public%20Safety%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Public%20Safety%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b></b></h4>
+								<br>
+
+							</div>
+					</div>
+
+					</div>
+
+					<div id="SocialConnectedness">
+
+						<div class="main-header"><h4 class="text-center" style="line-height:1.4; margin:0;">DATA STORIES ABOUT SOCIAL CONNECTEDNESS</h4></div>
+					  <div class="row" style="left:10%;">
+							<br>
+						  	<br>
+							<br>
+						  	<br>
+							<br>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Social%20Connectedness%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Social%20Connectedness%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b> </b></h4>
+								<br>
+
+							</div>
+							<div class="col-xs-4" class="responsive nowrap">
+								<img src="img/Copy%20of%20Social%20Connectedness%20Title%20Image.jpg" id="picture1" class="img-responsive" style="height:30%"/>
+								<h4 class="text_thumbnails_datastories" style="left:10%;"><b></b></h4>
+								<br>
+
+							</div>
+					</div>
+					</div>-->
+			</div>
+</div>
+<div id="clear"></div>
+	  <div id="header-band" style="line-height: 0px; padding-top:0.001%;padding-bottom:0.1%;"><h5  style="line-height:1.8; ">&nbsp;<span style="float:right; margin-right:2%;">Page 1 of 1 &nbsp; &nbsp;<button id="next_button">Next</button></span></h5></div>
+</div>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://js.arcgis.com/3.20"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
+    <script src="http://unpkg.com/angular-esri-map@1"></script>
+    <script src="js/main.js"></script>
+    <script src="js/loading.js"></script>
+  </body>
+</html>

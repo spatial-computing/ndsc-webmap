@@ -32,6 +32,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
       //function to set the neigborhood in sessionStorage and go to the specific neighborhood page
       $scope.neighborhoodmap = function(dataset){
             $scope.mapdata = dataset;
+
             sessionStorage.nhood =  JSON.stringify($scope.mapdata);
             sessionStorage.variable = JSON.stringify("Median Household Income");
             sessionStorage.varUrl = JSON.stringify("http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/Income_MedianHouseholdIncome_2015_NDSC/FeatureServer/0");
@@ -179,6 +180,26 @@ angular.module('myModule', ['angular.filter','esri.map'])
             map2.graphics.add(highlightGraphic);
 
         });//end of on load function
+
+		var queryTask = new esri.tasks.QueryTask("http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Neighborhoods_LAT_2017_NDSC/FeatureServer/0");
+        var query = new esri.tasks.Query();
+        query.returnGeometry = true;
+        query.outFields = ["name"];
+
+        map2.on("click", function(evt){
+            //console.log(evt.graphic);
+            $scope.regionGraphic = evt.graphic;
+            query.geometry = evt.mapPoint;
+            //console.log(evt.mapPoint);
+            queryTask.execute(query, function(result){
+            $scope.regionpick = result.features[0].attributes.name;
+            $scope.neighborhoodmap($scope.regionpick);
+
+            window.location.href = 'neighborhoodmap.html';
+
+          })
+        });
+
 
     // map2.graphics.on("mouse-out", function() {
     //           map2.graphics.clear();

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<title>Data Dictionary</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.2.2/rzslider.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
+		<script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vega/2.6.1/vega.min.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/arcgis-cedar@0.9.1/dist/cedar.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="css/style1.css">
+		<link rel="stylesheet" href="css/loading.css">
+
+
+		<style>
+
+		a:hover {
+
+			text-decoration: none;
+		}
+
+		a{
+			text-decoration: none;
+		}
+		div{
+			color: black;
+		}
+
+		.row:hover {
+			text-decoration: none;
+			color:red;
+		}
+
+		#columnvariable{
+
+			color: #4286f4;
+			border:1px solid black;height:85px;
+		}
+
+		#columnvariable:hover {
+
+			border: 3px solid #4286f4;
+			background-color: #a2c4c9;
+			color: #0c343d;
+		}
+
+
+
+			.con{
+				height:680px;
+			}
+			.row1 {
+				height: 25%;
+				background-color: #000000;
+			}
+			.row2 {
+				height: 5%;
+				background-color: #1C2729;
+			}
+			.row3 {
+				height: 5%;
+				background-color: #a2c4c9ff;
+			}
+			.row4 {
+				height: 60%;
+
+				width:100%;
+				background-color: #ffffff;
+			}
+			.row5 {
+				height: 5%;
+				background-color: #1C2729;
+			}
+			.row6 {
+				height: 5%;
+				background-color:#d9ead3;
+			}
+			.logo {
+				height: 100%;
+				background-color:#ffffff;
+			}
+			.heading {
+				height: 100%;
+			}
+			.centeral {
+				text-decoration:none;
+				text-align: center;
+				vertical-align: middle;
+				color: #000000;
+			}
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: -340%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 200%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+
+.modal-header {
+
+    border-bottom: none;
+}
+
+.modal-footer {
+
+    border-top: none;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
+	@media (max-width: 1250px) {
+  .navbar-header {
+      float: none;
+  }
+  .navbar-left,.navbar-right {
+      float: none !important;
+  }
+  .navbar-toggle {
+      display: block;
+  }
+  .navbar-collapse {
+      border-top: 1px solid transparent;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .navbar-fixed-top {
+      top: 0;
+      border-width: 0 0 1px;
+  }
+  .navbar-collapse.collapse {
+      display: none!important;
+  }
+  .navbar-nav {
+      float: none!important;
+      margin-top: 7.5px;
+  }
+  .navbar-nav>li {
+      float: none;
+  }
+  .navbar-nav>li>a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+  .collapse.in{
+      display:block !important;
+  }
+}
+
+		</style>
+	</head>
+	<body ng-app='menuApp' ng-controller='menuController' >
+		<div id="loader-wrapper">
+      <div id="loader"></div>
+
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+
+    <div id="content">
+		<nav id="main-nav" class="navbar">
+			<div class="container-fluid">
+				<div class="navbar-header">
+				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+					<a class="navbar-brand" href="index.html"><span id="home-icon" class="glyphicon glyphicon-home"></span><span class="sr-only">(current)</span></a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li><a href="about.html">About</a></li>
+						<li><a href="data_dictionary.html">Data Dictionary</a></li>
+						<li><a href="explorevariables.html">Explore Variables</a></li>
+						<li><a href="neighborhood_lp.html">Explore Neighborhoods</a></li>
+						<li><a href="exp_comp_ind.html">Explore Composite Indicators</a></li>
+						<li><a href="data_stories.html">Data Stories</a></li>
+						<li><a href="about_data.html">Learn About The Data</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="login.html">Login/Sign Up</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="con">
+			<div class="row row1">
+				<div class="col-sm-2 logo">
+					<img src="img/price.png" id="price-logo" style="height:91%;width:76%;padding-left:58px;padding-top:20px;">
+				</div>
+				<div class="col-sm-8 heading" style="color: white;background-image: url('img/about_data.jpg'); background-size: 60%;"><h1 style="padding-top: 30px;padding-left: 250px;">DATA DICTIONARY</h1></div>
+				<div class="col-sm-2 logo">
+					<img src="img/dornsife.png" id="dornsife-logo" style="height:86%;width:83%;padding-left:45px;">
+				</div>
+			</div>
+			<div class="row row2" style="background-color: #0c343d;">
+				<a href="#" style="text-align: center;color: white;vertical-align: middle;margin-left:20px;line-height:34px;text-decoration: underline;">Where do I start?</a>
+			</div>
+			<div class="row row3">
+				<p class="centeral" style="background-color: #a2c4c9;">SORT DATASETS:
+					<input type="radio" name="rad" ng-model="value" value="1" checked="checked" ng-change="hello(value)" id="radio"> By Policy Area
+					<input type="radio" name="rad" ng-model="value" value="2" ng-change="hello(value)" id="radio"> Alphabetically
+				</p>
+			</div>
+<div class="row">
+							<div class="col-md-2 centeral" style="background-color:#0c343d;color:white;">DATASETS</div>
+							<div class="col-md-2 centeral" style="background-color:#0c343d;color:white;">VARIABLES</div>
+							<div class="col-md-4 centeral" style="background-color:#0c343d;color:white;">VARIABLE DEFINITION</div>
+							<div class="col-md-2 centeral" style="background-color:#0c343d;color:white;">SOURCE</div>
+							<div class="col-md-2 centeral" style="background-color:#0c343d;color:white;">YEARS AVAILABLE</div>
+						</div>
+			<div class="row row4" style="overflow:scroll;width:100%;">
+
+				<div class="row" ng-show="flag == 1" ng-repeat="a in uniqueArr" style="width:100%;margin-left:0px;">
+					<div class="col-md-12 centeral" style="background-color:#d9ead3;width:100%;height:25%;text-transform: uppercase;font-weight: bold;">{{a}}</div>
+
+					<div class="row"  ng-repeat="b in filll(a)" style="width:100%;margin-left:0px;height:30%;">
+
+						<div class="col-md-2" style="border:1px solid black;height:85px;overflow:scroll; overflow:auto;">
+							{{b.dataset}}
+						</div>
+						<div id="columnvariable" class="col-md-2 popup" data-toggle="modal" data-target="#myModal" onclick="myFunction();" ng-click="popup(b['variable']);">
+							{{b['variable']}}
+
+						</div>
+						<div class="col-md-4" style="border:1px solid black;height:85px; overflow:scroll; overflow:auto;">
+							{{b['variabledefinition']}}
+						</div>
+						<div class="col-md-2" style="border:1px solid black;height:85px;overflow:scroll; overflow:auto;">
+							{{b['datasource']}}
+						</div>
+						<div class="col-md-2" style="border:1px solid black;height:85px;overflow:scroll; overflow:auto;">
+							{{b['yearsavailable']}}
+						</div>
+						<div class="modal fade" id="myModal" role="dialog" style="margin-top: 200px;overflow:scroll; overflow:auto;">
+								<div class="modal-dialog">
+
+								  <!-- Modal content-->
+								  <div class="modal-content" style="background-color: #a2c4c9;">
+									<div class="modal-header">
+									  <button type="button" class="close" data-dismiss="modal">&times;</button>
+									  <h4 class="modal-title">Download Data for {{ newVar }}</h4>
+									</div>
+									<div class="modal-body">
+									<select class="form-control" id="sel1"  style="background-color:#0c343d;color:white;width:25%;margin-left:35%;">
+										<option>Select a Year</option>
+										<option ng-repeat="d in yearss" ng-click="yearSelected(b['variable'],d);">{{ d }}</option>
+									</select>
+									<div style="height:20px;"></div>
+									  <button type="button" class="btn btn-default" style="background-color:#d9ead3;border: 2px solid #0c343d;margin-left:40%;">
+									  <a href="{{ downloadLink }}" style="color: #0c343d; font-weight: bold;">DOWNLOAD</a></button>
+									</div>
+									<div class="modal-footer">
+									  <button type="button" class="btn btn-default" data-dismiss="modal" style="background-color:#0c343d;color:white;">Cancel</button>
+									</div>
+								  </div>
+
+								</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row" ng-show="flag == 2" ng-repeat="c in newmenu" style="width:100%;margin-left:0px;">
+
+						<div class="col-md-2" style="border:1px solid black;height:85px; overflow:scroll; overflow:auto;">
+							{{c.dataset}}
+						</div>
+						<div class="col-md-2 popup" data-toggle="modal" data-target="#myModal" id="columnvariable" onclick="myFunction();" ng-click="popup(c['variable']);" style="border:1px solid black;height:85px; overflow:scroll; overflow:auto;" >
+							{{c['variable']}}
+
+						</div>
+						<div class="col-md-4" style="border:1px solid black;height:85px; overflow:scroll; overflow:auto;">
+							{{c['variabledefinition']}}
+						</div>
+						<div class="col-md-2" style="border:1px solid black;height:85px; overflow:scroll; overflow:auto;">
+							{{c['datasource']}}
+						</div>
+						<div class="col-md-2" style="border:1px solid black;height:85px; overflow:scroll;overflow:auto;">
+							{{c['yearsavailable']}}
+						</div>
+
+						<div class="modal fade" id="myModal" role="dialog" style="margin-top: 200px;">
+								<div class="modal-dialog">
+
+								  <!-- Modal content-->
+								  <div class="modal-content" style="background-color: #a2c4c9;">
+									<div class="modal-header">
+									  <button type="button" class="close" data-dismiss="modal">&times;</button>
+									  <h4 class="modal-title">Download Data for {{ newVar }}</h4>
+									</div>
+									<div class="modal-body">
+									<select class="form-control" id="sel1"  style="background-color:#0c343d;color:white;width:25%;margin-left:35%;">
+										<option>Select a Year</option>
+										<option ng-repeat="d in yearss" ng-click="yearSelected(b['variable'],d);">{{ d }}</option>
+									</select>
+									<div style="height:20px;"></div>
+									  <button type="button" class="btn btn-default" style="background-color:#d9ead3;border: 2px solid #0c343d;margin-left:40%;">
+									  <a href="{{ downloadLink }}" style="color: #0c343d; font-weight: bold;">DOWNLOAD</a></button>
+									</div>
+									<div class="modal-footer">
+									  <button type="button" class="btn btn-default" data-dismiss="modal" style="background-color:#0c343d;color:white;">Cancel</button>
+									</div>
+								  </div>
+
+								</div>
+						</div>
+
+				</div>
+			</div>
+
+			<div class="row row5">
+
+			</div>
+		</div>
+	</div>
+
+		<!-- <div class="popup" onclick="myFunction()">Click me to toggle the popup! -->
+			<!-- <span class="popuptext" id="myPopup">A Simple Popup!</span> -->
+		<!-- </div> -->
+
+		<script>
+			// When the user clicks on div, open the popup
+			function myFunction() {
+				var popup = document.getElementById("myPopup");
+				popup.classList.toggle("show");
+			}
+			$('#radio').attr('checked',true);
+		</script>
+
+		<script>
+			var menuApp = angular.module('menuApp', ['ui.filters']);
+			menuApp.controller("menuController", function ($scope, $http,$filter) {
+			var lookup = {};
+			var items;
+			var result = [];
+
+			var refresh = function() {
+				$http({
+					method: 'GET',
+					url: ' http://localhost:3000/GS-Variables'
+				}).then(function (response){
+
+				  $scope.menus = response.data.data;
+				  console.log($scope.menus);
+				  $scope.trymenu1 = response.data.data;
+				  $scope.trymenu2 = response.data.data;
+				  $scope.newmenu = $scope.menus;
+
+				  items = angular.copy($scope.menus);
+				  for (var item, i = 0; item = items[i++];) {
+				  var name = item.policyarea;
+					if (!(name in lookup) && name!=null) {
+						lookup[name] = 1;
+						result.push(name);
+					}
+				  }
+				$scope.uniqueArr = result;
+
+				  $scope.flag = 1;
+					items = $scope.menus;
+					for (var item, i = 0; item = items[i++];) {
+						var name = item['policyarea'];
+						if (!(name in lookup)){
+							lookup[name] = 1;
+							result.push(name);
+						}
+					}
+					$scope.left  = result.slice(0, Math.ceil(result.length/2));
+				  $scope.right = result.slice(Math.ceil(result.length/2), result.length);
+
+				});
+
+				$http({
+					method: 'GET',
+					url: ' http://localhost:3000/GS-Main'
+				}).then(function (response){
+					$scope.main = response.data.data;
+					$scope.selectedYear;
+				});
+			  };
+			  refresh();
+
+
+
+
+
+			  $scope.popup = function(variab){
+			  	$scope.newVar = variab;
+			  	var years = [];
+				for (var p=0; p<$scope.main.length; p++){
+					if($scope.main[p]['variable'] == variab)
+						years.push($scope.main[p]['year']);
+
+				}
+				 $scope.yearss = years;
+			  }
+
+			  $scope.yearSelected = function(variab,yr){
+					console.log("Var ",variab);
+					console.log("year ",yr);
+					for (var p1=0; p1<$scope.main.length; p1++){
+						if($scope.main[p1]['variable'] == variab && $scope.main[p1]['year'] == yr){
+							$scope.downloadLink = $scope.main[p1]['open-dataurl'];
+							console.log($scope.downloadLink);
+							break;
+						}
+					}
+
+			  }
+
+			  $scope.hello = function(value) {
+
+					if(value == 1)
+					{
+					$scope.flag = 1;
+					}
+					if(value == 2)
+					{
+					console.log(value);
+					$scope.flag = 2;
+					$scope.newmenu = angular.copy($scope.menus);
+					$scope.newmenu.sort(function(a, b){
+					a = a['dataset'];
+					b = b['dataset'];
+					if (a < b)
+						return -1;
+					if (a > b)
+						return 1;
+					return 0;
+					});
+					}
+				}
+
+				$scope.filll = function(pd){
+					var filteredData = [];
+					filteredData = $filter('filter')($scope.menus, {'policyarea' : pd });
+					return filteredData;
+
+				}
+			});
+		</script>
+		<script src="js/loading.js"></script>
+	</body>
+</html>

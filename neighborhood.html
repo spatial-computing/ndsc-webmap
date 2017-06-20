@@ -36,35 +36,38 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               <li><a href="about.html">About</a></li>
-              <li><a href="#">Data Dictionary</a></li>
+              <li><a href="data_dictionary.html">Data Dictionary</a></li>
               <li><a href="explorevariables.html">Explore Variables</a></li>
-              <li><a href="neighborhood.html">Explore Neighborhoods</a></li>
+              <li><a href="neighborhood_lp.html">Explore Neighborhoods</a></li>
               <li><a href="exp_comp_ind.html">Explore Composite Indicators</a></li>
-              <li><a href="#">Data Stories</a></li>
-              <li><a href="#">Learn About The Data</a></li>
+              <li><a href="data_stories.html">Data Stories</a></li>
+              <li><a href="about_data.html">Learn About The Data</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="login.html">Login/Signup</a></li>
+              <li><a href="login.html">Login/Sign Up</a></li>
             </ul>
           </div>
         </div>
       </nav>
+<div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-2 ">
+          <img src="img/price.png" id="price-logo" style="width:60%;">
+        </div>
+        <div class="col-xs-8 " style="position:relative;">
+          <img src="img/exp_neighborhoods.jpg" id="title-image" >
+			<h1 class="title-text_composite">
+			<b> EXPLORE YOUR NEIGHBORHOOD</b>
 
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-xs-2 col-sm-1 col-md-1">
-            <img src="img/price.png" id="price-logo">
-          </div>
-          <div class="col-xs-8 col-sm-10 col-md-10" style="position:relative;">
-            <h1 style="z-index: 100; position: absolute; margin-left: 240px; margin-top: 50px; font-weight: bold; color: white">EXPLORE YOUR NEIGHBORHOOD</h1>
-            <img id="title-image" src="img/exp_neighborhoods.jpg" >
+			</h1>
 
-          </div>
-          <div class="col-xs-2 col-sm-1 col-md-1">
-            <img src="img/dornsife.png" id="dornsife-logo">
-          </div>
+        </div>
+        <div class="col-xs-2">
+          <img src="img/dornsife.png" id="dornsife-logo" style="width:60%;">
         </div>
       </div>
+    </div>
+
 
 
       <div id="mapCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
@@ -117,7 +120,8 @@
   <div class="regList" style="display: inline-block; height: 390px; overflow-y: scroll">
         <ul class="regMenu" style="padding-left: 0px">
            <li ng-repeat="region in neighborhood | filter: regionpick">
-             <a href="" ng-click="">{{region.neighborhood}}</a>
+             <a href="neighborhoodmap.html" ng-click="neighborhoodmap(region.neighborhood)">{{region.neighborhood}}</a>
+           </li>
            </li>
          </ul>
    </div>

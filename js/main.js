@@ -5,6 +5,23 @@ app.controller('myController', function($scope,$http,$filter) {
   var items;
   var result = [];
 
+  $scope.getVar2 = function(menuD){
+
+    $scope.datasetSelected = menuD;
+    for (var p=0;p<$scope.variables.length;p++)
+    {
+
+
+        if($scope.variables[p]['dataset'] == menuD)
+        {
+
+                    $scope.learnabout = $scope.variables[p]['learnvariableaboutthevariableondashboard'];
+        }
+    }
+
+    $('#myCarousel').carousel('next');
+  };
+
   $scope.back = function() {
     $('#myCarousel').carousel('prev');
   };
@@ -23,6 +40,19 @@ app.controller('myController', function($scope,$http,$filter) {
     $scope.mapData = dataset;
     sessionStorage.mapStore =  JSON.stringify($scope.mapData);
     sessionStorage.mapYear =  JSON.stringify($scope.mapData.year);
+  };
+
+  $scope.CIMap = function(ci){
+    if(ci=='eco') {
+      $scope.CIData = $scope.composite[0];
+    }
+    else if (ci=='risk') {
+      $scope.CIData = $scope.composite[1];
+    }
+    else if (ci=='conn') {
+      $scope.CIData = $scope.composite[2];
+    }
+    sessionStorage.CImapStore =  JSON.stringify($scope.CIData);
   };
 
   $scope.sendDomain = function(topic){
@@ -114,6 +144,25 @@ app.controller('myController', function($scope,$http,$filter) {
         url: 'http://localhost:3000/GS-Policy'
     }).then(function (response) {
         $scope.policy = response.data.data;
+        $scope.showDiv = (function (selected_policy,policy)
+            {
+				console.log("inside display");
+                $scope.selected_policy_area=selected_policy.policyarea;
+			   $scope.policy=policy;
+				   angular.forEach($scope.policy, function(x){
+                   			$scope.area=x.policyarea;
+					   		$scope.st=$scope.area.replace(/\s/g,"");
+    						$scope.display=$scope.st.replace("&","");
+					   		document.getElementById($scope.display).style.display='none';
+					   		document.getElementById('mainContent').style.display='none';
+
+               });
+
+
+			  	 $scope.str=$scope.selected_policy_area.replace(/\s/g,"");
+    				$scope.string=$scope.str.replace("&","");
+				  document.getElementById($scope.string).style.display='block';
+              });
     },function(err){
         console.log(err);
     });

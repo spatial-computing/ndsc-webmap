@@ -34,38 +34,40 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               <li><a href="about.html">About</a></li>
-              <li><a href="#">Data Dictionary</a></li>
+              <li><a href="data_dictionary.html">Data Dictionary</a></li>
               <li><a href="explorevariables.html">Explore Variables</a></li>
-              <li><a href="neighborhood.html">Explore Neighborhoods</a></li>
+              <li><a href="neighborhood_lp.html">Explore Neighborhoods</a></li>
               <li><a href="exp_comp_ind.html">Explore Composite Indicators</a></li>
-              <li><a href="#">Data Stories</a></li>
-              <li><a href="#">Learn About The Data</a></li>
+              <li><a href="data_stories.html">Data Stories</a></li>
+              <li><a href="about_data.html">Learn About The Data</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="login.html">Login/Signup</a></li>
+              <li><a href="login.html">Login/Sign Up</a></li>
             </ul>
           </div>
         </div>
       </nav>
 
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-xs-2 col-sm-1 col-md-1">
-            <img src="img/price.png" id="price-logo">
-          </div>
-          <div class="col-xs-8 col-sm-10 col-md-10" style="position:relative;">
-            <img src="img/title-image.jpg" id="title-image" >
-            <h1 class="title-text-homepage">
-            <b> NEIGHBORHOOD DATA FOR SOCIAL CHANGE</b><br>
-            </h1>
-            <h5 class="title-text_line2">
-            <b>LOCAL DATA FOR COMMUNITY PROBLEM SOLVING</b></h5>
-          </div>
-          <div class="col-xs-2 col-sm-1 col-md-1">
-            <img src="img/dornsife.png" id="dornsife-logo">
-          </div>
+      <div class="row">
+        <div class="col-xs-2 ">
+          <img src="img/price.png" id="price-logo" style="width:60%;">
+        </div>
+        <div class="col-xs-8 " style="position:relative;">
+          <img src="img/title-image.jpg" id="title-image" >
+			<h1 class="title-text-homepage">
+			<b> NEIGHBORHOOD DATA FOR SOCIAL CHANGE</b><br>
+			</h1>
+
+			<h5 class="title-text_line2">
+				<b>LOCAL DATA FOR COMMUNITY PROBLEM SOLVING</b></h5>
+
+        </div>
+        <div class="col-xs-2 ">
+           <img src="img/dornsife.png" id="dornsife-logo" style="width:60%;">
         </div>
       </div>
+    </div>
 
       <div id="header-band" ><h4 class="text-center" style="line-height:1.4;">STORYTELLING WITH DATA</h4></div>
 
@@ -80,30 +82,38 @@
 
         <div class="carousel-inner">
           <div class="item active">
+            <a href="{{carousel[0].storymapurl}}" target="_blank">
             <img src="img/carousel1.jpg" style="width:100%;height:33%;object-fit: cover;overflow:hidden;">
             <div class="carousel-caption">
-              <h1><b>{{carousel[0].imagetext}}</b></h1>
+              <h1 style="-webkit-text-fill-color: white;-webkit-text-stroke-width: 0.1px; -webkit-text-stroke-color: #808080; text-transform: uppercase;"><b>Data Story: {{carousel[0].imagetext}}</b></h1>
             </div>
+          </a>
           </div>
 
           <div class="item">
+            <a href="{{carousel[1].storymapurl}}" target="_blank">
             <img src="img/carousel2.jpg" style="width:100%;height:33%;object-fit: cover;overflow:hidden;">
             <div class="carousel-caption">
-              <h1><b>{{carousel[1].imagetext}}</b></h1>
+              <h1 style="-webkit-text-fill-color: white;-webkit-text-stroke-width: 0.1px; -webkit-text-stroke-color: #808080; text-transform: uppercase;"><b>Data Story: {{carousel[1].imagetext}}</b></h1>
             </div>
+          </a>
           </div>
 
           <div class="item">
+            <a href="{{carousel[2].storymapurl}}" target="_blank">
             <img src="img/carousel3.jpg"  style="width:100%;height:33%; object-fit: cover;overflow:hidden;">
             <div class="carousel-caption">
-              <h1><b>{{carousel[2].imagetext}}</b></h1>
+              <h1 style="-webkit-text-fill-color: white;-webkit-text-stroke-width: 0.1px; -webkit-text-stroke-color: #808080; text-transform: uppercase;"><b>Data Story: {{carousel[2].imagetext}}</b></h1>
             </div>
+          </a>
           </div>
           <div class="item">
+            <a href="{{carousel[3].storymapurl}}" target="_blank">
             <img src="img/carousel4.jpg"  style="width:100%;height:33%;object-fit: cover;overflow:hidden;">
             <div class="carousel-caption">
-              <h1><b>{{carousel[3].imagetext}}</b></h1>
+              <h1 style="-webkit-text-fill-color: white;-webkit-text-stroke-width: 0.1px; -webkit-text-stroke-color: #808080; text-transform: uppercase;"><b>Data Story: {{carousel[3].imagetext}}</b></h1>
             </div>
+          </a>
           </div>
         </div>
       </div>
@@ -123,18 +133,20 @@
   							<div class="col-md-4 col-xs-4" class="responsive " >
                   <a href="economic_opportunity.html">
   									<img src="img/exp_neighborhoods.jpg" id="picture1" class="img-responsive" style="height:23%; width:100%"/>
-  									<h4 class="text_thumbnails_comp" style="left:20%;"><b>Economic Opportunity</b></h4>
+  									<h3 class="text_thumbnails_comp" style="left:10%; color:white;"><b>Economic Opportunity</b></h3>
                   </a>
   							</div>
   							<div class="col-md-4 col-xs-4" class="responsive ">
+                  <a href="risk_vulnerability.html">
   								<img src="img/exp_variable.jpg" id="picture2" class="img-responsive"style="height:23% ; width:100%" />
-  								<h4 class="text_thumbnails_comp"style="left:15%;"><b>Risk & Vulnerability</b></h4>
-
-
+  								<h3 class="text_thumbnails_comp"style="left:20%; color:white;"><b>Risk & Vulnerability</b></h3>
+                </a>
   							</div>
   							<div class="col-md-4 col-xs-4" class="responsive ">
+                  <a href="connectedness.html">
   								<img src="img/Exp_comp_ind.jpg" id="picture3" class="img-responsive" style="height:23%; width:100%"/>
-  								<h4 class="text_thumbnails_comp" style="left:20%;"><b>Connectedness</b></h4>
+  								<h3 class="text_thumbnails_comp" style="left:24%; color:white;"><b>Connectedness</b></h3>
+                </a>
   							</div>
   					</div>
   			  <div class="col-md-2 col-xs-2 " class="responsive">
@@ -143,7 +155,7 @@
   			</div>
   	  </div>
 
-      <div id="footer-band"><h4 class="text-center" style="line-height:1.4">LEARN MORE ABOUT THE DATA</h4></div>
+      <div id="footer-band"><a href="data_dictionary.html" style="text-decoration:none;color:white;"><h4 class="text-center" style="line-height:1.4">LEARN MORE ABOUT THE DATA</h4></a></div>
     </div>
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>

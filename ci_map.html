@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app='myModule' ng-controller='myController'>
 	<head>
-		<title>Variable Map</title>
+		<title>Composite Indicator Map</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
@@ -23,43 +23,43 @@
       var chart = new Cedar({"type": "bar"});
     </script>
 		<style>
-			@media (max-width: 1350px) {
-	  .navbar-header {
-	      float: none;
-	  }
-	  .navbar-left,.navbar-right {
-	      float: none !important;
-	  }
-	  .navbar-toggle {
-	      display: block;
-	  }
-	  .navbar-collapse {
-	      border-top: 1px solid transparent;
-	      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
-	  }
-	  .navbar-fixed-top {
-	      top: 0;
-	      border-width: 0 0 1px;
-	  }
-	  .navbar-collapse.collapse {
-	      display: none!important;
-	  }
-	  .navbar-nav {
-	      float: none!important;
-	      margin-top: 7.5px;
-	  }
-	  .navbar-nav>li {
-	      float: none;
-	  }
-	  .navbar-nav>li>a {
-	      padding-top: 10px;
-	      padding-bottom: 10px;
-	  }
-	  .collapse.in{
-	      display:block !important;
-	  }
-	}
-		</style>
+		@media (max-width: 1350px) {
+  .navbar-header {
+      float: none;
+  }
+  .navbar-left,.navbar-right {
+      float: none !important;
+  }
+  .navbar-toggle {
+      display: block;
+  }
+  .navbar-collapse {
+      border-top: 1px solid transparent;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .navbar-fixed-top {
+      top: 0;
+      border-width: 0 0 1px;
+  }
+  .navbar-collapse.collapse {
+      display: none!important;
+  }
+  .navbar-nav {
+      float: none!important;
+      margin-top: 7.5px;
+  }
+  .navbar-nav>li {
+      float: none;
+  }
+  .navbar-nav>li>a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+  .collapse.in{
+      display:block !important;
+  }
+}
+	</style>
 	</head>
 	<body>
 		<div id="loader-wrapper">
@@ -104,10 +104,10 @@
 
       <!-- left panel   -->
       <div class="col-sm-2 sidenav">
-				<div class="col-sm-12 white" style="overflow-y: scroll;height:40%;">
-					<h5 style="font-weight:bold;">About {{ mapData.variable}}</h5>
-					{{varMapDash[0].learnvariableaboutthevariableondashboard}}
-				</div>
+          <div class="col-sm-12 white" style="overflow-y: scroll;height:40%;">
+            <h5 style="font-weight:bold;">About {{ mapData.compositeindicator}}</h5>
+            {{mapData.aboutcreation}}
+          </div>
         <div class="col-sm-12 col12">
             <div id="legend" style="font-size:12px;">
             </div>
@@ -117,7 +117,7 @@
       <!-- center panel -->
       <div class="col-sm-6 col2" >
           <div class="col-sm-12 col21">
-            <p style="text-align: center; font-weight: bold; font-size: 15px">{{ mapData["variable"] | uppercase}} ({{mapData["year"]}})</p>
+            <p style="text-align: center; font-weight: bold; font-size: 15px">{{ mapData.compositeindicator | uppercase}} ({{mapData.yearsavailable}})</p>
           </div>
           <div class="col-sm-12 col22">
             <div id="mapDiv" style="display: inline-block; width:100%	;">
@@ -128,31 +128,31 @@
           </div>
           <div class="col-sm-12">
           <div class="col-sm-6 col23">
-						<rzslider ng-hide="!bool" style="width:150px; " rz-slider-model="slider_ticks_values_tooltip.value" rz-slider-options="slider_ticks_values_tooltip.options"></rzslider>
+						<!-- <rzslider ng-hide="!bool" style="width:150px; " rz-slider-model="slider_ticks_values_tooltip.value" rz-slider-options="slider_ticks_values_tooltip.options"></rzslider> -->
 					</div>
           <div class="col-sm-3 col231">
-						<a class="btn btn-default" target="_blank" href="{{mapData['open-dataurl']}}">Download All Data</a>
+						<button class="btn btn-default">Download All Data</button>
 					</div>
           <div class="col-sm-3 col232">
 						<button class="btn btn-default">Save/Print Map</button>
 					</div>
         </div>
-				<div class="col-sm-12 col24" ng-show="table == 'true'">
-						<table class="table table-hover" style="border:1px solid black">
-							<thead>
-								<tr>
-									<th>Neighborhood</th>
-									<th>{{ mapData["variable"] }}</th>
-								</tr>
-							</thead>
-						<tbody>
-							<tr style="background-color:#edd840;">
-								<td>{{pick}}</td>
-								<td>{{avg}}</td>
-							</tr>
-						</tbody>
-				 </table>
-			</div>
+          <div class="col-sm-12 col24" ng-show="table == 'true'">
+              <table class="table table-hover" style="border:1px solid black">
+                <thead>
+                  <tr>
+                    <th>Neighborhood</th>
+                    <th>{{ mapData.compositeindicator }}</th>
+                  </tr>
+                </thead>
+              <tbody>
+                <tr style="background-color:#edd840;">
+                  <td>{{pick}}</td>
+                  <td>{{avg}}</td>
+                </tr>
+              </tbody>
+           </table>
+        </div>
       </div>
 
 
@@ -162,34 +162,23 @@
           <div class="col-sm-5 col31">
             <div class="col-sm-12 col311">
                 <div class="varButton"><a href="explorevariables.html">Select a Different Variable<a></div>
+                </div>
 
-            </div>
-            <div class="col-sm-12 col312">
-              <div class="exploreButton"><a href=#>Explore More About Region<a></div>
-            </div>
             <div class="col-sm-12 col313">
-              <p>Median Value for L.A. County</p>
+              <p>Average {{mapData.compositeindicator}} for L.A. County</p>
             </div>
           </div>
-					<div class="col-sm-7 col32" style="overflow-y: scroll;font-size:12px;">
+          <div class="col-sm-7 col32" style="font-size:12px;">
             <div class="aboutContent">
             <h5 class="text-center" style="padding-top:0">About the Data</h5>
-            <ul style="list-style:none; padding-left:0; padding-top:0">
-              <li><em>Definition:</em> {{varMapDash[0]['variabledefinition']}}<br></li>
-              <li><br></li>
-              <li><em>Source:</em> {{varMapDash[0]['datasource']}}<br></li>
-              <li><br></li>
-              <li><em>Years:</em> {{varMapDash[0]['yearsavailable']}}<br></li>
-              <li><br></li>
-              <li><em>Methodology:</em> {{varMapDash[0]['answer2methodology']}}</li>
-            </ul>
+            {{mapData.aboutindicator}}
           </div>
           </div>
         </div>
         <div class="row row32" style="padding-top: 5px;">
           <div class="col-sm-2"></div>
           <div class="col-sm-8 row2col2 text-center">
-            <p style="vertical-align: center; color: black; font-weight: bold">Data for {{ mapData["variable"] }} in {{mapData["year"]}}</p>
+            <p style="vertical-align: center; color: black; font-weight: bold">Data for {{ mapData.compositeindicator }}</p>
           </div>
           <div class="col-sm-2"></div>
         </div>
@@ -223,7 +212,7 @@
 		<script src="https://js.arcgis.com/3.20"></script>
 
 		<script src="http://unpkg.com/angular-esri-map@1"></script>
-		<script src="js/variable-map.js"></script>
+		<script src="js/ci_map.js"></script>
 		<script src="js/loading.js"></script>
 	</body>
 </html>
