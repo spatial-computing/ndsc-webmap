@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/loading.css">
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
   </head>
   <body style="font-family:Lato;">
     <div id="loader-wrapper">
@@ -133,7 +134,7 @@
 
 		</div>
 		<u>What is this chart?</u><br><br><br> <!-- href=ci_map.html -->
-		<a ng-click="CIMap('conn')"  title="work in progress"><div class="distribution_eco_opp" id="ec_opp_arrow">
+		<a ng-click="CIMap('conn')"  data-toggle="tooltip" data-placement="top" title="Work in Progress!"><div class="distribution_eco_opp" id="ec_opp_arrow">
 		Explore Connectedness in Los Angeles County &#8680;
 		<br>
 		<br>
@@ -155,5 +156,10 @@
     <script src="http://unpkg.com/angular-esri-map@1"></script>
     <script src="js/main.js"></script>
     <script src="js/loading.js"></script>
+	 <script>
+		
+			$('[data-toggle="tooltip"]').tooltip();
+		
+	  </script>
   </body>
 </html>
