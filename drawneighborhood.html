@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/drawneighborhood.css">
     <link rel="stylesheet" href="css/loading.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.2.2/rzslider.min.css">
-
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vega/2.6.1/vega.min.js"></script>
@@ -19,6 +19,13 @@
 		<script>
       var chart = new Cedar({"type": "bar"});
     </script>
+	 <style>
+	  div.esriPopupWrapper .zoomTo 
+		 {
+  			display: none;	
+
+		 }
+	  </style>
   </head>
   <body style="font-family:Lato;">
     <div id="loader-wrapper">
@@ -175,7 +182,7 @@
           <button class="btn btn-default">Download All Data</button>
         </div>
         <div class="col-sm-3 col232">
-          <button class="btn btn-default">Save/Print Map</button>
+          <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Save/Print Map</button>
         </div>
       </div>
         <div class="col-sm-12 col24">
@@ -253,10 +260,10 @@
       </div>
       <div class="col-md-12" style="margin-top: 180px">
         <div class="col-md-6">
-        <button class="btn btn-default">Download Your Selection</button>
+        <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Download Your Selection</button>
       </div>
       <div class="col-md-6">
-      <button class="btn btn-default">Save/Print Graph</button>
+      <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Save/Print Graph</button>
     </div>
       </div>
     </div>
@@ -282,5 +289,10 @@
     <script src="http://unpkg.com/angular-esri-map@1"></script>
     <script src="js/drawneighborhood.js"></script>
     <script src="js/loading.js"></script>
+	<script>
+		 $(function () {
+			$('[data-toggle="tooltip"]').tooltip()
+		})
+	</script>
   </body>
 </html>

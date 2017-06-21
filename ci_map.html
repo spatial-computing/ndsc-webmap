@@ -2,6 +2,7 @@
 <html ng-app='myModule' ng-controller='myController'>
 	<head>
 		<title>Composite Indicator Map</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
@@ -59,12 +60,17 @@
       display:block !important;
   }
 }
-			body
-		 {
-			 overflow:scroll;
-			 min-width: 1000px;
+div.esriPopupWrapper .zoomTo 
+{
+  display: none;	
+
+}
+body
+{
+ overflow:scroll;
+min-width: 1000px;
 		
-		 }
+}
 	</style>
 	</head>
 	<body>
@@ -140,7 +146,7 @@
 						<button class="btn btn-default">Download All Data</button>
 					</div>
           <div class="col-xs-3 col232">
-						<button class="btn btn-default">Save/Print Map</button>
+						<button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Save/Print Map</button>
 					</div>
         </div>
           <div class="col-xs-12 col24" ng-show="table == 'true'">
@@ -167,7 +173,7 @@
         <div class="row row31">
           <div class="col-xs-5 col31">
             <div class="col-xs-12 col311">
-                <div class="varButton"><a href="explorevariables.html">Select a Different Variable<a></div>
+				<div class="varButton"><a href="explorevariables.html">Select a Different Variable</a></div>
                 </div>
 
             <div class="col-xs-12 col313">
@@ -194,10 +200,10 @@
         </div>
         <div class="col-xs-12">
           <div class="col-sm-6">
-          <button class="btn btn-default">Download Your Selection</button>
+          <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Download Your Selection</button>
         </div>
         <div class="col-xs-6">
-        <button class="btn btn-default">Save/Print Graph</button>
+        <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Save/Print Graph</button>
       </div>
         </div>
 
@@ -220,5 +226,10 @@
 		<script src="http://unpkg.com/angular-esri-map@1"></script>
 		<script src="js/ci_map.js"></script>
 		<script src="js/loading.js"></script>
+		<script>
+ 	$(function () {
+ 	$('[data-toggle="tooltip"]').tooltip()
+ })
+ 		</script>
 	</body>
 </html>

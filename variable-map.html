@@ -2,6 +2,7 @@
 <html ng-app='myModule' ng-controller='myController'>
 	<head>
 		<title>Variable Map</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
@@ -64,6 +65,13 @@
 				overflow:scroll;
 			 min-width: 1000px;
 			}
+			
+	  div.esriPopupWrapper .zoomTo 
+		 {
+  			display: none;	
+
+		 }
+	  
 		</style>
 	</head>
 	<body>
@@ -133,13 +141,13 @@
           </div>
           <div class="col-xs-12">
           <div class="col-xs-6 col23">
-						<rzslider ng-hide="!bool" style="width:150px; " rz-slider-model="slider_ticks_values_tooltip.value" rz-slider-options="slider_ticks_values_tooltip.options"></rzslider>
+						<rzslider ng-hide="!bool" style="width:250px; " rz-slider-model="slider_ticks_values_tooltip.value" rz-slider-options="slider_ticks_values_tooltip.options"></rzslider>
 					</div>
           <div class="col-lg-3 col231">
 						<a class="btn btn-default" target="_blank" href="{{mapData['open-dataurl']}}">Download All Data</a>
 					</div>
           <div class="col-lg-3 col232">
-						<button class="btn btn-default">Save/Print Map</button>
+						<button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Save/Print Map</button>
 					</div>
         </div>
 				<div class="col-xs-12 col24" ng-show="table == 'true'">
@@ -166,11 +174,11 @@
         <div class="row row31">
           <div class="col-xs-5 col31">
             <div class="col-xs-12 col311">
-                <div class="varButton"><a href="explorevariables.html">Select a Different Variable<a></div>
+				<div class="varButton"><a href="explorevariables.html">Select a Different Variable</a></div>
 
             </div>
             <div class="col-xs-12 col312">
-              <div class="exploreButton"><a href=#>Explore More About Region<a></div>
+				<div class="exploreButton" ng-show="exploreRegion == 'true'" data-toggle="tooltip" data-placement="top" title="Work in Progress!"><a href=#>Explore More About {{pick}}</a></div>
             </div>
             <div class="col-xs-12 col313">
               <p>Median Value for L.A. County</p>
@@ -204,10 +212,10 @@
         </div>
         <div class="col-xs-12">
           <div class="col-xs-6">
-          <button class="btn btn-default">Download Your Selection</button>
+          <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Download Your Selection</button>
         </div>
         <div class="col-xs-6">
-        <button class="btn btn-default">Save/Print Graph</button>
+        <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Save/Print Graph</button>
       </div>
         </div>
 
@@ -230,5 +238,10 @@
 		<script src="http://unpkg.com/angular-esri-map@1"></script>
 		<script src="js/variable-map.js"></script>
 		<script src="js/loading.js"></script>
+		<script>
+ $(function () {
+ 	$('[data-toggle="tooltip"]').tooltip()
+ })
+ 		</script>
 	</body>
 </html>
