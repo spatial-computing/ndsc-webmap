@@ -59,6 +59,11 @@
 	      display:block !important;
 	  }
 	}
+			body
+			{
+				overflow:scroll;
+			 min-width: 1000px;
+			}
 		</style>
 	</head>
 	<body>
@@ -103,41 +108,41 @@
       <div class="row content">
 
       <!-- left panel   -->
-      <div class="col-sm-2 sidenav">
+      <div class="col-xs-2 sidenav">
 				<div class="col-sm-12 white" style="overflow-y: scroll;height:40%;">
 					<h5 style="font-weight:bold;">About {{ mapData.variable}}</h5>
 					{{varMapDash[0].learnvariableaboutthevariableondashboard}}
 				</div>
-        <div class="col-sm-12 col12">
+        <div class="col-xs-12 col12">
             <div id="legend" style="font-size:12px;">
             </div>
         </div>
       </div>
 
       <!-- center panel -->
-      <div class="col-sm-6 col2" >
-          <div class="col-sm-12 col21">
+      <div class="col-xs-6 col2" >
+          <div class="col-xs-12 col21">
             <p style="text-align: center; font-weight: bold; font-size: 15px">{{ mapData["variable"] | uppercase}} ({{mapData["year"]}})</p>
           </div>
-          <div class="col-sm-12 col22">
+          <div class="col-xs-12 col22">
             <div id="mapDiv" style="display: inline-block; width:100%	;">
               <esri-map id="map" map-options="{ basemap: 'gray', center: [-118.2437, 34.2522], zoom: 9,showLabels : true }" load="onMapLoad">
                 <div esri-legend target-id="legend"></div>
               </esri-map>
             </div>
           </div>
-          <div class="col-sm-12">
-          <div class="col-sm-6 col23">
+          <div class="col-xs-12">
+          <div class="col-xs-6 col23">
 						<rzslider ng-hide="!bool" style="width:150px; " rz-slider-model="slider_ticks_values_tooltip.value" rz-slider-options="slider_ticks_values_tooltip.options"></rzslider>
 					</div>
-          <div class="col-sm-3 col231">
+          <div class="col-lg-3 col231">
 						<a class="btn btn-default" target="_blank" href="{{mapData['open-dataurl']}}">Download All Data</a>
 					</div>
-          <div class="col-sm-3 col232">
+          <div class="col-lg-3 col232">
 						<button class="btn btn-default">Save/Print Map</button>
 					</div>
         </div>
-				<div class="col-sm-12 col24" ng-show="table == 'true'">
+				<div class="col-xs-12 col24" ng-show="table == 'true'">
 						<table class="table table-hover" style="border:1px solid black">
 							<thead>
 								<tr>
@@ -157,21 +162,21 @@
 
 
       <!-- right panel -->
-      <div class="col-sm-4 sidenav">
+      <div class="col-xs-4 sidenav">
         <div class="row row31">
-          <div class="col-sm-5 col31">
-            <div class="col-sm-12 col311">
+          <div class="col-xs-5 col31">
+            <div class="col-xs-12 col311">
                 <div class="varButton"><a href="explorevariables.html">Select a Different Variable<a></div>
 
             </div>
-            <!-- <div class="col-sm-12 col312">
+            <div class="col-xs-12 col312">
               <div class="exploreButton"><a href=#>Explore More About Region<a></div>
-            </div> -->
-            <div class="col-sm-12 col313">
+            </div>
+            <div class="col-xs-12 col313">
               <p>Median Value for L.A. County</p>
             </div>
           </div>
-					<div class="col-sm-7 col32" style="overflow-y: scroll;font-size:12px;">
+					<div class="col-xs-7 col32" style="overflow-y: scroll;font-size:12px;">
             <div class="aboutContent">
             <h5 class="text-center" style="padding-top:0">About the Data</h5>
             <ul style="list-style:none; padding-left:0; padding-top:0">
@@ -187,21 +192,21 @@
           </div>
         </div>
         <div class="row row32" style="padding-top: 5px;">
-          <div class="col-sm-2"></div>
-          <div class="col-sm-8 row2col2 text-center">
+          <div class="col-xs-2"></div>
+          <div class="col-xs-8 row2col2 text-center">
             <p style="vertical-align: center; color: black; font-weight: bold">Data for {{ mapData["variable"] }} in {{mapData["year"]}}</p>
           </div>
-          <div class="col-sm-2"></div>
+          <div class="col-xs-2"></div>
         </div>
         <div class="row row33" style="padding: 5px;margin-bottom:30px;">
           <div id="chart">
           </div>
         </div>
-        <div class="col-md-12">
-          <div class="col-md-6">
+        <div class="col-xs-12">
+          <div class="col-xs-6">
           <button class="btn btn-default">Download Your Selection</button>
         </div>
-        <div class="col-md-6">
+        <div class="col-xs-6">
         <button class="btn btn-default">Save/Print Graph</button>
       </div>
         </div>
