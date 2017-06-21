@@ -9,13 +9,13 @@ angular.module('myModule', ['angular.filter','esri.map'])
       //get the data from neighborhood spreadsheet
       // $http({
       //       method: 'GET',
-      //       url: 'http://localhost:3000/GS-Neighborhood'
+      //       url: 'http://b4fa31bb.ngrok.io/GS-Neighborhood'
       // }).then(function (response){
       //       $scope.neighborhood = response.data.data;
       // });
       $http({
             method: 'GET',
-            url: 'http://localhost:3000/GS-Main'
+            url: 'http://b4fa31bb.ngrok.io/GS-Main'
         }).then(function (response) {
             $scope.main = response.data.data;
           });
@@ -23,7 +23,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
 
                       $http({
                           method: 'GET',
-                          url: 'http://localhost:3000/GS-Variables'
+                          url: 'http://b4fa31bb.ngrok.io/GS-Variables'
                       }).then(function (response) {
                           $scope.variables = response.data.data;
                         });
@@ -31,7 +31,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
       //get the data from region spreadsheet
       $http({
             method: 'GET',
-            url: 'http://localhost:3000/GS-Region'
+            url: 'http://b4fa31bb.ngrok.io/GS-Region'
       }).then(function (response){
             $scope.regionData = response.data.data;
       });
@@ -346,6 +346,8 @@ arrayUtils, parser) {
     queryTask.execute(query, function(results){
       //console.log(results);
 
+      var count = 0;
+      var select = 0;
       var resultItems = [];
       var sum=0;
       var resultCount = results.features.length;
@@ -353,13 +355,24 @@ arrayUtils, parser) {
         var featureAttributes = results.features[i].attributes;
         for (var attr in featureAttributes) {
           resultItems.push(featureAttributes[attr]);
+          count++;
+          if (select == 0 && attr == $scope.varMapDash[0].fieldname) {
+            select = count;
+          }
         }
       }
-      for (var i = 2; i < resultItems.length; i+=5) {
-        sum += resultItems[i];
+      for (var i = (select-1); i < resultItems.length; i+=(count/results.features.length)) {
+        $scope.sum += resultItems[i];
       }
-
-      $scope.sum = sum;
+      if ($scope.varMapDash[0].fieldtype == "total") {
+        $scope.tableAnswer = $scope.sum;
+      }
+      else if($scope.varMapDash[0].fieldtype == "percentage") {
+        $scope.tableAnswer = (Math.round(($scope.sum/results.features.length) * 100) / 100) + " %" ;
+      }
+      else if($scope.varMapDash[0].fieldtype == "income") {
+        $scope.tableAnswer = "$ " + (Math.round(($scope.sum/results.features.length) * 100) / 100);
+      }
 
 
   //     //new code to highlight specific census tract
