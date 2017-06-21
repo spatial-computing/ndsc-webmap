@@ -9,7 +9,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
       //get the data from neighborhood spreadsheet
       $http({
             method: 'GET',
-            url: 'http://b4fa31bb.ngrok.io/GS-Neighborhood'
+            url: 'http://localhost:3000/GS-Neighborhood'
       }).then(function (response){
             $scope.neighborhood = response.data.data;
       });
@@ -17,7 +17,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
       //get the data from region spreadsheet
       $http({
             method: 'GET',
-            url: 'http://b4fa31bb.ngrok.io/GS-Region'
+            url: 'http://localhost:3000/GS-Region'
       }).then(function (response){
             $scope.regionData = response.data.data;
       });
@@ -93,23 +93,23 @@ angular.module('myModule', ['angular.filter','esri.map'])
 
 
 
-    var labelField = "name";
-
-    var nColor = new Color("#191165");
-    var nLine = new SimpleLineSymbol("solid", nColor, 1.5);
-    var nSymbol = new SimpleFillSymbol("solid", nLine, null);
-    var nRenderer = new SimpleRenderer(nSymbol);
-
-    var neighborhoodLabel = new TextSymbol().setColor(nColor);
-    neighborhoodLabel.font.setSize("9pt");
-    neighborhoodLabel.font.setFamily("arial");
-
-    var json = {"labelExpressionInfo": {"value": "{name}"}
-                };
-
-    var labelClass = new LabelClass(json);
-    labelClass.symbol = neighborhoodLabel;
-    //mapLayer.setLabelingInfo([ labelClass ]);
+    // var labelField = "name";
+    //
+    // var nColor = new Color("#191165");
+    // var nLine = new SimpleLineSymbol("solid", nColor, 1.5);
+    // var nSymbol = new SimpleFillSymbol("solid", nLine, null);
+    // var nRenderer = new SimpleRenderer(nSymbol);
+    //
+    // var neighborhoodLabel = new TextSymbol().setColor(nColor);
+    // neighborhoodLabel.font.setSize("9pt");
+    // neighborhoodLabel.font.setFamily("arial");
+    //
+    // var json = {"labelExpressionInfo": {"value": "{name}"}
+    //             };
+    //
+    // var labelClass = new LabelClass(json);
+    // labelClass.symbol = neighborhoodLabel;
+    // //mapLayer.setLabelingInfo([ labelClass ]);
 
     var symbol2 = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0]),2);
 
@@ -147,7 +147,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
               query.returnGeometry = true;
               query.where = "Name = '" + $scope.regionpick + "'";
 
-              /* queryTask.execute(query, function(result){
+              queryTask.execute(query, function(result){
 
               console.log(result.features[0]);
 
@@ -169,36 +169,36 @@ angular.module('myModule', ['angular.filter','esri.map'])
               // var highlightGraphic = new Graphic($scope.regionGraphic.geometry,highlightSymbol);
               // map2.graphics.add(highlightGraphic);
 
-             }); */
+             });
 
-			
-			map2.graphics.on("mouse-out", function() {
-                       map2.graphics.clear();
-                       map2.infoWindow.hide();
-                     });
-
-
-            mapLayer.on("mouse-over", function(evt){
-                               var t = "<b>${name}</b>";
-                               var content = esriLang.substitute(evt.graphic.attributes,t);
-                               var highlightGraphic = new Graphic(evt.graphic.geometry,highlightSymbol);
-                               console.log(evt);
-                               map2.graphics.add(highlightGraphic);
-                               map2.infoWindow.setContent(content);
-                               map2.infoWindow.setTitle("Neighborhood");
-                               map2.infoWindow.show(evt.screenPoint,map2.getInfoWindowAnchor(evt.screenPoint));
-                             });
-							 
-			var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(
+            var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(
                                                   SimpleLineSymbol.STYLE_SOLID,new Color("#191165"), 1),new Color([ 0, 197, 255, 0.35]));
 
 
-            //console.log($scope.regionGraphic.geometry);
+            console.log($scope.regionGraphic.geometry);
             var highlightGraphic = new Graphic($scope.regionGraphic.geometry,highlightSymbol);
             map2.graphics.add(highlightGraphic);
 
+            map2.graphics.on("mouse-out", function() {
+          map2.graphics.clear();
+          //map2.graphics.remove(map.graphics.graphics[map.graphics.graphics.length - 1]);
+          map2.infoWindow.hide();
+        });
+
+
+mapLayer.on("mouse-over", function(evt){
+                  var t = "<b>${name}</b>";
+                  var content = esriLang.substitute(evt.graphic.attributes,t);
+                  var highlightGraphic = new Graphic(evt.graphic.geometry,highlightSymbol);
+                  //alert(evt);
+                  map2.graphics.add(highlightGraphic);
+                  map2.infoWindow.setContent(content);
+                  map2.infoWindow.setTitle("Neighborhood");
+                  map2.infoWindow.show(evt.screenPoint,map2.getInfoWindowAnchor(evt.screenPoint));
+                });
+
         });//end of on load function
-		
+
 		var queryTask = new esri.tasks.QueryTask("http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Neighborhoods_LAT_2017_NDSC/FeatureServer/0");
         var query = new esri.tasks.Query();
         query.returnGeometry = true;
@@ -217,7 +217,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
 
           })
         });
-		
+
 
     // map2.graphics.on("mouse-out", function() {
     //           map2.graphics.clear();
@@ -359,8 +359,6 @@ map.on("click", function(evt){
     //console.log(evt.mapPoint);
     queryTask.execute(query, function(result){
     $scope.regionpick = result.features[0].attributes.Name;
-
-
     $('#mapCarousel').carousel('next');
     $scope.regionMap();
   })
