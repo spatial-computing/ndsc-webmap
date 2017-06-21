@@ -10,14 +10,14 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
 
                 $http({
                     method: 'GET',
-                    url: 'http://b4fa31bb.ngrok.io/GS-Variables'
+                    url: 'http://localhost:3000/GS-Variables'
                 }).then(function (response) {
                     $scope.variables = response.data.data;
                   });
 
                   $http({
                       method: 'GET',
-                      url: 'http://b4fa31bb.ngrok.io/GS-Region'
+                      url: 'http://localhost:3000/GS-Region'
                   }).then(function (response) {
                       $scope.regionData = response.data.data;
                     });
@@ -26,7 +26,7 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
 
                 $http({
                     method: 'GET',
-                    url: 'http://b4fa31bb.ngrok.io/GS-Main'
+                    url: 'http://localhost:3000/GS-Main'
                 }).then(function (response) {
                     $scope.main = response.data.data;
 
@@ -72,7 +72,7 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
 
 			// $http({
       //               method: 'GET',
-      //               url: 'http://b4fa31bb.ngrok.io/ndsc3'
+      //               url: 'http://localhost:3000/ndsc3'
       //           }).then(function (response) {
 			// 	$scope.about = response.data.data;});
 
@@ -334,14 +334,14 @@ map.on("click", function(evt){
 //
 //                 $http({
 //                     method: 'GET',
-//                     url: 'http://b4fa31bb.ngrok.io/GS-Variables'
+//                     url: 'http://localhost:3000/GS-Variables'
 //                 }).then(function (response) {
 //                     $scope.variables = response.data.data;
 //                   });
 //
 //                   $http({
 //                       method: 'GET',
-//                       url: 'http://b4fa31bb.ngrok.io/GS-Region'
+//                       url: 'http://localhost:3000/GS-Region'
 //                   }).then(function (response) {
 //                       $scope.regionData = response.data.data;
 //                     });
@@ -350,7 +350,7 @@ map.on("click", function(evt){
 //
 //                 $http({
 //                     method: 'GET',
-//                     url: 'http://b4fa31bb.ngrok.io/GS-Main'
+//                     url: 'http://localhost:3000/GS-Main'
 //                 }).then(function (response) {
 //                     $scope.main = response.data.data;
 //             },function(err){
@@ -360,7 +360,7 @@ map.on("click", function(evt){
 //
 // 			// $http({
 //       //               method: 'GET',
-//       //               url: 'http://b4fa31bb.ngrok.io/ndsc3'
+//       //               url: 'http://localhost:3000/ndsc3'
 //       //           }).then(function (response) {
 // 			// 	$scope.about = response.data.data;});
 //

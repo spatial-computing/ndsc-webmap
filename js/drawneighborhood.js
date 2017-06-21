@@ -9,13 +9,13 @@ angular.module('myModule', ['angular.filter','esri.map'])
       //get the data from neighborhood spreadsheet
       // $http({
       //       method: 'GET',
-      //       url: '  http://b4fa31bb.ngrok.io/GS-Neighborhood'
+      //       url: 'http://localhost:3000/GS-Neighborhood'
       // }).then(function (response){
       //       $scope.neighborhood = response.data.data;
       // });
       $http({
             method: 'GET',
-            url: '  http://b4fa31bb.ngrok.io/GS-Main'
+            url: 'http://localhost:3000/GS-Main'
         }).then(function (response) {
             $scope.main = response.data.data;
           });
@@ -23,7 +23,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
 
                       $http({
                           method: 'GET',
-                          url: '  http://b4fa31bb.ngrok.io/GS-Variables'
+                          url: 'http://localhost:3000/GS-Variables'
                       }).then(function (response) {
                           $scope.variables = response.data.data;
                         });
@@ -31,7 +31,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
       //get the data from region spreadsheet
       $http({
             method: 'GET',
-            url: '  http://b4fa31bb.ngrok.io/GS-Region'
+            url: 'http://localhost:3000/GS-Region'
       }).then(function (response){
             $scope.regionData = response.data.data;
       });
@@ -63,7 +63,8 @@ TextSymbol, SimpleRenderer, LabelClass, Color, Graphic, esriLang, QueryTask, Que
 
 //Setting labels for map
 var labelField = "Name";
-var statesColor = new Color("#191165");
+//var statesColor = new Color("#191165");
+var statesColor = new Color("#ffffff");
 var statesLine = new SimpleLineSymbol("solid", statesColor, 1.5);
 var statesSymbol = new SimpleFillSymbol("solid", statesLine, null);
 var statesRenderer = new SimpleRenderer(statesSymbol);
@@ -83,12 +84,12 @@ var statesLabel = new TextSymbol().setColor(statesColor);
 statesLabel.font.setSize("9pt");
 statesLabel.font.setFamily("arial");
 var json = {
-  "labelExpressionInfo": {"value": "{Name}"}
+  "labelExpressionInfo": {"value": "{name}"}
 };
 
-
 var labelClass = new LabelClass(json);
-labelClass.symbol = statesLabel;
+labelClass.symbol = statesLabel; // symbol also can be set in LabelClass' json
+//states.setLabelingInfo([ labelClass ]);
 
 var symbol = new SimpleFillSymbol(
     SimpleFillSymbol.STYLE_SOLID,
@@ -113,13 +114,19 @@ var highlightSymbol = new SimpleFillSymbol(
 
 map.on("load", function(){
   map.graphics.enableMouseEvents();
+  //states.enableMouseEvents();
 });
+
+// map.graphics.on("mouse-out", function(){
+//   map.graphics.clear();
+//   map.infoWindow.hide();
+// })
 
 // map.graphics.on("mouse-out", function() {
 // map.graphics.clear();
 // map.infoWindow.hide();
 // });
-//
+
 // states.on("mouse-over", function(evt){
 //   var t = "<b>${name}</b>";
 //   var content = esriLang.substitute(evt.graphic.attributes,t);
@@ -178,11 +185,8 @@ function initToolbar(mapObj) {
     map = mapObj;
     tb = new Draw(map);
     tb.on('draw-complete', function(e) {
-    // $scope.$apply(function() {
-    //   addGraphic(e);
-    // });
-    //alert(e);
     addGraphic(e);
+
   });
   // set the active tool once a button is clicked
   $scope.activateDrawTool = activateDrawTool;
@@ -191,20 +195,25 @@ function initToolbar(mapObj) {
 function activateDrawTool(tool) {
     alert("Free-hand drawing is enabled. Please draw the boundaries for your custom neighborhood and then click Explore Neighborhood button.");
     map.disableMapNavigation();
+    //map.disableMouseEvents();
+    //states.disableMouseEvents();
     tb.activate(tool.toLowerCase());
 }
 
 function addGraphic(evt) {
 //deactivate the toolbar and clear existing graphics
-tb.deactivate();
-map.enableMapNavigation();
 var symbol = lineSymbol;
 
 map.graphics.add(new Graphic(evt.geometry, symbol));
 
+tb.deactivate();
+//map.enableMapNavigation();
+// var symbol = lineSymbol;
+//
+// map.graphics.add(new Graphic(evt.geometry, symbol));
+
 $scope.geom = evt.geometry;
 //console.log($scope.geom);
-
 }
 
                                               // bind the toolbar to the map
@@ -286,7 +295,7 @@ $scope.goToMap = function(){
 
 
 
-
+var ext;
 //second map and chart page
 $scope.myneighborhoodMap = function() {
 
@@ -352,10 +361,25 @@ arrayUtils, parser) {
 
       $scope.sum = sum;
 
+
+  //     //new code to highlight specific census tract
+  //     for (var i=0, il=resultFeatures.length; i<il; i++) {
+  //   //Get the current feature from the featureSet.
+  //   //Feature is a graphic
+  //   var graphic = resultFeatures[i];
+  //   console.log(graphic);
+  //   // graphic.setSymbol(symbol);
+  //   //
+  //   // //Set the infoTemplate.
+  //   // graphic.setInfoTemplate(infoTemplate);
+  //   //
+  //   // //Add graphic to the map graphics layer.
+  //   // map.graphics.add(graphic);
+  // }
+
+
   }).then(function(){
       console.log($scope.sum);
-
-
 
   var url = "http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Neighborhoods_LAT_2017_NDSC/FeatureServer/0";
   //var url2 = "http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Regions_LAT_2017_NDSC/FeatureServer/0";
@@ -366,7 +390,7 @@ arrayUtils, parser) {
   var mapLayer = new FeatureLayer(url, {
                   id: "regionMap",
                   outFields: ["*"],
-                  infoTemplate: info
+                  // infoTemplate: info
                   });
 
   var featureLayer = new FeatureLayer($scope.mapUrl);
@@ -374,6 +398,7 @@ arrayUtils, parser) {
   map2 = new Map("map2", {
                 basemap: "gray",
                 center: [-118.2437, 34.2522],
+                // center: [-13167108.947096346, 4081367.440241286],
                 zoom: 9,
                 showLabels : true,
                 });
@@ -394,8 +419,6 @@ arrayUtils, parser) {
   map2.addLayer(featureLayer);
   map2.addLayer(mapLayer);
 
-  console.log($scope.geom);
-
 // highlight the drawn neighborhood
 // var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(
 //                             SimpleLineSymbol.STYLE_SOLID,new Color("#191165"), 1),new Color([ 0, 197, 255, 0.35]));
@@ -413,6 +436,22 @@ map2.graphics.enableMouseEvents();
 
 var highlightGraphic = new Graphic($scope.geom,highlightSymbol);
 map2.graphics.add(highlightGraphic);
+
+ext = $scope.geom.getExtent();
+console.log($scope.geom);
+var center = $scope.geom.getExtent().getCenter();
+console.log(center);
+
+//map2.centerAt(center.x,center.y);
+
+var polygonExtent = new Extent();
+polygonExtent.xmin = ext.xmin;
+polygonExtent.ymin = ext.ymin;
+polygonExtent.xmax = ext.xmax;
+polygonExtent.ymax = ext.ymax;
+//map2.setExtent(polygonExtent);
+
+
 
 
 
@@ -481,13 +520,14 @@ map2.graphics.add(highlightGraphic);
 //chart code
 $scope.url = $scope.mapUrl;
 $scope.jsonUrl = $scope.mapUrl + "?f=pjson";
-console.log($scope.jsonUrl);
+//console.log($scope.jsonUrl);
   $http({
     method: 'GET',
     url: $scope.jsonUrl
 }).then(function (response) {
+  console.log(ext);
     $scope.trial = response.data.drawingInfo.renderer;
-    console.log($scope.trial);
+    //console.log($scope.trial);
     var groupByExpression = "CASE ";
     var arr = $scope.trial.classBreakInfos;
     groupByExpression = groupByExpression + "WHEN "+$scope.trial.field+ " < 0 OR "+$scope.trial.field+ " IS NULL THEN 'No Data' ";
@@ -496,7 +536,10 @@ console.log($scope.jsonUrl);
        groupByExpression = groupByExpression + "WHEN "+$scope.trial.field+ " BETWEEN "+$scope.trial.classBreakInfos[i-1].classMaxValue+" AND "+$scope.trial.classBreakInfos[i].classMaxValue+" THEN '"+$scope.trial.classBreakInfos[i].label+"' ";
     }
     groupByExpression = groupByExpression + " END";
-    console.log(groupByExpression);
+    //console.log(groupByExpression);
+
+    var box = ext.xmin + ',' + ext.xmax + ',' + ext.ymin + ',' + ext.ymax;
+
     var chart = new Cedar({
       "type":"bar",
       "dataset":{
@@ -508,7 +551,8 @@ console.log($scope.jsonUrl);
             "statisticType": "count",
             "onStatisticField": $scope.trial.field,
             "outStatisticFieldName": "RangeCount"
-          }]
+          }],
+          "bbox": box
         },
         "mappings":{
           "x": {"field":"EXPR_1","label":"Range"},

@@ -12,6 +12,7 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
 
       //$scope.mapUrl = $scope.mdata["feature-serviceurl"] + "/0";
       $scope.nhood = JSON.parse(sessionStorage.nhood);
+      console.log($scope.nhood);
       $scope.variable = JSON.parse(sessionStorage.variable);
       $scope.mapUrl = JSON.parse(sessionStorage.varUrl);
 
@@ -21,47 +22,47 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
 
                 $http({
                     method: 'GET',
-                    url: 'http://b4fa31bb.ngrok.io/GS-Variables'
+                    url: 'http://localhost:3000/GS-Variables'
                 }).then(function (response) {
                     $scope.variables = response.data.data;
-                    console.log($scope.variable);
+                    //console.log($scope.variable);
                     $scope.varMapDash = $filter('filter')($scope.variables, { variable: $scope.variable });
-                    console.log($scope.varMapDash);
+                    //console.log($scope.varMapDash);
                   });
 
                   $http({
                       method: 'GET',
-                      url: 'http://b4fa31bb.ngrok.io/GS-Region'
+                      url: 'http://localhost:3000/GS-Region'
                   }).then(function (response) {
                       $scope.regionData = response.data.data;
                     });
 
                     $http({
                         method: 'GET',
-                        url: 'http://b4fa31bb.ngrok.io/GS-Neighborhood'
+                        url: 'http://localhost:3000/GS-Neighborhood'
                     }).then(function (response) {
                         $scope.neighborhood = response.data.data;
 						$scope.about = $filter('filter')($scope.neighborhood, { neighborhood: $scope.nhood });
-						console.log($scope.about);
+						//console.log($scope.about);
                       });
 
                 $http({
                     method: 'GET',
-                    url: 'http://b4fa31bb.ngrok.io/GS-Main'
+                    url: 'http://localhost:3000/GS-Main'
                 }).then(function (response) {
                     $scope.main = response.data.data;
-					
-					
+
+
 
 
               var pop = $filter('filter')($scope.main, { variable: $scope.variable });
-			  
-			  
-			  
+
+
+
 			  $scope.varDataUrl = pop[0]["open-dataurl"];
-			  console.log($scope.varDataUrl);
-			  
-			  
+			  //console.log($scope.varDataUrl);
+
+
 
               if (pop.length!=0) {
                   $scope.max=parseInt(pop[0].year);
@@ -95,13 +96,13 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
               }
 
             },function(err){
-                console.log(err);
+                //console.log(err);
                 });
 
 
 			// $http({
       //               method: 'GET',
-      //               url: 'http://b4fa31bb.ngrok.io/ndsc3'
+      //               url: 'http://9a3d77c5.ngrok.io/ndsc3'
       //           }).then(function (response) {
 			// 	$scope.about = response.data.data;});
 
@@ -154,22 +155,21 @@ arrayUtils, parser, Query, QueryTask) {
   var queryTask0 = new QueryTask("http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Neighborhoods_LAT_2017_NDSC/FeatureServer/0");
   var query0 = new Query();
   query0.returnGeometry = true;
-      query0.outFields = ["*"];
+  query0.outFields = ["*"];
   var query = new Query();
-      query.returnGeometry = true;
-      query.outFields = ["*"];
+  query.returnGeometry = true;
+  query.outFields = ["*"];
       var queryTask2 = new QueryTask($scope.mapUrl);
       var query2 = new Query();
       query2.returnGeometry = true;
       query2.outFields = ["*"];
 
-var labelField = "name";
-
-// create a renderer for the states layer to override default symbology
-var statesColor = new Color("#FF3300");
-var statesLine = new SimpleLineSymbol("solid", statesColor, 1.5);
-var statesSymbol = new SimpleFillSymbol("solid", statesLine, null);
-var statesRenderer = new SimpleRenderer(statesSymbol);
+// var labelField = "name";
+// // create a renderer for the states layer to override default symbology
+// var statesColor = new Color("#FF3300");
+// var statesLine = new SimpleLineSymbol("solid", statesColor, 1.5);
+// var statesSymbol = new SimpleFillSymbol("solid", statesLine, null);
+// var statesRenderer = new SimpleRenderer(statesSymbol);
 // create a feature layer to show country boundaries
 var statesUrl = "http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Neighborhoods_LAT_2017_NDSC/FeatureServer/0";
 //var statesUrl = $scope.mdata["Feature-service URL"] + "/0";
@@ -185,22 +185,22 @@ info.setContent("${name}");
 var states = new FeatureLayer(statesUrl, {
 id: "states",
 outFields: ["*"],
-infoTemplate: info,
+// infoTemplate: info,
 });
-var statesLabel = new TextSymbol().setColor(statesColor);
-statesLabel.font.setSize("9pt");
-statesLabel.font.setFamily("arial");
-var json = {
-  "labelExpressionInfo": {"value": "{name}"}
-};
-//create instance of LabelClass (note: multiple LabelClasses can also be passed in as an array)
-var labelClass = new LabelClass(json);
-labelClass.symbol = statesLabel; // symbol also can be set in LabelClass' json
+// var statesLabel = new TextSymbol().setColor(statesColor);
+// statesLabel.font.setSize("9pt");
+// statesLabel.font.setFamily("arial");
+// var json = {
+//   "labelExpressionInfo": {"value": "{name}"}
+// };
+// //create instance of LabelClass (note: multiple LabelClasses can also be passed in as an array)
+// var labelClass = new LabelClass(json);
+// labelClass.symbol = statesLabel; // symbol also can be set in LabelClass' json
 
 map.on("layers-add-result", function (evt) {
   var layerInfo = arrayUtils.map(evt.layers, function (layer, index) {
     return {layer:layer.layer, title:"Map Legend"};
-    console.log(layer.layer);
+    //console.log(layer.layer);
   });
   if (layerInfo.length > 0) {
     var legendDijit = new Legend({
@@ -214,13 +214,14 @@ map.on("layers-add-result", function (evt) {
 map.addLayers([waterbodies,states]);
 //states.setLabelingInfo([ labelClass ]);
 
-var nObject = $filter('filter')($scope.neighborhood, { neighborhood : $scope.nhood });
-
+$scope.nObject = $filter('filter')($scope.neighborhood, { neighborhood : $scope.nhood });
+//console.log(nObject);
 var startExtent = new Extent();
-startExtent.xmin = nObject[0].minpointx;
-startExtent.ymin = nObject[0].minpointy;
-startExtent.xmax = nObject[0].maxpointx;
-startExtent.ymax = nObject[0].maxpointy;
+startExtent.xmin = $scope.nObject[0].minpointx;
+startExtent.ymin = $scope.nObject[0].minpointy;
+startExtent.xmax = $scope.nObject[0].maxpointx;
+startExtent.ymax = $scope.nObject[0].maxpointy;
+console.log(startExtent);
 map.setExtent(startExtent);
 
 var highlightSymbol = new SimpleFillSymbol(
@@ -279,7 +280,7 @@ map.on("click", function(evt){
         $scope.sum += resultItems[i];
       }
       $scope.avg = Math.round(($scope.sum/results.features.length) * 100) / 100;
-      console.log($scope.avg);
+      //console.log($scope.avg);
       $scope.$apply();
     }
 
@@ -328,6 +329,11 @@ map.on("click", function(evt){
                  groupByExpression = groupByExpression + "WHEN "+$scope.trial.field+ " BETWEEN "+$scope.trial.classBreakInfos[i-1].classMaxValue+" AND "+$scope.trial.classBreakInfos[i].classMaxValue+" THEN '"+$scope.trial.classBreakInfos[i].label+"' ";
               }
               groupByExpression = groupByExpression + " END";
+
+              $scope.nObject = $filter('filter')($scope.neighborhood, { neighborhood : $scope.nhood });
+              console.log($scope.nObject);
+              var box = $scope.nObject[0].minpointx + ',' + $scope.nObject[0].maxpointx + ',' + $scope.nObject[0].minpointy + ',' + $scope.nObject[0].maxpointy;
+
               var chart = new Cedar({
                 "type":"bar",
                 "dataset":{
@@ -339,7 +345,8 @@ map.on("click", function(evt){
                       "statisticType": "count",
                       "onStatisticField": $scope.trial.field,
                       "outStatisticFieldName": "RangeCount"
-                    }]
+                    }],
+                    "bbox": box
                   },
                   "mappings":{
                     "x": {"field":"EXPR_1","label":"Range"},
@@ -367,8 +374,14 @@ map.on("click", function(evt){
                 }
                 return queryResult;
               };
+
+              //changing chart for neighborhood extent
+              // chart.dataset.query.bbox = $scope.nObject[0].minpointx + ',' + $scope.nObject[0].maxpointx + ',' + $scope.nObject[0].minpointy + ',' + $scope.nObject[0].maxpointy;
+              // chart.update();
+
+
           },function(err){
-              console.log(err);
+              //console.log(err);
           });
 
 
