@@ -3,7 +3,12 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-
+body
+		 {
+			 overflow:scroll;
+			 min-width: 1000px;
+		
+		 }
 #main-nav {
   background-color: #990000;
   border-radius: 0px;
