@@ -193,7 +193,7 @@ function initToolbar(mapObj) {
 }
 
 function activateDrawTool(tool) {
-    alert("Free-hand drawing is enabled. Please draw the boundaries for your custom neighborhood and then click Explore Neighborhood button.");
+    //alert("Free-hand drawing is enabled. Please draw the boundaries for your custom neighborhood and then click Explore Neighborhood button.");
     map.disableMapNavigation();
     //map.disableMouseEvents();
     //states.disableMouseEvents();
@@ -221,6 +221,8 @@ initToolbar(map);
 
 $scope.clearMap = function(){
   map.graphics.remove(map.graphics.graphics[map.graphics.graphics.length - 1]);
+  $("#drawButton").removeClass("activeButton");
+  $("#drawButton").text("Click here to start drawing!");
 }
 
 $scope.goToMap = function(){
