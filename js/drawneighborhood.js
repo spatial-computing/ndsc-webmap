@@ -15,7 +15,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
       // });
       $http({
             method: 'GET',
-            url: 'http://b4fa31bb.ngrok.io/GS-Main'
+            url: 'http://localhost:3000/GS-Main'
         }).then(function (response) {
             $scope.main = response.data.data;
           });
@@ -23,7 +23,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
 
                       $http({
                           method: 'GET',
-                          url: 'http://b4fa31bb.ngrok.io/GS-Variables'
+                          url: 'http://localhost:3000/GS-Variables'
                       }).then(function (response) {
                           $scope.variables = response.data.data;
                         });
@@ -31,7 +31,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
       //get the data from region spreadsheet
       $http({
             method: 'GET',
-            url: 'http://b4fa31bb.ngrok.io/GS-Region'
+            url: 'http://localhost:3000/GS-Region'
       }).then(function (response){
             $scope.regionData = response.data.data;
       });
@@ -57,9 +57,10 @@ esriLoader.require([
 "esri/symbols/CartographicLineSymbol",
 "esri/toolbars/draw",
 'esri/symbols/PictureFillSymbol',
+"esri/geometry/webMercatorUtils",
 "dojo/domReady!"
 ], function(Map, Extent, FeatureLayer, SimpleLineSymbol, SimpleFillSymbol,
-TextSymbol, SimpleRenderer, LabelClass, Color, Graphic, esriLang, QueryTask, Query, CartographicLineSymbol, Draw, PictureFillSymbol) {
+TextSymbol, SimpleRenderer, LabelClass, Color, Graphic, esriLang, QueryTask, Query, CartographicLineSymbol, Draw, PictureFillSymbol, webMercatorUtils) {
 
 //Setting labels for map
 var labelField = "Name";
@@ -213,7 +214,7 @@ tb.deactivate();
 // map.graphics.add(new Graphic(evt.geometry, symbol));
 
 $scope.geom = evt.geometry;
-//console.log($scope.geom);
+console.log($scope.geom);
 }
 
                                               // bind the toolbar to the map
@@ -320,10 +321,11 @@ $scope.myneighborhoodMap = function() {
 "esri/dijit/Legend",
 "dojo/_base/array",
 "dojo/parser",
+"esri/geometry/webMercatorUtils",
 "dojo/domReady!"
 ], function(Map, Extent, FeatureLayer, SimpleLineSymbol, SimpleFillSymbol,
 TextSymbol, SimpleRenderer, LabelClass, Color, Graphic, esriLang, Query, QueryTask, Polygon, Legend,
-arrayUtils, parser) {
+arrayUtils, parser, webMercatorUtils) {
   parser.parse();
 
   $scope.sum = 0;
@@ -413,7 +415,7 @@ arrayUtils, parser) {
   map2 = new Map("map2", {
                 basemap: "gray",
                 center: [-118.2437, 34.2522],
-                // center: [-13167108.947096346, 4081367.440241286],
+                // center: [6467871.773, 1854546.687],
                 zoom: 9,
                 showLabels : true,
                 });
@@ -434,16 +436,12 @@ arrayUtils, parser) {
   map2.addLayer(featureLayer);
   map2.addLayer(mapLayer);
 
-// highlight the drawn neighborhood
-// var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(
-//                             SimpleLineSymbol.STYLE_SOLID,new Color("#191165"), 1),new Color([ 0, 197, 255, 0.35]));
-
 var highlightSymbol = new SimpleFillSymbol(
   SimpleFillSymbol.STYLE_SOLID,
   new SimpleLineSymbol(
     SimpleLineSymbol.STYLE_SOLID,
-    new Color("#191165"), 1
-  ), new Color([255,0,0,0.5]));
+    new Color("#191165"), 2
+  ), new Color([255,0,0,0.4]));
 
 
 map2.on("load", function(){
@@ -452,40 +450,20 @@ map2.graphics.enableMouseEvents();
 var highlightGraphic = new Graphic($scope.geom,highlightSymbol);
 map2.graphics.add(highlightGraphic);
 
-ext = $scope.geom.getExtent();
-console.log($scope.geom);
-var center = $scope.geom.getExtent().getCenter();
-console.log(center);
 
-//map2.centerAt(center.x,center.y);
+$scope.newGeometry = webMercatorUtils.webMercatorToGeographic($scope.geom);
+console.log($scope.newGeometry);
+ext = $scope.newGeometry.getExtent();
+console.log(ext);
 
 var polygonExtent = new Extent();
 polygonExtent.xmin = ext.xmin;
 polygonExtent.ymin = ext.ymin;
 polygonExtent.xmax = ext.xmax;
 polygonExtent.ymax = ext.ymax;
-//map2.setExtent(polygonExtent);
-
-
-
-
+map2.setExtent(polygonExtent);
 
 });
-
-// map.graphics.on("mouse-out", function() {
-// map.graphics.clear();
-// map.infoWindow.hide();
-// });
-//
-// states.on("mouse-over", function(evt){
-//   var t = "<b>${name}</b>";
-//   var content = esriLang.substitute(evt.graphic.attributes,t);
-//   var highlightGraphic = new Graphic(evt.graphic.geometry,highlightSymbol);
-//   map.graphics.add(highlightGraphic);
-//   map.infoWindow.setContent(content);
-//   map.infoWindow.setTitle("Neighborhood");
-//   map.infoWindow.show(evt.screenPoint,map.getInfoWindowAnchor(evt.screenPoint));
-// });
 
 //slider code
   var pop = $filter('filter')($scope.main, { variable: $scope.variable });
@@ -555,6 +533,7 @@ $scope.jsonUrl = $scope.mapUrl + "?f=pjson";
 
     var box = ext.xmin + ',' + ext.xmax + ',' + ext.ymin + ',' + ext.ymax;
 
+
     var chart = new Cedar({
       "type":"bar",
       "dataset":{
@@ -565,9 +544,10 @@ $scope.jsonUrl = $scope.mapUrl + "?f=pjson";
           "outStatistics": [{
             "statisticType": "count",
             "onStatisticField": $scope.trial.field,
-            "outStatisticFieldName": "RangeCount"
+            "outStatisticFieldName": "RangeCount",
           }],
-          "bbox": box
+          "bbox": box,
+          "inSR": "102100"
         },
         "mappings":{
           "x": {"field":"EXPR_1","label":"Range"},
@@ -605,9 +585,5 @@ $scope.jsonUrl = $scope.mapUrl + "?f=pjson";
   });
 
 }
-
-
-
-
 
 });//angular controller ends
