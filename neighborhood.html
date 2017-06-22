@@ -15,11 +15,18 @@
     <link rel="stylesheet" href="css/exp_neighborhood.css">
     <link rel="stylesheet" href="css/loading.css">
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+	  <meta name=viewport content="initial-scale=1">
 	  <style>
 	  div.esriPopupWrapper .zoomTo 
 		 {
   			display: none;	
 
+		 }
+		  body
+		 {
+			 overflow:scroll;
+			 min-width: 1500px;
+		
 		 }
 	  </style>
   </head>
@@ -87,7 +94,7 @@
       <div class="item active">
         <div id="header-band" style=""><h4 class="text-center">SELECT YOUR REGION</h4></div>
 
-      <div class="col-md-3" style="display:inline-block">
+      <div class="col-xs-3" style="display:inline-block">
         <h4 class="listHeading">L.A. TIMES REGIONS</h4>
 
       <div class="regList" style="">
@@ -99,14 +106,14 @@
        </div>
 
     </div>
-  <div class="col-md-6" style="display:inline-block">
+  <div class="col-xs-6" style="display:inline-block">
       <h4 class="mapTitle" style="text-align: center; margin-bottom:3px">Select a Region Using Map or List</h4>
   <div id="mapDiv" style="">
   <esri-map id="map" map-options="{ basemap: 'gray', center: [-118.2437, 34.2522], zoom: 9,showLabels : true }" load="onMapLoad">
   </esri-map>
   </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-xs-3">
   <p style="margin-top: 10px; margin-left: 10px; color: #004d4d">Why use L.A. Times Neighborhoods?</p>
   <div class="search">
     <h4>SEARCH BY NEIGHBORHOOD NAME</h4>
@@ -117,6 +124,7 @@
 	  <a href="#"data-toggle="tooltip" data-placement="top" title="Work in Progress!" ><input type="text"  placeholder="Enter an address" disabled></a>
   </div>
   </div>
+<div style="clear:both";></div>
   <div class="band" style=""></div>
 
   </div>
@@ -124,9 +132,9 @@
   <div class="item">
     <div id="header-band" style=""><h4 class="text-center">SELECT YOUR NEIGHBORHOOD</h4></div>
 
-  <div class="col-md-3" style="display:inline-block">
-    <button class="col-md-1" style="display:inline; margin-top: 20px" onclick="$('#mapCarousel').carousel('prev')"><i class="fa fa-chevron-left" style="color:black;"></i></button>
-    <div class="col-md-11" style="display:inline-block"><h4 class="listHeading">{{ regionpick }} Neighborhoods</h4></div>
+  <div class="col-xs-3" style="display:inline-block">
+    <button class="col-xs-1" style="display:inline; margin-top: 20px" onclick="$('#mapCarousel').carousel('prev')"><i class="fa fa-chevron-left" style="color:black;"></i></button>
+    <div class="col-xs-11" style="display:inline-block"><h4 class="listHeading">{{ regionpick }} Neighborhoods</h4></div>
 
   <div class="regList" style="display: inline-block; height: 390px; overflow-y: scroll">
         <ul class="regMenu" style="padding-left: 0px">
@@ -138,14 +146,14 @@
    </div>
 
   </div>
-  <div class="col-md-6" style="display:inline-block">
+  <div class="col-xs-6" style="display:inline-block">
   <h4 class="mapTitle" style="text-align: center; margin-bottom:3px">Select a Neighborhood Using Map or List</h4>
   <div id="mapDiv" style="">
   <div id="map2" style="height: 390px">
   </div>
   </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-xs-3">
   <p style="margin-top: 10px; margin-left: 10px; color: #004d4d">Why use L.A. Times Neighborhoods?</p>
   <div class="search">
   <h4>SEARCH BY NEIGHBORHOOD NAME</h4>
@@ -156,6 +164,7 @@
 	  <a href="#"data-toggle="tooltip" data-placement="top" title="Work in Progress!" ><input type="text"    placeholder="Enter an address" disabled></a>
   </div>
   </div>
+ <div style="clear:both";></div>
   <div class="band" style=""></div>
   </div>
 
