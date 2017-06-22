@@ -1,13 +1,13 @@
 <html ng-app='myModule' ng-controller='myController'>
   <head>
-    <title>About Our Data</title>
+    <title>Explore Variables</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
     <!-- <link rel="stylesheet" href="css/ex_var_style.css"> -->
     <link rel="stylesheet" href="css/loading.css">
     <style>
@@ -16,7 +16,7 @@
 
     	text-decoration: none;
     }
-
+     
      .col-md-2{
       padding: 15px; box-sizing: 10px; height: 5px;
 
@@ -24,33 +24,33 @@
      }
       #liDesign{
 
-          background-color: #d9ead3;
-          border: 2px solid #004d4d;
-          font-weight: bold;
-          text-transform: uppercase;
+          background-color: #d9ead3; 
+          border: 2px solid #004d4d; 
+          font-weight: bold; 
+          text-transform: uppercase; 
           padding: 15px; box-sizing: 10px;
 
         }
 
       #liDesign:hover{
-          border-color: #00ffff;
-          background-color: #a2c4c9;
+          border-color: #00ffff; 
+          background-color: #a2c4c9;         
         }
 
 
         #mybutton{
 
           color: #004d4d;
-          float:right;
+          float:right; 
           margin-right: 40%;
           position: relative;
-          margin-top: 10px;
-          background-color: #d9ead3;
+          margin-top: 10px; 
+          background-color: #d9ead3; 
           border-color: #004d4d;"
 
           }
         #mybutton:hover{
-          border-color: #00ffff;
+          border-color: #00ffff;          
         }
     </style>
   </head>
@@ -78,47 +78,44 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               <li><a href="about.html">About</a></li>
-              <li><a href="data_dictionary.html">Data Dictionary</a></li>
+              <li><a href="data_dictionary">Data Dictionary</a></li>
               <li><a href="explorevariables.html">Explore Variables</a></li>
-              <li><a href="neighborhood_lp.html">Explore Neighborhoods</a></li>
+              <li><a href="neighborhood.html">Explore Neighborhoods</a></li>
               <li><a href="exp_comp_ind.html">Explore Composite Indicators</a></li>
-              <li><a href="data_stories.html">Data Stories</a></li>
+              <li><a href="#">Data Stories</a></li>
               <li><a href="about_data.html">Learn About The Data</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="login.html">Login/Sign Up</a></li>
+              <li><a href="login.html">Login/Signup</a></li>
             </ul>
           </div>
         </div>
       </nav>
 
-
-
-
-      <!-- <div id="header-band"><h4 class="text-center">&nbsp;</h4></div>
-      -->
-
-      <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-        <div class="carousel-inner">
-          <div class="item active">
-
-            <div class="container-fluid">
+      <div class="container-fluid">
         <div class="row">
-          <div class="col-xs-2 ">
-            <img src="img/price.png" id="price-logo" style="width:60%;">
+          <div class="col-xs-2">
+            <img src="img/price.png" id="price-logo"	style="width:60%;">
           </div>
-          <div class="col-xs-8 " style="position:relative;">
+          <div class="col-xs-8" style="position:relative;">
             <img src="img/about_data.jpg" id="title-image" >
-            <h1 class="title-text-homepage">
-            <b>LEARN ABOUT THE DATA</b><br>
+            <h1 class="title-text">
+            <b >LEARN ABOUT THE DATA</b><br>
             </h1>
           </div>
-          <div class="col-xs-2 ">
-            <img src="img/dornsife.png" id="dornsife-logo" style="width:60%;">
+          <div class="col-xs-2">
+            <img src="img/dornsife.png" id="dornsife-logo"style="width:60%;">
           </div>
         </div>
       </div>
 
+
+      <div id="header-band"><h4 class="text-center">&nbsp;</h4></div>
+     
+
+      <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+        <div class="carousel-inner">
+          <div class="item active">
           <div id="footer-band"><h4 class="text-center">Take an in-depth look at each of our variables and why they are important for neighborhoods and individuals.<br>Begin By clicking on a policy area below.</h4></div>
             <div style="background-image: url('img/about_data.jpg');background-size: 90%;">
             <br>
@@ -128,7 +125,7 @@
                 <div id="liDesign" class="col-md-8 text-center" style="height: 57px;"><a style="text-decoration: none; color:#004d4d ">{{a.policyarea}}</a></div>
                 <br><br><br><br>
                 </div>
-            </div>
+            </div> 
             </div>
             <div id="header-band"><h4 class="text-center">&nbsp;</h4></div>
             <div id="header-band"><h4 class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;Looking for a quick list of all variables?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button style="color: #0c343d;">Browse our Data dictionary</button></h4></div>
@@ -136,33 +133,15 @@
            </div>
 
 
-<!-- SECOND CAROUSEL -->
 
            <div class="item">
-
-           <div class="container-fluid">
-        <div class="row">
-          <div class="col-xs-2 col-sm-1 col-md-1">
-            <img src="img/price.png" id="price-logo">
-          </div>
-          <div class="col-xs-8 col-sm-10 col-md-10" style="position:relative;">
-            <img src="img/about_data.jpg" id="title-image" >
-            <h1 class="title-text-homepage">
-            <b style="padding-left:160px;">LEARN: {{pa}} </b><br>
-            </h1>
-          </div>
-          <div class="col-xs-2 col-sm-1 col-md-1">
-            <img src="img/dornsife.png" id="dornsife-logo">
-          </div>
-        </div>
-      </div>
                 <div id="footer-band"><h4 class="text-center">Select a dataset to start learning</h4></div>
                 <div style="background-image: url('img/about_data.jpg');background-size: 90%;">
                 <br>
+         
 
 
-
-                &nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-default btn-sm" ng-click=back()>
+                &nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-sm" ng-click=back()>
                 <span class="glyphicon glyphicon-chevron-left"></span> Back
                 </button>
                 <br><br>
@@ -170,7 +149,7 @@
 
 
                 <div class="row">
-                <div class="col-md-4" ng-repeat="b in menuDtsList | unique: 'dataset'" ng-click=getVar2(b.dataset) >
+                <div class="col-md-4" ng-repeat="b in menuDtsList | unique: 'dataset'" ng-click=getVar(b) >
                 <div class="col-md-2" style=""></div>
                 <div id="liDesign" class="col-md-8 text-center" style="height: 57px; margin-right: 20px;"><a style="text-decoration: none; color:#004d4d; ">{{b.dataset}}</a>
                 </div>
@@ -178,51 +157,12 @@
                 </div>
                 </div>
                 </div>
-
-                <div id="header-band"><h4 class="text-center"><button style="color: #0c343d; margin: 8px;" ng-click=back()>Return to Learn About Data Page</button></h4></div>
+                
+                <div id="header-band"><h4 class="text-center"><button style="color: #0c343d; margin: 8px;">Return to Learn About Data Page</button></h4></div>
               </div>
-
-
-
-<!-- THIRD CAROUSEL -->
-                <div class="item">
-                <div id="header-band" style="height: 70px;"><h4 class="text-center" style="font-size: 30px;padding-top: 15px;">What is {{datasetSelected}} ?</h4></div>
-
-
-                <div style="background-image: url('img/about_data.jpg');background-size: 90%;">
-                <br>
-
-
-
-                &nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-default btn-sm" ng-click=back()>
-                <span class="glyphicon glyphicon-chevron-left"></span> Back
-                </button>
-                <br>
-
-                <div class="row">
-                <div class="col-md-4">
-                <div class="col-md-2" style=""></div>
-                <div id="liDesign" class="col-md-8 text-center" style=" text-align: left; text-transform:none; height: 438px; width: 890px; margin-right: 20px; margin-left:200px;"><a style="text-decoration: none; color:#004d4d; text-align: left;font-size:20px; ">{{ learnabout }}</a>
-                </div>
-                <br><br><br><br>
-                </div>
-                </div>
-                <br>
-                </div>
-
-
-                <div id="header-band"><h4 class="text-center"><button style="color: #0c343d; margin: 8px; " ng-click=back()>Return to Datasets</button></h4></div>
-              </div>
-
-
-
-
-
-
-
           </div>
-
-
+       
+      
     </div>
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
