@@ -342,6 +342,27 @@ arrayUtils, parser, webMercatorUtils) {
     "*"
   ];
 
+
+  var polygonExtent = new Extent();
+  polygonExtent.xmin = -118.953532;
+  polygonExtent.ymin = 32.792291;
+  polygonExtent.xmax = -117.644108;
+  polygonExtent.ymax = 34.823016;
+  var varFilter = $filter('filter')($scope.variables, { variable: $scope.mapData.variable});
+  var queryTaskmedian = new QueryTask($scope.mapUrl);
+  var querymedian = new Query();
+  var medianItems = [];
+  querymedian.geometry = polygonExtent;
+  querymedian.outFields = ["*"];
+  queryTaskmedian.execute(querymedian, function(result) {
+     for (var i = 0; i < result.features.length; i++) {
+       medianItems.push(result.features[i].attributes[varFilter[0].fieldname]);
+      }
+       medianItems.sort(function(a, b){return a-b});
+       $scope.median = medianItems[(medianItems.length)/2];
+    });
+
+    
   // sessionStorage.mynhood =  JSON.stringify($scope.geom);
   //   var g = JSON.parse(sessionStorage.mynhood);
   //   var geom = g;
