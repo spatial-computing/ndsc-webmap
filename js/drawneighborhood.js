@@ -6,13 +6,6 @@ angular.module('myModule', ['angular.filter','esri.map'])
     var map2;
       $scope.mapFlag = 0;
 
-      //get the data from neighborhood spreadsheet
-      // $http({
-      //       method: 'GET',
-      //       url: 'http://b4fa31bb.ngrok.io/GS-Neighborhood'
-      // }).then(function (response){
-      //       $scope.neighborhood = response.data.data;
-      // });
       $http({
             method: 'GET',
             url: 'http://6370bd5f.ngrok.io/GS-Main'
@@ -115,50 +108,13 @@ var highlightSymbol = new SimpleFillSymbol(
 
 map.on("load", function(){
   map.graphics.enableMouseEvents();
-  //states.enableMouseEvents();
 });
-
-// map.graphics.on("mouse-out", function(){
-//   map.graphics.clear();
-//   map.infoWindow.hide();
-// })
-
-// map.graphics.on("mouse-out", function() {
-// map.graphics.clear();
-// map.infoWindow.hide();
-// });
-
-// states.on("mouse-over", function(evt){
-//   var t = "<b>${name}</b>";
-//   var content = esriLang.substitute(evt.graphic.attributes,t);
-//   var highlightGraphic = new Graphic(evt.graphic.geometry,highlightSymbol);
-//   map.graphics.add(highlightGraphic);
-//   map.infoWindow.setContent(content);
-//   map.infoWindow.setTitle("Neighborhood");
-//   map.infoWindow.show(evt.screenPoint,map.getInfoWindowAnchor(evt.screenPoint));
-// });
-
 
 //get region selected on click
 var queryTask = new esri.tasks.QueryTask("http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Regions_LAT_2017_NDSC/FeatureServer/0");
 var query = new esri.tasks.Query();
 query.returnGeometry = true;
 query.outFields = ["name"];
-
-// map.on("click", function(evt){
-//     //console.log(evt.graphic);
-//     $scope.regionGraphic = evt.graphic;
-//     query.geometry = evt.mapPoint;
-//     //console.log(evt.mapPoint);
-//     queryTask.execute(query, function(result){
-//     $scope.regionpick = result.features[0].attributes.Name;
-//
-//
-//     $('#mapCarousel').carousel('next');
-//     $scope.regionMap();
-//   })
-// });
-
 
 var tb;
 
@@ -169,17 +125,12 @@ var lineSymbol = new CartographicLineSymbol(
                     CartographicLineSymbol.JOIN_MITER, 5
                 );
 
-                var fillSymbol = new PictureFillSymbol(
-                                    // 'images/mangrove.png',
-                                    'http://developers.arcgis.com/javascript/samples/graphics_add/images/mangrove.png',
-                                    new SimpleLineSymbol(
-                                        SimpleLineSymbol.STYLE_SOLID,
-                                        new Color('#000'),
-                                        1
-                                    ),
-                                    42,
-                                    42
-                                );
+                var fillSymbol = new SimpleFillSymbol(
+                  SimpleFillSymbol.STYLE_SOLID,
+                  new SimpleLineSymbol(
+                    SimpleLineSymbol.STYLE_SOLID,
+                    new Color([255,0,0]), 2
+                  ), new Color([255,0,0,0.15]));
 
 function initToolbar(mapObj) {
 
@@ -203,21 +154,17 @@ function activateDrawTool(tool) {
 
 function addGraphic(evt) {
 //deactivate the toolbar and clear existing graphics
-var symbol = lineSymbol;
+var symbol = fillSymbol;
 
 map.graphics.add(new Graphic(evt.geometry, symbol));
 
 tb.deactivate();
-//map.enableMapNavigation();
-// var symbol = lineSymbol;
-//
-// map.graphics.add(new Graphic(evt.geometry, symbol));
 
 $scope.geom = evt.geometry;
-console.log($scope.geom);
+
 }
 
-                                              // bind the toolbar to the map
+// bind the toolbar to the map
 initToolbar(map);
 
 $scope.clearMap = function(){
@@ -227,40 +174,6 @@ $scope.clearMap = function(){
 }
 
 $scope.goToMap = function(){
-  //console.log($scope.geom);
-
-  // var queryTask = new QueryTask("http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/Income_MedianHouseholdIncome_2015_NDSC/FeatureServer/0");
-  // var query = new Query();
-  // query.returnGeometry = true;
-  // query.outFields = [
-  //   "*"
-  // ];
-  //
-  // // sessionStorage.mynhood =  JSON.stringify($scope.geom);
-  // //   var g = JSON.parse(sessionStorage.mynhood);
-  // //   var geom = g;
-  // //   console.log(geom);
-  //   query.geometry = $scope.geom;
-  //   queryTask.execute(query, function(results){
-  //     //console.log(results);
-  //
-  //     var resultItems = [];
-  //     var sum=0;
-  //     var resultCount = results.features.length;
-  //     for (var i = 0; i < resultCount; i++) {
-  //       var featureAttributes = results.features[i].attributes;
-  //       for (var attr in featureAttributes) {
-  //         resultItems.push(featureAttributes[attr]);
-  //       }
-  //     }
-  //     for (var i = 2; i < resultItems.length; i+=5) {
-  //       sum += resultItems[i];
-  //     }
-  //     $scope.sum = sum;
-  //     console.log(sum);
-  // });
-
-
 
   //console.log($scope.results);
 
@@ -362,11 +275,7 @@ arrayUtils, parser, webMercatorUtils) {
        $scope.median = medianItems[(medianItems.length)/2];
     });
 
-    
-  // sessionStorage.mynhood =  JSON.stringify($scope.geom);
-  //   var g = JSON.parse(sessionStorage.mynhood);
-  //   var geom = g;
-  //   console.log(geom);
+
     query.geometry = $scope.geom;
     queryTask.execute(query, function(results){
       //console.log(results);
@@ -399,25 +308,8 @@ arrayUtils, parser, webMercatorUtils) {
         $scope.tableAnswer = "$ " + (Math.round(($scope.sum/results.features.length) * 100) / 100);
       }
 
-
-  //     //new code to highlight specific census tract
-  //     for (var i=0, il=resultFeatures.length; i<il; i++) {
-  //   //Get the current feature from the featureSet.
-  //   //Feature is a graphic
-  //   var graphic = resultFeatures[i];
-  //   console.log(graphic);
-  //   // graphic.setSymbol(symbol);
-  //   //
-  //   // //Set the infoTemplate.
-  //   // graphic.setInfoTemplate(infoTemplate);
-  //   //
-  //   // //Add graphic to the map graphics layer.
-  //   // map.graphics.add(graphic);
-  // }
-
-
   }).then(function(){
-      console.log($scope.sum);
+      //console.log($scope.sum);
 
   var url = "http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Neighborhoods_LAT_2017_NDSC/FeatureServer/0";
   //var url2 = "http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Regions_LAT_2017_NDSC/FeatureServer/0";
@@ -447,14 +339,14 @@ arrayUtils, parser, webMercatorUtils) {
     });
     if (layerInfo.length > 0) {
       var legendDijit = new Legend({
-        map: map,
+        map: map2,
         layerInfos: layerInfo
       }, "legendDiv");
       legendDijit.startup();
     }
   });
 
-  map2.addLayer(featureLayer);
+  //map2.addLayer(featureLayer);
   map2.addLayer(mapLayer);
 
 var highlightSymbol = new SimpleFillSymbol(
@@ -468,21 +360,95 @@ var highlightSymbol = new SimpleFillSymbol(
 map2.on("load", function(){
 map2.graphics.enableMouseEvents();
 
-var highlightGraphic = new Graphic($scope.geom,highlightSymbol);
-map2.graphics.add(highlightGraphic);
+// var highlightGraphic = new Graphic($scope.geom,highlightSymbol);
+// map2.graphics.add(highlightGraphic);
 
 
 $scope.newGeometry = webMercatorUtils.webMercatorToGeographic($scope.geom);
-console.log($scope.newGeometry);
 ext = $scope.newGeometry.getExtent();
-console.log(ext);
 
 var polygonExtent = new Extent();
 polygonExtent.xmin = ext.xmin;
 polygonExtent.ymin = ext.ymin;
 polygonExtent.xmax = ext.xmax;
 polygonExtent.ymax = ext.ymax;
-map2.setExtent(polygonExtent);
+//map2.setExtent(polygonExtent);
+
+
+//Code to highlight census tracts intersecting with drawn polygon
+
+$scope.jsonLink = $scope.mapUrl + "?f=pjson";
+
+var censusQueryTask = new QueryTask($scope.mapUrl);
+var censusQuery = new Query();
+query.returnGeometry = true;
+query.outFields = [
+  "*"
+];
+
+  $http({
+    method: 'GET',
+    url: $scope.jsonLink
+}).then(function (response) {
+
+      $scope.trial = response.data.drawingInfo.renderer;
+      censusQuery.geometry = $scope.geom;
+      var symbol;
+      var drawGraphic;
+      censusQueryTask.execute(query, function(results){
+        console.log(results);
+        var count = 0;
+        var select = 0;
+        var resultItems = [];
+        var sum=0;
+        var resultCount = results.features.length;
+
+
+
+        for (var i = 0; i < resultCount; i++) {
+          var featureAttributes = results.features[i].attributes;
+          for (var attr in featureAttributes) {
+            resultItems.push(featureAttributes[attr]);
+            count++;
+            if (select == 0 && attr == $scope.varMapDash[0].fieldname) {
+              select = count;
+            }
+          }
+        }
+
+        var k=0;
+        for (var i = (select-1); i < resultItems.length; i+=(count/results.features.length)) {
+
+
+          for (var j = 1, len = $scope.trial.classBreakInfos.length; j < len; j++){
+            if(resultItems[i] >= $scope.trial.classBreakInfos[j-1].classMaxValue && resultItems[i] <= $scope.trial.classBreakInfos[j].classMaxValue){
+                console.log($scope.trial.classBreakInfos[j].symbol.color);
+                console.log(results.features[k].geometry);
+                symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(
+                    SimpleLineSymbol.STYLE_SOLID,
+                    new Color($scope.trial.classBreakInfos[j].symbol.outline.color), 1
+                  ), new Color($scope.trial.classBreakInfos[j].symbol.color));
+
+                  drawGraphic = new Graphic(results.features[k].geometry,symbol);
+                  map2.graphics.add(drawGraphic);
+
+            }
+          }
+
+          k++;
+
+        }
+      }).then(function(){
+        var highlightGraphic = new Graphic($scope.geom,highlightSymbol);
+        map2.graphics.add(highlightGraphic);
+      });//queryTask ends
+
+
+
+
+}); //http call
+
+
 
 });
 
@@ -539,7 +505,7 @@ $scope.jsonUrl = $scope.mapUrl + "?f=pjson";
     method: 'GET',
     url: $scope.jsonUrl
 }).then(function (response) {
-  console.log(ext);
+
     $scope.trial = response.data.drawingInfo.renderer;
     //console.log($scope.trial);
     var groupByExpression = "CASE ";
