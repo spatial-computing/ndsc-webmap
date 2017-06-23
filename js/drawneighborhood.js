@@ -15,7 +15,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
       // });
       $http({
             method: 'GET',
-            url: 'http://localhost:3000/GS-Main'
+            url: 'http://6370bd5f.ngrok.io/GS-Main'
         }).then(function (response) {
             $scope.main = response.data.data;
           });
@@ -23,7 +23,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
 
                       $http({
                           method: 'GET',
-                          url: 'http://localhost:3000/GS-Variables'
+                          url: 'http://6370bd5f.ngrok.io/GS-Variables'
                       }).then(function (response) {
                           $scope.variables = response.data.data;
                         });
@@ -31,7 +31,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
       //get the data from region spreadsheet
       $http({
             method: 'GET',
-            url: 'http://localhost:3000/GS-Region'
+            url: 'http://6370bd5f.ngrok.io/GS-Region'
       }).then(function (response){
             $scope.regionData = response.data.data;
       });
@@ -348,7 +348,7 @@ arrayUtils, parser, webMercatorUtils) {
   polygonExtent.ymin = 32.792291;
   polygonExtent.xmax = -117.644108;
   polygonExtent.ymax = 34.823016;
-  var varFilter = $filter('filter')($scope.variables, { variable: $scope.mapData.variable});
+  var varFilter = $filter('filter')($scope.variables, { variable: $scope.variable});
   var queryTaskmedian = new QueryTask($scope.mapUrl);
   var querymedian = new Query();
   var medianItems = [];
@@ -461,8 +461,8 @@ var highlightSymbol = new SimpleFillSymbol(
   SimpleFillSymbol.STYLE_SOLID,
   new SimpleLineSymbol(
     SimpleLineSymbol.STYLE_SOLID,
-    new Color("#191165"), 2
-  ), new Color([255,0,0,0.4]));
+    new Color([255,0,0]), 2
+  ), new Color([255,0,0,0.15]));
 
 
 map2.on("load", function(){
