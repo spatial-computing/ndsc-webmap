@@ -123,19 +123,19 @@
         </div>
       </div>
 
-          <div id="footer-band"><h4 class="text-center">Take an in-depth look at each of our variables and why they are important for neighborhoods and individuals.<br>Begin By clicking on a policy area below.</h4></div>
+          <div id="footer-band"><h4 class="text-center" style="line-height:1.4">Take an in-depth look at each of our variables and why they are important for neighborhoods and individuals.<br>Begin By clicking on a policy area below.</h4></div>
             <div style="background-image: url('img/about_data.jpg');background-size: 90%;">
             <br>
             <div class="row">
                 <div class="col-xs-4" ng-repeat="a in main | unique: 'policyarea'" ng-click=getDts(a)>
                 <div class="col-xs-2" style=""></div>
-                <div id="liDesign" class="col-xs-8 text-center" style="height: 57px;"><a style="text-decoration: none; color:#004d4d ">{{a.policyarea}}</a></div>
+                <div id="liDesign" class="col-xs-8 text-center" style="line-height:1.4"><a style="text-decoration: none; color:#004d4d ">{{a.policyarea}}</a></div>
                 <br><br><br><br>
                 </div>
             </div>
             </div>
             <div id="header-band"><h4 class="text-center">&nbsp;</h4></div>
-            <div id="header-band"><h4 class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;Looking for a quick list of all variables?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button style="color: #0c343d;">Browse our Data dictionary</button></h4></div>
+            <div id="header-band"><h4 class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;Looking for a quick list of all variables?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="data_dictionary.html"><button style="color: #0c343d;">Browse our Data dictionary</button></a></h4></div>
             <div id="header-band"><h4 class="text-center">&nbsp;</h4></div>
            </div>
 
