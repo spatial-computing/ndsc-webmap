@@ -107,8 +107,8 @@
           <div class="item active container-fluid">
             <div id="nav1">
               <ul id="first">
-                 <li id ="liDesign" class="col-sm-4 col-md-4" ng-repeat="menu1 in main | unique: 'policyarea'" ng-click=getDts(menu1)>
-                   <a href="#"><div id="text1" style="color: #0c343d; text-decoration-line: none; text-transform: uppercase;"><b>{{menu1.policyarea}}</b></div></a>
+                 <li id ="liDesign" class="col-xs-4 " ng-repeat="menu1 in main | unique: 'policyarea'" ng-click=getDts(menu1)>
+                   <a href="#"><div id="text1" style="color: #0c343d; text-decoration-line: none; text-transform: uppercase; "><b>{{menu1.policyarea}}</b></div></a>
                  </li>
                </ul>
              </div>
@@ -120,7 +120,7 @@
              </button>
              <div id="nav1">
                <ul id="first">
-                  <li id ="liDesign" class="col-sm-4 col-md-4" ng-repeat="menu2 in menuDtsList | unique: 'dataset'" ng-click=getVar(menu2)>
+                  <li id ="liDesign" class="col-xs-4" ng-repeat="menu2 in menuDtsList | unique: 'dataset'" ng-click=getVar(menu2)>
                     <a href="#"><div style="color: #0c343d; text-decoration-line: none; text-transform: uppercase;"><b>{{menu2.dataset}}</b></div></a>
                   </li>
                 </ul>
@@ -133,7 +133,7 @@
               </button>
               <div id="nav1">
                 <ul id="first">
-                   <li id ="liDesign" class="col-sm-4 col-md-4" ng-repeat="menu3 in menuVarList | unique: 'variable'" ng-click="dataMap(menu3)">
+                   <li id ="liDesign" class="col-xs-4" ng-repeat="menu3 in menuVarList | unique: 'variable'" ng-click="dataMap(menu3)">
                      <a href="variable-map.html"><div style="color: #0c343d; text-decoration-line: none; text-transform: uppercase;"><b>
                      {{menu3.variable}}</b></div>
                      </a>
