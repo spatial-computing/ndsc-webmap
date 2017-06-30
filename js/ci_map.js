@@ -10,14 +10,44 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
 
                 $http({
                     method: 'GET',
-                    url: 'http://b4fa31bb.ngrok.io/GS-Variables'
+                    url: 'http://localhost:3000/GS-Variables'
                 }).then(function (response) {
                     $scope.variables = response.data.data;
+
+                    esriLoader.require([
+                        "esri/map",
+                        "esri/geometry/Extent",
+                        "esri/tasks/query",
+                        "esri/tasks/QueryTask",
+                        "dojo/domReady!"
+                      ], function(Map, Extent, Query, QueryTask) {
+
+                        //Code to find the median value for LA county
+                          var polygonExtent = new Extent();
+                          polygonExtent.xmin = -118.953532;
+                          polygonExtent.ymin = 32.792291;
+                          polygonExtent.xmax = -117.644108;
+                          polygonExtent.ymax = 34.823016;
+                          var queryTaskmedian = new QueryTask($scope.mapUrl);
+                          var querymedian = new Query();
+                          var medianItems = [];
+                          querymedian.geometry = polygonExtent;
+                          querymedian.outFields = ["*"];
+                          queryTaskmedian.execute(querymedian, function(result) {
+                          for (var i = 0; i < result.features.length; i++) {
+                            medianItems.push(result.features[i].attributes[$scope.mapData.fieldname]);
+                          }
+                          medianItems.sort(function(a, b){return a-b});
+                          $scope.median = medianItems[(medianItems.length)/2];
+                          $scope.median = Math.round($scope.median * 100000) / 100000;
+                          $scope.$apply();
+                        });
+                      });
                   });
 
                   $http({
                       method: 'GET',
-                      url: 'http://b4fa31bb.ngrok.io/GS-Region'
+                      url: 'http://localhost:3000/GS-Region'
                   }).then(function (response) {
                       $scope.regionData = response.data.data;
                     });
@@ -26,7 +56,7 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
 
                 $http({
                     method: 'GET',
-                    url: 'http://b4fa31bb.ngrok.io/GS-Main'
+                    url: 'http://localhost:3000/GS-Main'
                 }).then(function (response) {
                     $scope.main = response.data.data;
 
@@ -72,7 +102,7 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
 
 			// $http({
       //               method: 'GET',
-      //               url: 'http://b4fa31bb.ngrok.io/ndsc3'
+      //               url: 'http://localhost:3000/ndsc3'
       //           }).then(function (response) {
 			// 	$scope.about = response.data.data;});
 
@@ -129,25 +159,6 @@ arrayUtils, parser, Query, QueryTask) {
       var query2 = new Query();
       query2.returnGeometry = true;
       query2.outFields = ["*"];
-
-      var polygonExtent = new Extent();
-      polygonExtent.xmin = -118.953532;
-      polygonExtent.ymin = 32.792291;
-      polygonExtent.xmax = -117.644108;
-      polygonExtent.ymax = 34.823016;
-      var varFilter = $filter('filter')($scope.variables, { variable: $scope.mapData.variable});
-      var queryTaskmedian = new QueryTask($scope.mapUrl);
-      var querymedian = new Query();
-      var medianItems = [];
-      querymedian.geometry = polygonExtent;
-      querymedian.outFields = ["*"];
-      queryTaskmedian.execute(querymedian, function(result) {
-         for (var i = 0; i < result.features.length; i++) {
-           medianItems.push(result.features[i].attributes[varFilter[0].fieldname]);
-          }
-           medianItems.sort(function(a, b){return a-b});
-           $scope.median = medianItems[(medianItems.length)/2];
-        });
 
 var labelField = "name";
 
@@ -358,14 +369,14 @@ map.on("click", function(evt){
 //
 //                 $http({
 //                     method: 'GET',
-//                     url: 'http://b4fa31bb.ngrok.io/GS-Variables'
+//                     url: 'http://localhost:3000/GS-Variables'
 //                 }).then(function (response) {
 //                     $scope.variables = response.data.data;
 //                   });
 //
 //                   $http({
 //                       method: 'GET',
-//                       url: 'http://b4fa31bb.ngrok.io/GS-Region'
+//                       url: 'http://localhost:3000/GS-Region'
 //                   }).then(function (response) {
 //                       $scope.regionData = response.data.data;
 //                     });
@@ -374,7 +385,7 @@ map.on("click", function(evt){
 //
 //                 $http({
 //                     method: 'GET',
-//                     url: 'http://b4fa31bb.ngrok.io/GS-Main'
+//                     url: 'http://localhost:3000/GS-Main'
 //                 }).then(function (response) {
 //                     $scope.main = response.data.data;
 //             },function(err){
@@ -384,7 +395,7 @@ map.on("click", function(evt){
 //
 // 			// $http({
 //       //               method: 'GET',
-//       //               url: 'http://b4fa31bb.ngrok.io/ndsc3'
+//       //               url: 'http://localhost:3000/ndsc3'
 //       //           }).then(function (response) {
 // 			// 	$scope.about = response.data.data;});
 //
