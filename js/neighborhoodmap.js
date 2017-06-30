@@ -8,7 +8,6 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
       $scope.variable = JSON.parse(sessionStorage.variable);
       $scope.mapUrl = JSON.parse(sessionStorage.varUrl);
 
-
       $scope.bool=true; //required for slider
 
       $http({
@@ -17,6 +16,36 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
       }).then(function (response) {
             $scope.variables = response.data.data;
             $scope.varMapDash = $filter('filter')($scope.variables, { variable: $scope.variable });
+
+            esriLoader.require([
+                "esri/map",
+                "esri/geometry/Extent",
+                "esri/tasks/query",
+                "esri/tasks/QueryTask",
+                "dojo/domReady!"
+              ], function(Map, Extent, Query, QueryTask) {
+
+                //Code to find the median value for LA county
+                  var polygonExtent = new Extent();
+                  polygonExtent.xmin = -118.953532;
+                  polygonExtent.ymin = 32.792291;
+                  polygonExtent.xmax = -117.644108;
+                  polygonExtent.ymax = 34.823016;
+                  var queryTaskmedian = new QueryTask($scope.mapUrl);
+                  var querymedian = new Query();
+                  var medianItems = [];
+                  querymedian.geometry = polygonExtent;
+                  querymedian.outFields = ["*"];
+                  queryTaskmedian.execute(querymedian, function(result) {
+                  for (var i = 0; i < result.features.length; i++) {
+                    medianItems.push(result.features[i].attributes[$scope.varMapDash[0].fieldname]);
+                  }
+                  medianItems.sort(function(a, b){return a-b});
+                  $scope.median = medianItems[(medianItems.length)/2];
+                  $scope.$apply();
+                });
+              });
+
           });
 
       $http({
@@ -32,6 +61,23 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
       }).then(function (response) {
             $scope.neighborhood = response.data.data;
 						$scope.about = $filter('filter')($scope.neighborhood, { neighborhood: $scope.nhood });
+
+            esriLoader.require([
+                "esri/map",
+                "esri/geometry/Extent",
+                "esri/tasks/query",
+                "esri/tasks/QueryTask",
+                "dojo/domReady!"
+              ], function(Map, Extent, Query, QueryTask) {
+
+                //setting extent of the map according to neighborhood selected
+                  $scope.startExtent = new Extent();
+                  $scope.startExtent.xmin = $scope.about[0].minpointx;
+                  $scope.startExtent.ymin = $scope.about[0].minpointy;
+                  $scope.startExtent.xmax = $scope.about[0].maxpointx;
+                  $scope.startExtent.ymax = $scope.about[0].maxpointy;
+
+              });
           });
 
       $http({
@@ -39,6 +85,7 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
          url: 'http://localhost:3000/GS-Main'
       }).then(function (response) {
             $scope.main = response.data.data;
+
             //slider code
             var varObject = $filter('filter')($scope.main, { variable: $scope.variable });
 			      $scope.varDataUrl = varObject[0]["open-dataurl"];
@@ -72,6 +119,9 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
             else {
                 $scope.bool=false;
             }
+
+
+
         },function(err){
                 console.log(err);
         }); //end of http call to main spreadsheet
@@ -109,27 +159,6 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
 
                 parser.parse();
 
-                //Code to find the median value for LA county
-                var polygonExtent = new Extent();
-                polygonExtent.xmin = -118.953532;
-                polygonExtent.ymin = 32.792291;
-                polygonExtent.xmax = -117.644108;
-                polygonExtent.ymax = 34.823016;
-                $scope.variable = JSON.parse(sessionStorage.variable);
-                var varFilter = $filter('filter')($scope.variables, { variable: $scope.variable});
-                var queryTaskmedian = new QueryTask($scope.mapUrl);
-                var querymedian = new Query();
-                var medianItems = [];
-                querymedian.geometry = polygonExtent;
-                querymedian.outFields = ["*"];
-                queryTaskmedian.execute(querymedian, function(result) {
-                for (var i = 0; i < result.features.length; i++) {
-                  medianItems.push(result.features[i].attributes[varFilter[0].fieldname]);
-                }
-                medianItems.sort(function(a, b){return a-b});
-                $scope.median = medianItems[(medianItems.length)/2];
-              });
-
               //Map code
               var neighborhoodsUrl = "http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Neighborhoods_LAT_2017_NDSC/FeatureServer/0";
 
@@ -158,15 +187,6 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
               });
 
               map.addLayers([featureUrl,neighborhoods]);
-
-              //setting extent of the map according to neighborhood selected
-              $scope.nObject = $filter('filter')($scope.neighborhood, { neighborhood : $scope.nhood });
-              var startExtent = new Extent();
-              startExtent.xmin = $scope.nObject[0].minpointx;
-              startExtent.ymin = $scope.nObject[0].minpointy;
-              startExtent.xmax = $scope.nObject[0].maxpointx;
-              startExtent.ymax = $scope.nObject[0].maxpointy;
-              map.setExtent(startExtent);
 
               //Enabling Hover functionality on the map
               var highlightSymbol = new SimpleFillSymbol(
@@ -247,6 +267,8 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                   $scope.$apply();
               }//end of function showResults
 
+              map.setExtent($scope.startExtent);
+
             });//end of esriLoader
 
             //chart code begins here
@@ -267,10 +289,7 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                     groupByExpression = groupByExpression + " END";
 
                     $scope.nhood = JSON.parse(sessionStorage.nhood);
-                    console.log($scope.nhood);
-                    $scope.nObject = $filter('filter')($scope.neighborhood, { neighborhood : $scope.nhood });
-                    console.log($scope.nObject);
-                    var box = $scope.nObject[0].minpointx + ',' + $scope.nObject[0].maxpointx + ',' + $scope.nObject[0].minpointy + ',' + $scope.nObject[0].maxpointy;
+                    var box = $scope.about[0].minpointx + ',' + $scope.about[0].maxpointx + ',' + $scope.about[0].minpointy + ',' + $scope.about[0].maxpointy;
 
                     var chart = new Cedar({
                       "type":"bar",
