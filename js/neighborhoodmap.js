@@ -55,30 +55,30 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
             $scope.regionData = response.data.data;
           });
 
-      $http({
-        method: 'GET',
-        url: 'http://localhost:3000/GS-Neighborhood'
-      }).then(function (response) {
-            $scope.neighborhood = response.data.data;
-						$scope.about = $filter('filter')($scope.neighborhood, { neighborhood: $scope.nhood });
-
-            esriLoader.require([
-                "esri/map",
-                "esri/geometry/Extent",
-                "esri/tasks/query",
-                "esri/tasks/QueryTask",
-                "dojo/domReady!"
-              ], function(Map, Extent, Query, QueryTask) {
-
-                //setting extent of the map according to neighborhood selected
-                  $scope.startExtent = new Extent();
-                  $scope.startExtent.xmin = $scope.about[0].minpointx;
-                  $scope.startExtent.ymin = $scope.about[0].minpointy;
-                  $scope.startExtent.xmax = $scope.about[0].maxpointx;
-                  $scope.startExtent.ymax = $scope.about[0].maxpointy;
-
-              });
-          });
+      // $http({
+      //   method: 'GET',
+      //   url: 'http://localhost:3000/GS-Neighborhood'
+      // }).then(function (response) {
+      //       $scope.neighborhood = response.data.data;
+			// 			$scope.about = $filter('filter')($scope.neighborhood, { neighborhood: $scope.nhood });
+      //
+      //       esriLoader.require([
+      //           "esri/map",
+      //           "esri/geometry/Extent",
+      //           "esri/tasks/query",
+      //           "esri/tasks/QueryTask",
+      //           "dojo/domReady!"
+      //         ], function(Map, Extent, Query, QueryTask) {
+      //
+      //           //setting extent of the map according to neighborhood selected
+      //             $scope.startExtent = new Extent();
+      //             $scope.startExtent.xmin = $scope.about[0].minpointx;
+      //             $scope.startExtent.ymin = $scope.about[0].minpointy;
+      //             $scope.startExtent.xmax = $scope.about[0].maxpointx;
+      //             $scope.startExtent.ymax = $scope.about[0].maxpointy;
+      //
+      //         });
+      //     });
 
       $http({
          method: 'GET',
@@ -267,9 +267,28 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                   $scope.$apply();
               }//end of function showResults
 
-              map.setExtent($scope.startExtent);
+              $http({
+                method: 'GET',
+                url: 'http://localhost:3000/GS-Neighborhood'
+              }).then(function (response) {
+                    $scope.neighborhood = response.data.data;
+                    $scope.about = $filter('filter')($scope.neighborhood, { neighborhood: $scope.nhood });
 
-            });//end of esriLoader
+
+
+                        //setting extent of the map according to neighborhood selected
+                          $scope.startExtent = new Extent();
+                          $scope.startExtent.xmin = $scope.about[0].minpointx;
+                          $scope.startExtent.ymin = $scope.about[0].minpointy;
+                          $scope.startExtent.xmax = $scope.about[0].maxpointx;
+                          $scope.startExtent.ymax = $scope.about[0].maxpointy;
+
+                    map.setExtent($scope.startExtent);
+            //       });
+            //
+            //   //map.setExtent($scope.startExtent);
+            //
+            // });//end of esriLoader
 
             //chart code begins here
             $scope.url = $scope.mapUrl;
@@ -333,6 +352,12 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
               },function(err){
                     console.log(err);
             });//http function ends
+
+          });
+
+      //map.setExtent($scope.startExtent);
+
+    });//end of esriLoader
 
 
 
