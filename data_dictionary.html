@@ -82,8 +82,8 @@
 			<div class="row row3">
 				<p class="centeral" style="background-color: #a2c4c9;">SORT DATASETS:
                     <!-- why same name and same id -->
-					<input type="radio" name="rad" ng-model="value" value="1"  ng-change="sort(value)" id="radio" checked="checked"> By Policy Area
-					<input type="radio" name="rad" ng-model="value" value="2" ng-change="sort(value)" id="radio" > Alphabetically
+					<input type="radio"  ng-model="inputBtnValue" ng-value="1"  ng-change="sort(inputBtnValue)" > By Policy Area
+					<input type="radio"  ng-model="inputBtnValue" ng-value="2" ng-change="sort(inputBtnValue)"  > Alphabetically
 				</p>
 			</div>
 
@@ -131,7 +131,8 @@
 									  <h4 class="modal-title">Download Data for {{ newVar }}</h4>
 									</div>
 									<div class="modal-body" style="text-align:center;">
-									<select class="form-control" id="sel1"  style="background-color:#0c343d;color:white;width:25%;margin:auto;" ng-model="modelSelectedYear" ng-options="d.year for d in yearss" >								
+									<select class="form-control" id="sel1"  style="background-color:#0c343d;color:white;width:25%;margin:auto;" ng-model="modelSelectedYear" ng-options="d.year for d in yearss" >
+                                        <option value="" disabled>Select a Value</option>
 									</select>
                                         
 									<div style="height:20px;"></div>									  
@@ -180,7 +181,8 @@
 									  <h4 class="modal-title">Download Data for {{ newVar }}</h4>
 									</div>
 									<div class="modal-body" style="text-align:center;">
-									<select class="form-control" id="sel2"  style="background-color:#0c343d;color:white;width:25%;margin:auto;" ng-model="modelSelectedYear" ng-options="d.year for d in yearss" >								
+									<select class="form-control" id="sel2"  style="background-color:#0c343d;color:white;width:25%;margin:auto;" ng-model="modelSelectedYear" ng-options="d.year for d in yearss" >	
+                                        <option value="" disabled>Select a Value</option>
 									</select>
                                         
 									<div style="height:20px;"></div>									  
