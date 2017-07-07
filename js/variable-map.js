@@ -36,11 +36,19 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                           querymedian.geometry = polygonExtent;
                           querymedian.outFields = ["*"];
                           queryTaskmedian.execute(querymedian, function(result) {
+                            console.log(result);
                           for (var i = 0; i < result.features.length; i++) {
-                            medianItems.push(result.features[i].attributes[$scope.varMapDash[0].fieldname]);
+                            if(result.features[i].attributes[$scope.varMapDash[0].fieldname] != -9999)
+                              medianItems.push(result.features[i].attributes[$scope.varMapDash[0].fieldname]);
                           }
                           medianItems.sort(function(a, b){return a-b});
-                          $scope.median = medianItems[(medianItems.length)/2];
+                          if (medianItems.length % 2) {
+                            $scope.median = medianItems[(1 + medianItems.length)/2];
+                          }
+                          else {
+                            $scope.median = (medianItems[(medianItems.length)/2] + medianItems[((medianItems.length)/2)+1])/2;
+                          }
+                          $scope.median = Math.round($scope.median * 100) / 100;
                           $scope.$apply();
                         });
                       });
@@ -256,27 +264,21 @@ map.on("click", function(evt){
     });
 
     function showResults (results) {
-      var count = 0;
-      var select = 0;
       var resultItems = [];
       var resultCount = results.features.length;
       for (var i = 0; i < resultCount; i++) {
         var featureAttributes = results.features[i].attributes;
-        for (var attr in featureAttributes) {
-          resultItems.push(featureAttributes[attr]);
-          count++;
-          if (select == 0 && attr == $scope.varMapDash[0].fieldname) {
-            select = count;
-          }
+        if(featureAttributes[$scope.varMapDash[0].fieldname] != -9999) {
+          resultItems.push(featureAttributes[$scope.varMapDash[0].fieldname]);
         }
       }
 
-      for (var i = (select-1); i < resultItems.length; i+=(count/results.features.length)) {
+      for (var i = 0; i < resultItems.length; i++) {
         $scope.sum += resultItems[i];
       }
 
       if ($scope.varMapDash[0].fieldtype == "total") {
-        $scope.tableAnswer = $scope.sum;
+        $scope.tableAnswer = Math.round($scope.sum * 100) / 100;
       }
       else if($scope.varMapDash[0].fieldtype == "percentage") {
         $scope.tableAnswer = (Math.round(($scope.sum/results.features.length) * 100) / 100) + " %" ;
