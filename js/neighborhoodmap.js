@@ -26,22 +26,29 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
               ], function(Map, Extent, Query, QueryTask) {
 
                 //Code to find the median value for LA county
-                  var polygonExtent = new Extent();
-                  polygonExtent.xmin = -118.953532;
-                  polygonExtent.ymin = 32.792291;
-                  polygonExtent.xmax = -117.644108;
-                  polygonExtent.ymax = 34.823016;
-                  var queryTaskmedian = new QueryTask($scope.mapUrl);
-                  var querymedian = new Query();
-                  var medianItems = [];
-                  querymedian.geometry = polygonExtent;
-                  querymedian.outFields = ["*"];
-                  queryTaskmedian.execute(querymedian, function(result) {
+                var polygonExtent = new Extent();
+                polygonExtent.xmin = -118.953532;
+                polygonExtent.ymin = 32.792291;
+                polygonExtent.xmax = -117.644108;
+                polygonExtent.ymax = 34.823016;
+                var queryTaskmedian = new QueryTask($scope.mapUrl);
+                var querymedian = new Query();
+                var medianItems = [];
+                querymedian.geometry = polygonExtent;
+                querymedian.outFields = ["*"];
+                queryTaskmedian.execute(querymedian, function(result) {
                   for (var i = 0; i < result.features.length; i++) {
-                    medianItems.push(result.features[i].attributes[$scope.varMapDash[0].fieldname]);
+                    if(result.features[i].attributes[$scope.varMapDash[0].fieldname] != -9999)
+                      medianItems.push(result.features[i].attributes[$scope.varMapDash[0].fieldname]);
                   }
                   medianItems.sort(function(a, b){return a-b});
-                  $scope.median = medianItems[(medianItems.length)/2];
+                  if (medianItems.length % 2) {
+                    $scope.median = medianItems[(1 + medianItems.length)/2];
+                  }
+                  else {
+                    $scope.median = (medianItems[(medianItems.length)/2] + medianItems[((medianItems.length)/2)+1])/2;
+                  }
+                  $scope.median = Math.round($scope.median * 100) / 100;
                   $scope.$apply();
                 });
               });
@@ -55,30 +62,6 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
             $scope.regionData = response.data.data;
           });
 
-      // $http({
-      //   method: 'GET',
-      //   url: 'http://localhost:3000/GS-Neighborhood'
-      // }).then(function (response) {
-      //       $scope.neighborhood = response.data.data;
-			// 			$scope.about = $filter('filter')($scope.neighborhood, { neighborhood: $scope.nhood });
-      //
-      //       esriLoader.require([
-      //           "esri/map",
-      //           "esri/geometry/Extent",
-      //           "esri/tasks/query",
-      //           "esri/tasks/QueryTask",
-      //           "dojo/domReady!"
-      //         ], function(Map, Extent, Query, QueryTask) {
-      //
-      //           //setting extent of the map according to neighborhood selected
-      //             $scope.startExtent = new Extent();
-      //             $scope.startExtent.xmin = $scope.about[0].minpointx;
-      //             $scope.startExtent.ymin = $scope.about[0].minpointy;
-      //             $scope.startExtent.xmax = $scope.about[0].maxpointx;
-      //             $scope.startExtent.ymax = $scope.about[0].maxpointy;
-      //
-      //         });
-      //     });
 
       $http({
          method: 'GET',
@@ -237,34 +220,29 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
 
               //function to calculate variable value for neighborhood
               function showResults (results) {
-                  var count = 0;
-                  var select = 0;
-                  var resultItems = [];
-                  var resultCount = results.features.length;
-                  for (var i = 0; i < resultCount; i++) {
-                      var featureAttributes = results.features[i].attributes;
-                      for (var attr in featureAttributes) {
-                        resultItems.push(featureAttributes[attr]);
-                        count++;
-                        if (select == 0 && attr == $scope.varMapDash[0].fieldname) {
-                            select = count;
-                          }
-                      }
-                    }
-                  for (var i = (select-1); i < resultItems.length; i+=(count/results.features.length)) {
-                    $scope.sum += resultItems[i];
+                var resultItems = [];
+                var resultCount = results.features.length;
+                for (var i = 0; i < resultCount; i++) {
+                  var featureAttributes = results.features[i].attributes;
+                  if(featureAttributes[$scope.varMapDash[0].fieldname] != -9999) {
+                    resultItems.push(featureAttributes[$scope.varMapDash[0].fieldname]);
                   }
+                }
 
-                  if ($scope.varMapDash[0].fieldtype == "total") {
-                    $scope.tableAnswer = $scope.sum;
-                  }
-                  else if($scope.varMapDash[0].fieldtype == "percentage") {
-                    $scope.tableAnswer = (Math.round(($scope.sum/results.features.length) * 100) / 100) + " %" ;
-                  }
-                  else if($scope.varMapDash[0].fieldtype == "income") {
-                    $scope.tableAnswer = "$ " + (Math.round(($scope.sum/results.features.length) * 100) / 100);
-                  }
-                  $scope.$apply();
+                for (var i = 0; i < resultItems.length; i++) {
+                  $scope.sum += resultItems[i];
+                }
+
+                if ($scope.varMapDash[0].fieldtype == "total") {
+                  $scope.tableAnswer = Math.round($scope.sum * 100) / 100;
+                }
+                else if($scope.varMapDash[0].fieldtype == "percentage") {
+                  $scope.tableAnswer = (Math.round(($scope.sum/results.features.length) * 100) / 100) + " %" ;
+                }
+                else if($scope.varMapDash[0].fieldtype == "income") {
+                  $scope.tableAnswer = "$ " + (Math.round(($scope.sum/results.features.length) * 100) / 100);
+                }
+                $scope.$apply();
               }//end of function showResults
 
               $http({
