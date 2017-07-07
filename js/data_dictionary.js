@@ -4,13 +4,16 @@ var menuApp = angular.module('menuApp', ['ui.filters']);
 			var items;
 			var result = [];
                 
-            //correct this
-			$('#radio').attr('checked',true);
+            
+            // default input button checked code
+            $scope.inputBtnValue=1; 
+                
+                
 
 			var refresh = function() {
 				$http({
 					method: 'GET',
-					url: ' http://b4fa31bb.ngrok.io/GS-Variables'
+					url: 'http://b4fa31bb.ngrok.io/GS-Variables'
 				}).then(function (response){
 
 				  $scope.menus = response.data.data;			 
@@ -38,7 +41,7 @@ var menuApp = angular.module('menuApp', ['ui.filters']);
                 //dont know what this code does, we an remove it i guess 
 				$http({
 					method: 'GET',
-					url: ' http://b4fa31bb.ngrok.io/GS-Main'
+					url: 'http://b4fa31bb.ngrok.io/GS-Main'
 				}).then(function (response){
 					$scope.main = response.data.data;
 					$scope.selectedYear;
