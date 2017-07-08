@@ -264,7 +264,6 @@ map.on("click", function(evt){
         var featureAttributes = results.features[i].attributes;
         if(featureAttributes[$scope.mapData.fieldname] != -9999) {
           resultItems.push(featureAttributes[$scope.mapData.fieldname]);
-          coun++;
         }
       }
 
