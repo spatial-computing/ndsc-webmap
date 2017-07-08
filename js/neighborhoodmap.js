@@ -51,6 +51,54 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                   $scope.median = Math.round($scope.median * 100) / 100;
                   $scope.$apply();
                 });
+
+                //querying feature services to get variable value for table
+                var queryTask = new QueryTask("http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Neighborhoods_LAT_2017_NDSC/FeatureServer/0");
+                var query = new Query();
+                query.returnGeometry = true;
+                query.outFields = ["*"];
+
+                var queryTask2 = new QueryTask($scope.mapUrl);
+                var query2 = new Query();
+                query2.returnGeometry = true;
+                query2.outFields = ["*"];
+
+                $scope.pick = $scope.nhood;
+                $scope.sum=0;
+                query.where = "name = '" + $scope.pick + "'";
+                queryTask.execute(query, function(results) {
+                query2.geometry = results.features[0].geometry;
+                queryTask2.execute(query2, showResults);
+                });
+
+              //function to calculate variable value for neighborhood
+              function showResults (results) {
+                var resultItems = [];
+                var resultCount = results.features.length;
+                for (var i = 0; i < resultCount; i++) {
+                  var featureAttributes = results.features[i].attributes;
+                  if(featureAttributes[$scope.varMapDash[0].fieldname] != -9999) {
+                    resultItems.push(featureAttributes[$scope.varMapDash[0].fieldname]);
+                  }
+                }
+
+                for (var i = 0; i < resultItems.length; i++) {
+                  $scope.sum += resultItems[i];
+                }
+
+                if ($scope.varMapDash[0].fieldtype == "total") {
+                  $scope.tableAnswer = Math.round($scope.sum * 100) / 100;
+                }
+                else if($scope.varMapDash[0].fieldtype == "percentage") {
+                  $scope.tableAnswer = (Math.round(($scope.sum/results.features.length) * 100) / 100) + " %" ;
+                }
+                else if($scope.varMapDash[0].fieldtype == "income") {
+                  $scope.tableAnswer = "$ " + (Math.round(($scope.sum/results.features.length) * 100) / 100);
+                }
+                $scope.$apply();
+              }//end of function showResults
+
+
               });
 
           });
@@ -199,51 +247,51 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                   map.infoWindow.show(evt.screenPoint,map.getInfoWindowAnchor(evt.screenPoint));
                 });
 
-                //querying feature services to get variable value for table
-                var queryTask = new QueryTask("http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Neighborhoods_LAT_2017_NDSC/FeatureServer/0");
-                var query = new Query();
-                query.returnGeometry = true;
-                query.outFields = ["*"];
-
-                var queryTask2 = new QueryTask($scope.mapUrl);
-                var query2 = new Query();
-                query2.returnGeometry = true;
-                query2.outFields = ["*"];
-
-                $scope.pick = $scope.nhood;
-                $scope.sum=0;
-                query.where = "name = '" + $scope.pick + "'";
-                queryTask.execute(query, function(results) {
-                query2.geometry = results.features[0].geometry;
-                queryTask2.execute(query2, showResults);
-                });
-
-              //function to calculate variable value for neighborhood
-              function showResults (results) {
-                var resultItems = [];
-                var resultCount = results.features.length;
-                for (var i = 0; i < resultCount; i++) {
-                  var featureAttributes = results.features[i].attributes;
-                  if(featureAttributes[$scope.varMapDash[0].fieldname] != -9999) {
-                    resultItems.push(featureAttributes[$scope.varMapDash[0].fieldname]);
-                  }
-                }
-
-                for (var i = 0; i < resultItems.length; i++) {
-                  $scope.sum += resultItems[i];
-                }
-
-                if ($scope.varMapDash[0].fieldtype == "total") {
-                  $scope.tableAnswer = Math.round($scope.sum * 100) / 100;
-                }
-                else if($scope.varMapDash[0].fieldtype == "percentage") {
-                  $scope.tableAnswer = (Math.round(($scope.sum/results.features.length) * 100) / 100) + " %" ;
-                }
-                else if($scope.varMapDash[0].fieldtype == "income") {
-                  $scope.tableAnswer = "$ " + (Math.round(($scope.sum/results.features.length) * 100) / 100);
-                }
-                $scope.$apply();
-              }//end of function showResults
+              //   //querying feature services to get variable value for table
+              //   var queryTask = new QueryTask("http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Neighborhoods_LAT_2017_NDSC/FeatureServer/0");
+              //   var query = new Query();
+              //   query.returnGeometry = true;
+              //   query.outFields = ["*"];
+              //
+              //   var queryTask2 = new QueryTask($scope.mapUrl);
+              //   var query2 = new Query();
+              //   query2.returnGeometry = true;
+              //   query2.outFields = ["*"];
+              //
+              //   $scope.pick = $scope.nhood;
+              //   $scope.sum=0;
+              //   query.where = "name = '" + $scope.pick + "'";
+              //   queryTask.execute(query, function(results) {
+              //   query2.geometry = results.features[0].geometry;
+              //   queryTask2.execute(query2, showResults);
+              //   });
+              //
+              // //function to calculate variable value for neighborhood
+              // function showResults (results) {
+              //   var resultItems = [];
+              //   var resultCount = results.features.length;
+              //   for (var i = 0; i < resultCount; i++) {
+              //     var featureAttributes = results.features[i].attributes;
+              //     if(featureAttributes[$scope.varMapDash[0].fieldname] != -9999) {
+              //       resultItems.push(featureAttributes[$scope.varMapDash[0].fieldname]);
+              //     }
+              //   }
+              //
+              //   for (var i = 0; i < resultItems.length; i++) {
+              //     $scope.sum += resultItems[i];
+              //   }
+              //
+              //   if ($scope.varMapDash[0].fieldtype == "total") {
+              //     $scope.tableAnswer = Math.round($scope.sum * 100) / 100;
+              //   }
+              //   else if($scope.varMapDash[0].fieldtype == "percentage") {
+              //     $scope.tableAnswer = (Math.round(($scope.sum/results.features.length) * 100) / 100) + " %" ;
+              //   }
+              //   else if($scope.varMapDash[0].fieldtype == "income") {
+              //     $scope.tableAnswer = "$ " + (Math.round(($scope.sum/results.features.length) * 100) / 100);
+              //   }
+              //   $scope.$apply();
+              // }//end of function showResults
 
               $http({
                 method: 'GET',
