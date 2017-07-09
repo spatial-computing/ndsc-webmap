@@ -68,11 +68,23 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                     method: 'GET',
                     url: 'http://localhost:3000/GS-Main'
                 }).then(function (response) {
+
+                  $scope.values = [];
+                  $scope.years = [];
+
+                  esriLoader.require([
+                      "esri/map",
+                      "esri/geometry/Extent",
+                      "esri/tasks/query",
+                      "esri/tasks/QueryTask",
+                      "dojo/domReady!"
+                    ], function(Map, Extent, Query, QueryTask) {
+
                     $scope.main = response.data.data;
 
 
               var pop = $filter('filter')($scope.main, { variable: $scope.mapData["variable"] });
-
+              var featureUrls = [];
               if (pop.length!=1) {
                   $scope.max=parseInt(pop[0].year);
                   $scope.min=parseInt(pop[0].year);
@@ -80,6 +92,8 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                   for (var i = 0; i < pop.length; i++) {
                     if(pop[i].year>$scope.max)$scope.max=pop[i].year;
                     if(pop[i].year<$scope.min)$scope.min=pop[i].year;
+                    $scope.years.push(pop[i].year);
+                    featureUrls.push(pop[i]["feature-serviceurl"] + "/0");
                   }
                   $scope.chlistener = function(val) {
                   $scope.lastSliderUpdated = $scope.slider_ticks_values_tooltip.value;
@@ -102,19 +116,108 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
               }
               else {
                 $scope.bool=false;
-
+                $scope.years.push(pop[0].year);
+                featureUrls.push(pop[0]["feature-serviceurl"] + "/0");
               }
+              $scope.years.reverse();
+              featureUrls.reverse();
+
+              var polygonExtent = new Extent();
+              polygonExtent.xmin = -118.953532;
+              polygonExtent.ymin = 32.792291;
+              polygonExtent.xmax = -117.644108;
+              polygonExtent.ymax = 34.823016;
+
+              var queryTaskchart = new QueryTask(featureUrls[0]);
+              var querychart = new Query();
+              var callsRemaining = featureUrls.length;
+              var min;
+
+              for(var j = 0; j < featureUrls.length; j++){
+                  console.log(featureUrls[j]);
+
+                  queryTaskchart = new QueryTask(featureUrls[j]);
+                  querychart = new Query();
+                  var medianItems = [];
+                  querychart.geometry = polygonExtent;
+                  querychart.outFields = ["*"];
+
+                  queryTaskchart.execute(querychart, function(result) {
+
+                  for (var i = 0; i < result.features.length; i++) {
+                    if(result.features[i].attributes[$scope.varMapDash[0].fieldname] != -9999)
+                      medianItems.push(result.features[i].attributes[$scope.varMapDash[0].fieldname]);
+                  }
+                  medianItems.sort(function(a, b){return a-b});
+                  if (medianItems.length % 2) {
+                    $scope.median = medianItems[(1 + medianItems.length)/2];
+                  }
+                  else {
+                    $scope.median = (medianItems[(medianItems.length)/2] + medianItems[((medianItems.length)/2)+1])/2;
+                  }
+                  $scope.median = Math.round($scope.median * 100) / 100;
+                  $scope.values.push($scope.median);
+                  if(min == null){
+                  min = $scope.median;
+                }
+                if($scope.median < min){
+                    min = $scope.median;
+                  }
+                  --callsRemaining;
+                  if(callsRemaining <= 0){
+                    console.log($scope.values);
+                    console.log(min);
+                    var ctx = document.getElementById("chart").getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: $scope.years,
+                            datasets: [{
+                                label: $scope.mapData["variable"],
+                                data: $scope.values,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255,99,132,1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero:true,
+                                        min: Math.max(0,Math.round(min-100)),
+                                        stepSize: min/2
+                                    }
+                                }]
+                            }
+                        }
+                    });
+
+                  }
+                });
+              }
+
+            });//esriLoader finishes
+
 
             },function(err){
                 console.log(err);
                 });
 
-
-			// $http({
-      //               method: 'GET',
-      //               url: 'http://localhost:3000/ndsc3'
-      //           }).then(function (response) {
-			// 	$scope.about = response.data.data;});
 
                 $scope.newMap = function(topic){
                   $scope.mapdata = topic;
@@ -305,69 +408,6 @@ map.on("click", function(evt){
 
             $scope.var = topic.Dataset;
           }
-
-
-
-
-          //chart code
-          $scope.url = $scope.mapData["feature-serviceurl"] + "/0";
-          $scope.jsonUrl = $scope.mapData["feature-serviceurl"] + "/0?f=pjson";
-
-            $http({
-              method: 'GET',
-              url: $scope.jsonUrl
-          }).then(function (response) {
-              $scope.trial = response.data.drawingInfo.renderer;
-              var groupByExpression = "CASE ";
-              var arr = $scope.trial.classBreakInfos;
-              groupByExpression = groupByExpression + "WHEN "+$scope.trial.field+ " < 0 OR "+$scope.trial.field+ " IS NULL THEN 'No Data' ";
-              for (var i = 1, len = $scope.trial.classBreakInfos.length; i < len; i++)
-              {
-                 groupByExpression = groupByExpression + "WHEN "+$scope.trial.field+ " BETWEEN "+$scope.trial.classBreakInfos[i-1].classMaxValue+" AND "+$scope.trial.classBreakInfos[i].classMaxValue+" THEN '"+$scope.trial.classBreakInfos[i].label+"' ";
-              }
-              groupByExpression = groupByExpression + " END";
-              var chart = new Cedar({
-                "type":"bar",
-                "dataset":{
-                  "url":$scope.url,
-                  "query":{
-                    "groupByFieldsForStatistics": groupByExpression,
-                    "orderByFields": groupByExpression,
-                    "outStatistics": [{
-                      "statisticType": "count",
-                      "onStatisticField": $scope.trial.field,
-                      "outStatisticFieldName": "RangeCount"
-                    }]
-                  },
-                  "mappings":{
-                    "x": {"field":"EXPR_1","label":"Range"},
-                    "y": {"field":"RangeCount","label":"Count"},
-                    // "label": {"field":"EXPR_1","label":"Range"},
-                    // "color": {"field":"EXPR_1","label":"Range"}
-                  }
-                }
-              });
-              chart.show({
-                elementId: "#chart",
-                autolabels: true
-              });
-              chart.transform = function (queryResult, dataset) {
-                var features = queryResult.features;
-                var index = -1;
-                for (var i = 0, len = features.length; i < len; i++) {
-                  if(features[i].attributes.EXPR_1==null){
-                    index = i;
-                    break;
-                  }
-                }
-                if(index>-1){
-                  features = features.splice(index,1);
-                }
-                return queryResult;
-              };
-          },function(err){
-              console.log(err);
-          });
 
 
     });
