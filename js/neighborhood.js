@@ -55,9 +55,13 @@ angular.module('myModule', ['angular.filter','esri.map'])
       "esri/lang",
       "esri/tasks/QueryTask",
       "esri/tasks/query",
+      "esri/dijit/Search",
+      "esri/symbols/PictureMarkerSymbol",
+      "esri/tasks/locator",
       "dojo/domReady!"
+      
       ], function(Map, Extent, FeatureLayer, SimpleLineSymbol, SimpleFillSymbol,
-      TextSymbol, SimpleRenderer, LabelClass, Color, Graphic, esriLang, QueryTask, Query) {
+      TextSymbol, SimpleRenderer, LabelClass, Color, Graphic, esriLang, QueryTask, Query,Search,PictureMarkerSymbol,Locator) {
 
       if($scope.mapFlag == 1){
         map2.destroy();
@@ -89,7 +93,54 @@ angular.module('myModule', ['angular.filter','esri.map'])
                     showLabels : true,
                     layers: regionMapLayer
                     });
+                    
+    
+    var searchNeighborHoodName = new Search({
+        
+            sources: [
+            {
+                featureLayer: mapLayer,
+                outFields:["name"],
+                displayField: "name",
+                suggestionTemplate: "${name}",                
+                name: "Search",
+                placeholder: "Search NeighborHood Name",
+                enableSuggestions: true  
+                
+            }
+          ],
+            map: map2,            
+            
+         }, "searchNeighborHoodName");
 
+searchNeighborHoodName.startup();
+    
+var searchStreetAddress2 = new Search({
+        
+            sources: [
+            {
+                
+            
+                locator: new   Locator("//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"),
+                singleLineFieldName: "SingleLine",
+                outFields: ["Addr_type"],
+                name: "Search",
+                localSearchOptions: {
+                    minScale: 300000,
+                    distance: 50000
+                },
+                placeholder: "Search Street Address",
+                highlightSymbol: new PictureMarkerSymbol("img/search-pointer.png", 36, 36).setOffset(9, 18)
+                
+                
+              
+            }
+          ],
+            map: map2,            
+            zoomScale: 5000000000
+         }, "searchStreetAddress2");
+    
+searchStreetAddress2.startup();
 
 
 
@@ -271,10 +322,14 @@ esriLoader.require([
 "esri/graphic",
 "esri/lang",
 "esri/tasks/QueryTask",
-  "esri/tasks/query",
+"esri/tasks/query",
+"esri/dijit/Search",
+"esri/symbols/PictureMarkerSymbol",
+"esri/tasks/locator",
 "dojo/domReady!"
+
 ], function(Map, Extent, FeatureLayer, SimpleLineSymbol, SimpleFillSymbol,
-TextSymbol, SimpleRenderer, LabelClass, Color, Graphic, esriLang, QueryTask, Query) {
+TextSymbol, SimpleRenderer, LabelClass, Color, Graphic, esriLang, QueryTask, Query,Search,PictureMarkerSymbol,Locator) {
 
 //Setting labels for map
 var labelField = "Name";
@@ -363,6 +418,58 @@ map.on("click", function(evt){
     $scope.regionMap();
   })
 });
+    
+    
+    
+var searchRegionName = new Search({
+        
+            sources: [
+            {
+                featureLayer:states,
+                outFields:["Name"],
+                displayField: "Name",
+                suggestionTemplate: "${Name}",                
+                name: "Search",
+                placeholder: "Search Region Name",
+                enableSuggestions: true  
+                
+            }
+          ],
+            
+            map: map  
+            
+            
+         }, "searchRegionName");
+
+searchRegionName.startup();
+    
+var searchStreetAddress1 = new Search({
+        
+            sources: [
+            {
+                
+            
+                locator: new   Locator("//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"),
+                singleLineFieldName: "SingleLine",
+                outFields: ["Addr_type"],
+                name: "Search",
+                localSearchOptions: {
+                    minScale: 300000,
+                    distance: 50000
+                },
+                placeholder: "Search Street Address",
+                highlightSymbol: new PictureMarkerSymbol("img/search-pointer.png", 36, 36).setOffset(9, 18)
+                
+                
+              
+            }
+          ],
+            map: map,            
+            zoomScale: 5000000000
+         }, "searchStreetAddress1");
+    
+searchStreetAddress1.startup();
+
 
     }); //esriLoader ends
 
