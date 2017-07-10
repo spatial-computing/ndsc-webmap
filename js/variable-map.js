@@ -7,6 +7,11 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
       $scope.sliderYear = JSON.parse(sessionStorage.mapYear);
       $scope.mapUrl = $scope.mapData["feature-serviceurl"] + "/0";
 
+      $scope.tableAnswer = {};
+      $scope.tracking = {};
+      var count = 0;
+      var sortedKeys;
+
       $scope.bool=true;
 
                 $http({
@@ -333,15 +338,12 @@ map.on("load", function(){
 });
 
 map.graphics.on("mouse-out", function() {
-map.graphics.clear();
 map.infoWindow.hide();
 });
 
 states.on("mouse-over", function(evt){
   var t = "<b>${name}</b>";
   var content = esriLang.substitute(evt.graphic.attributes,t);
-  var highlightGraphic = new Graphic(evt.graphic.geometry,highlightSymbol);
-  map.graphics.add(highlightGraphic);
   map.infoWindow.setContent(content);
   map.infoWindow.setTitle("Neighborhood");
   map.infoWindow.show(evt.screenPoint,map.getInfoWindowAnchor(evt.screenPoint));
@@ -359,11 +361,27 @@ map.on("click", function(evt){
       $scope.pick = result.features[0].attributes.name;
       $scope.sum=0;
 
-      query.where = "name = '" + $scope.pick + "'";
-      queryTask0.execute(query, function(results) {
-        query2.geometry = results.features[0].geometry;
-        queryTask2.execute(query2, showResults);
-      });
+      if ($scope.tableAnswer[$scope.pick]) {
+        sortedKeys = Object.values($scope.tracking).sort();
+        map.graphics.remove(map.graphics.graphics[sortedKeys.indexOf($scope.tracking[$scope.pick])+1]);
+        delete $scope.tracking[$scope.pick];
+        delete $scope.tableAnswer[$scope.pick];
+        if (Object.keys($scope.tableAnswer).length === 0) {
+          $scope.table = "false";
+        }
+        $scope.$apply();
+      }
+
+      else {
+        var highlightGraphic = new Graphic(evt.graphic.geometry,highlightSymbol);
+        map.graphics.add(highlightGraphic);
+
+        query.where = "name = '" + $scope.pick + "'";
+        queryTask0.execute(query, function(results) {
+          query2.geometry = results.features[0].geometry;
+          queryTask2.execute(query2, showResults);
+        });
+      }
     });
 
     function showResults (results) {
@@ -381,13 +399,16 @@ map.on("click", function(evt){
       }
 
       if ($scope.varMapDash[0].fieldtype == "total") {
-        $scope.tableAnswer = Math.round($scope.sum * 100) / 100;
+        $scope.tableAnswer[$scope.pick] = Math.round($scope.sum * 100) / 100;
+        $scope.tracking[$scope.pick] = count++;
       }
       else if($scope.varMapDash[0].fieldtype == "percentage") {
-        $scope.tableAnswer = (Math.round(($scope.sum/results.features.length) * 100) / 100) + " %" ;
+        $scope.tableAnswer[$scope.pick] = (Math.round(($scope.sum/results.features.length) * 100) / 100) + " %" ;
+        $scope.tracking[$scope.pick] = count++;
       }
       else if($scope.varMapDash[0].fieldtype == "income") {
-        $scope.tableAnswer = "$ " + (Math.round(($scope.sum/results.features.length) * 100) / 100);
+        $scope.tableAnswer[$scope.pick] = "$ " + (Math.round(($scope.sum/results.features.length) * 100) / 100);
+        $scope.tracking[$scope.pick] = count++;
       }
       $scope.$apply();
     }
