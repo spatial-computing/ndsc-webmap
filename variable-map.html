@@ -155,9 +155,9 @@ min-height: 750px;
 								</tr>
 							</thead>
 						<tbody>
-							<tr style="background-color:#edd840;">
-								<td>{{pick}}</td>
-								<td>{{tableAnswer}}</td>
+							<tr style="background-color:#edd840;" ng-repeat="(key,value) in tableAnswer">
+								<td>{{key}}</td>
+								<td>{{value}}</td>
 							</tr>
 						</tbody>
 				 </table>
