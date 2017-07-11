@@ -170,9 +170,16 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                   }
                   --callsRemaining;
                   if(callsRemaining <= 0){
-                    console.log($scope.values);
-                    console.log(min);
+
+
                     var ctx = document.getElementById("chart").getContext('2d');
+                    var avg = Math.abs(($scope.values[$scope.values.length - 1] - $scope.values[0])/$scope.values.length);
+                    var startValue = Math.max(0,Math.round(min-avg));
+                    if(avg == 0){
+                      startValue = 0;
+                    }
+
+                  
                     var myChart = new Chart(ctx, {
                         type: 'line',
                         data: {
@@ -204,8 +211,7 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                                 yAxes: [{
                                     ticks: {
                                         beginAtZero:true,
-                                        min: Math.max(0,Math.round(min-100)),
-                                        stepSize: min/2
+                                        min: startValue,
                                     }
                                 }]
                             }
