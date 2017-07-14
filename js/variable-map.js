@@ -54,6 +54,7 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                             $scope.median = (medianItems[(medianItems.length)/2] + medianItems[((medianItems.length)/2)+1])/2;
                           }
                           $scope.median = Math.round($scope.median * 100) / 100;
+                          $scope.displayMedian = $scope.median;
                           $scope.$apply();
                         });
                       });
@@ -135,13 +136,12 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
 
               var queryTaskchart = new QueryTask(featureUrls[0]);
               var querychart = new Query();
-              var callsRemaining = featureUrls.length;
               var min;
 
-              for(var j = 0; j < featureUrls.length; j++){
-                  console.log(featureUrls[j]);
+              var ind = 0;
+              $scope.calculateValues = function(ind){
 
-                  queryTaskchart = new QueryTask(featureUrls[j]);
+                  queryTaskchart = new QueryTask(featureUrls[ind]);
                   querychart = new Query();
                   var medianItems = [];
                   querychart.geometry = polygonExtent;
@@ -168,9 +168,8 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                 if($scope.median < min){
                     min = $scope.median;
                   }
-                  --callsRemaining;
-                  if(callsRemaining <= 0){
-
+                  ind++;
+                  if(ind == featureUrls.length){
 
                     var ctx = document.getElementById("chart").getContext('2d');
                     var avg = Math.abs(($scope.values[$scope.values.length - 1] - $scope.values[0])/$scope.values.length);
@@ -179,7 +178,7 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                       startValue = 0;
                     }
 
-                  
+
                     var myChart = new Chart(ctx, {
                         type: 'line',
                         data: {
@@ -216,29 +215,29 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                                 }]
                             }
                         }
-                    });
+                    });//chart code
 
+                  }
+                }).then(function(){
+
+                  if(ind < featureUrls.length){
+                      $scope.calculateValues(ind);
                   }
                 });
               }
+                $scope.calculateValues(ind);
+          });//esriLoader finishes
 
-            });//esriLoader finishes
 
-
-            },function(err){
+          },function(err){
                 console.log(err);
                 });
-
 
                 $scope.newMap = function(topic){
                   $scope.mapdata = topic;
                   sessionStorage.mapStore =  JSON.stringify($scope.mapdata);
                   $window.location.reload();
                 };
-
-
-
-
 
 
         $scope.onMapLoad = function(map) {
