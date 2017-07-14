@@ -33,7 +33,9 @@ angular.module('myModule', ['angular.filter','esri.map'])
       $scope.neighborhoodmap = function(dataset){
             $scope.mapdata = dataset;
 
+
             sessionStorage.nhood =  JSON.stringify($scope.mapdata);
+            sessionStorage.mapYear = JSON.stringify("2015");
             sessionStorage.variable = JSON.stringify("Median Household Income");
             sessionStorage.varUrl = JSON.stringify("http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/Income_MedianHouseholdIncome_2015_NDSC/FeatureServer/0");
       };
@@ -59,7 +61,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
       "esri/symbols/PictureMarkerSymbol",
       "esri/tasks/locator",
       "dojo/domReady!"
-      
+
       ], function(Map, Extent, FeatureLayer, SimpleLineSymbol, SimpleFillSymbol,
       TextSymbol, SimpleRenderer, LabelClass, Color, Graphic, esriLang, QueryTask, Query,Search,PictureMarkerSymbol,Locator) {
 
@@ -93,34 +95,34 @@ angular.module('myModule', ['angular.filter','esri.map'])
                     showLabels : true,
                     layers: regionMapLayer
                     });
-                    
-    
+
+
     var searchNeighborHoodName = new Search({
-        
+
             sources: [
             {
                 featureLayer: mapLayer,
                 outFields:["name"],
                 displayField: "name",
-                suggestionTemplate: "${name}",                
+                suggestionTemplate: "${name}",
                 name: "Search",
                 placeholder: "Search NeighborHood Name",
-                enableSuggestions: true  
-                
+                enableSuggestions: true
+
             }
           ],
-            map: map2,            
-            
+            map: map2,
+
          }, "searchNeighborHoodName");
 
 searchNeighborHoodName.startup();
-    
+
 var searchStreetAddress2 = new Search({
-        
+
             sources: [
             {
-                
-            
+
+
                 locator: new   Locator("//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"),
                 singleLineFieldName: "SingleLine",
                 outFields: ["Addr_type"],
@@ -131,15 +133,15 @@ var searchStreetAddress2 = new Search({
                 },
                 placeholder: "Search Street Address",
                 highlightSymbol: new PictureMarkerSymbol("img/search-pointer.png", 36, 36).setOffset(9, 18)
-                
-                
-              
+
+
+
             }
           ],
-            map: map2,            
+            map: map2,
             zoomScale: 5000000000
          }, "searchStreetAddress2");
-    
+
 searchStreetAddress2.startup();
 
 
@@ -418,37 +420,37 @@ map.on("click", function(evt){
     $scope.regionMap();
   })
 });
-    
-    
-    
+
+
+
 var searchRegionName = new Search({
-        
+
             sources: [
             {
                 featureLayer:states,
                 outFields:["Name"],
                 displayField: "Name",
-                suggestionTemplate: "${Name}",                
+                suggestionTemplate: "${Name}",
                 name: "Search",
                 placeholder: "Search Region Name",
-                enableSuggestions: true  
-                
+                enableSuggestions: true
+
             }
           ],
-            
-            map: map  
-            
-            
+
+            map: map
+
+
          }, "searchRegionName");
 
 searchRegionName.startup();
-    
+
 var searchStreetAddress1 = new Search({
-        
+
             sources: [
             {
-                
-            
+
+
                 locator: new   Locator("//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"),
                 singleLineFieldName: "SingleLine",
                 outFields: ["Addr_type"],
@@ -459,15 +461,15 @@ var searchStreetAddress1 = new Search({
                 },
                 placeholder: "Search Street Address",
                 highlightSymbol: new PictureMarkerSymbol("img/search-pointer.png", 36, 36).setOffset(9, 18)
-                
-                
-              
+
+
+
             }
           ],
-            map: map,            
+            map: map,
             zoomScale: 5000000000
          }, "searchStreetAddress1");
-    
+
 searchStreetAddress1.startup();
 
 
