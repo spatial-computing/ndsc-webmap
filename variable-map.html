@@ -68,6 +68,18 @@ min-height: 750px;
 
 		 }
 
+            html, body, #map {
+                padding:0;
+                margin:0;
+                height:100%;
+            }
+            #HomeButton {
+                position: absolute;
+                top: 105px;
+                left: 36px;
+                z-index: 50;
+            }
+
 		</style>
 	</head>
 	<body>
@@ -114,25 +126,24 @@ min-height: 750px;
       <!-- left panel   -->
       <div class="col-xs-2 sidenav">
 				<div class="col-xs-12 white" style="overflow-y: scroll;height:40%; min-height: 300px;">
-					<h5 style="font-weight:bold;">About {{ mapData.variable}}</h5>
+					<h5 style="font-weight:bold;">About {{ mapData.variable }}</h5>
 					{{varMapDash[0].learnvariableaboutthevariableondashboard}}
 				</div>
         <div class="col-xs-12 col12">
-            <div id="legend" style="font-size:12px;">
-            </div>
+            <div id="legendDiv"></div>
         </div>
       </div>
 
       <!-- center panel -->
       <div class="col-xs-6 col2" >
           <div class="col-xs-12 col21">
-            <p style="text-align: center; font-weight: bold; font-size: 15px">{{ mapData["variable"] | uppercase}} ({{mapData["year"]}})</p>
+            <p style="text-align: center; font-weight: bold; font-size: 15px">{{ mapData["variable"] | uppercase}} ({{year}})</p>
           </div>
           <div class="col-xs-12 col22">
-            <div id="mapDiv" style="display: inline-block; width:100%	;">
-              <esri-map id="map" map-options="{ basemap: 'gray', center: [-118.2437, 34.2522], zoom: 9,showLabels : true }" load="onMapLoad">
-                <div esri-legend target-id="legend"></div>
-              </esri-map>
+            <div id="mapDiv" style="display: inline-block; width:100%;">
+              <div id="map">
+            <div id="HomeButton"></div>
+        </div>
             </div>
           </div>
           <div class="col-xs-12">
@@ -140,7 +151,7 @@ min-height: 750px;
 						<rzslider ng-hide="!bool" style="width:250px; " rz-slider-model="slider_ticks_values_tooltip.value" rz-slider-options="slider_ticks_values_tooltip.options"></rzslider>
 					</div>
           <div class="col-xs-3 col231">
-						<a class="btn btn-default" target="_blank" href="{{mapData['open-dataurl']}}">Download All Data</a>
+						<a class="btn btn-default" href="https://opendata.arcgis.com/datasets/{{downloadURL}}_0.csv">Download All Data</a>
 					</div>
           <div class="col-xs-3 col232">
 						<button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Save/Print Map</button>
@@ -174,10 +185,10 @@ min-height: 750px;
 
             </div>
             <div class="col-xs-12 col312">
-				<div class="exploreButton" ng-show="exploreRegion == 'true'" data-toggle="tooltip" data-placement="top" title="Work in Progress!"><a href=#>Explore More About {{pick}}</a></div>
+				<!-- <div class="exploreButton" ng-show="exploreRegion == 'true'" data-toggle="tooltip" data-placement="top" title="Work in Progress!"><a href=#>Explore More About {{pick}}</a></div> -->
             </div>
             <div class="col-xs-12 col313">
-              <p>Median Value for L.A. County <b>{{displayMedian}}</b></p>
+              <p>Median Value for L.A. County <b>{{median}}</b></p>
             </div>
           </div>
 					<div class="col-xs-7 col32" style="overflow-y: scroll;font-size:12px;">
@@ -196,11 +207,11 @@ min-height: 750px;
           </div>
         </div>
         <div class="row row32" style="padding-top: 5px;">
-          <div class="col-xs-2"></div>
-          <div class="col-xs-8 row2col2 text-center">
-            <p style="vertical-align: center; color: black; font-weight: bold">Data for {{ mapData["variable"] }}</p>
+          <!-- <div class="col-xs-2"></div> -->
+          <div class="col-xs-12 row2col2 text-center">
+            <p style="color: black; font-weight: bold">Data for {{ mapData["variable"] }}</p>
           </div>
-          <div class="col-xs-2"></div>
+          <!-- <div class="col-xs-2"></div> -->
         </div>
         <div class="row row33" style="padding: 5px;margin-bottom:30px;">
           <canvas id="chart">
@@ -227,7 +238,7 @@ min-height: 750px;
 		<script src="https://js.arcgis.com/3.20"></script>
 
 		<script src="http://unpkg.com/angular-esri-map@1"></script>
-		<script src="js/variable-map.js"></script>
+		<script src="js/variable_map.js"></script>
 		<script src="js/loading.js"></script>
 		<script>
  $(function () {
