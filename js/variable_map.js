@@ -194,81 +194,81 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
 
                 queryTaskchart.execute(querychart, function(result) {
 
-                for (var i = 0; i < result.features.length; i++) {
-                  if(result.features[i].attributes[$scope.varMapDash[0].fieldname] != -9999)
-                    medianItems.push(result.features[i].attributes[$scope.varMapDash[0].fieldname]);
-                }
-                medianItems.sort(function(a, b){return a-b});
-                if (medianItems.length % 2) {
-                  $scope.median = medianItems[(1 + medianItems.length)/2];
-                }
-                else {
-                  $scope.median = (medianItems[(medianItems.length)/2] + medianItems[((medianItems.length)/2)+1])/2;
-                }
-                $scope.median = Math.round($scope.median * 100) / 100;
-                $scope.values.push($scope.median);
-                if(min == null){
-                min = $scope.median;
-              }
-              if($scope.median < min){
-                  min = $scope.median;
-                }
-                ind++;
-                if(ind == $scope.featureUrls.length){
+                    for (var i = 0; i < result.features.length; i++) {
+                        if(result.features[i].attributes[$scope.varMapDash[0].fieldname] != -9999)
+                            medianItems.push(result.features[i].attributes[$scope.varMapDash[0].fieldname]);
+                    }
+                    medianItems.sort(function(a, b){return a-b});
+                    if (medianItems.length % 2) {
+                        $scope.median = medianItems[(1 + medianItems.length)/2];
+                    }
+                    else {
+                        $scope.median = (medianItems[(medianItems.length)/2] + medianItems[((medianItems.length)/2)+1])/2;
+                    }
+                    $scope.median = Math.round($scope.median * 100) / 100;
+                    $scope.values.push($scope.median);
+                    if(min == null){
+                        min = $scope.median;
+                    }
+                    if($scope.median < min){
+                        min = $scope.median;
+                    }
+                    ind++;
+                    if(ind == $scope.featureUrls.length){
 
-                  var ctx = document.getElementById("chart").getContext('2d');
-                  var avg = Math.abs(($scope.values[$scope.values.length - 1] - $scope.values[0])/$scope.values.length);
-                  var startValue = Math.max(0,Math.round(min-avg));
-                  if(avg == 0){
-                    startValue = 0;
-                  }
+                        var ctx = document.getElementById("chart").getContext('2d');
+                        var avg = Math.abs(($scope.values[$scope.values.length - 1] - $scope.values[0])/$scope.values.length);
+                        var startValue = Math.max(0,Math.round(min-avg));
+                        if(avg == 0){
+                            startValue = 0;
+                        }
 
 
-                  var myChart = new Chart(ctx, {
-                      type: 'line',
-                      data: {
-                          labels: $scope.years,
-                          datasets: [{
-                              label: $scope.mapData["variable"],
-                              data: $scope.values,
-                              backgroundColor: [
-                                  'rgba(255, 99, 132, 0.2)',
-                                  'rgba(54, 162, 235, 0.2)',
-                                  'rgba(255, 206, 86, 0.2)',
-                                  'rgba(75, 192, 192, 0.2)',
-                                  'rgba(153, 102, 255, 0.2)',
-                                  'rgba(255, 159, 64, 0.2)'
-                              ],
-                              borderColor: [
-                                  'rgba(255,99,132,1)',
-                                  'rgba(54, 162, 235, 1)',
-                                  'rgba(255, 206, 86, 1)',
-                                  'rgba(75, 192, 192, 1)',
-                                  'rgba(153, 102, 255, 1)',
-                                  'rgba(255, 159, 64, 1)'
-                              ],
-                              borderWidth: 1
-                          }]
-                      },
-                      options: {
-                          scales: {
-                              yAxes: [{
-                                  ticks: {
-                                      beginAtZero:true,
-                                      min: startValue,
-                                  }
-                              }]
-                          }
-                      }
-                  });//chart code
+                        var myChart = new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: $scope.years,
+                                datasets: [{
+                                    label: $scope.mapData["variable"],
+                                    data: $scope.values,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255,99,132,1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero:true,
+                                            min: startValue,
+                                        }
+                                    }]
+                                }
+                            }
+                        });//chart code
 
-                }
-              }).then(function(){
+                    }
+                }).then(function(){
 
-                if(ind < $scope.featureUrls.length){
-                    $scope.calculateValues(ind);
-                }
-              });
+                    if(ind < $scope.featureUrls.length){
+                        $scope.calculateValues(ind);
+                    }
+                });
             }
             $scope.calculateValues(ind);
 
