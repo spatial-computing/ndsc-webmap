@@ -1,24 +1,23 @@
 <html ng-app='myModule' ng-controller='myController'>
   <head>
     <title>Draw Neighborhood</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/drawneighborhood.css">
-    <link rel="stylesheet" href="css/loading.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.2.2/rzslider.min.css">
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vega/2.6.1/vega.min.js"></script>
-		<script type="text/javascript" src="https://unpkg.com/arcgis-cedar@0.9.1/dist/cedar.min.js"></script>
-		<script>
-      var chart = new Cedar({"type": "bar"});
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
+		<link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/drawneighborhood.css">
+		<link rel="stylesheet" href="css/loading.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.2.2/rzslider.min.css">
+
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
+		<script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 	 <style>
 	  div.esriPopupWrapper .zoomTo
 		 {
@@ -28,6 +27,18 @@
      .activeButton {
        background-color: #90EE90
      }
+         #HomeButton {
+                position: absolute;
+                top: 105px;
+                left: 36px;
+                z-index: 50;
+            }
+         #HomeButton2 {
+                position: absolute;
+                top: 105px;
+                left: 36px;
+                z-index: 50;
+            }
 	  </style>
   </head>
   <body style="font-family:Lato;">
@@ -110,8 +121,9 @@
 <div class="col-md-6" style="display:inline-block">
     <!-- <h4 class="mapTitle" style="text-align: center; margin-bottom:3px">Select a Region Using Map or List</h4> -->
 <div id="mapDiv" style="margin-top: 20px">
-<esri-map id="map" map-options="{ basemap: 'gray', center: [-118.2437, 34.2522], zoom: 9,showLabels : true }" load="onMapLoad">
-</esri-map>
+<div id="map">
+            <div id="HomeButton"></div>
+        </div>
 </div>
 </div>
 <div class="col-md-3">
@@ -157,29 +169,26 @@
         {{varMapDash[0].learnvariableaboutthevariableondashboard}}
       </div>
       <div class="col-sm-12 col12">
-          <div id="legend" style="font-size:12px;">
-          </div>
+          <div id="legendDiv"></div>
       </div>
     </div>
 
     <!-- center panel -->
     <div class="col-sm-6 col2" >
         <div class="col-sm-12 col21">
-          <p style="text-align: center; font-weight: bold; font-size: 15px">{{ variable | uppercase}}</p>
+          <p style="text-align: center; font-weight: bold; font-size: 15px">{{ variable | uppercase}} ({{year}})</p>
         </div>
         <div class="col-sm-12 col22">
           <div id="mapDiv" style="display: inline-block; width:100%	;">
-            <!-- <esri-map id="map" map-options="{ basemap: 'gray', center: [-118.2437, 34.2522], zoom: 9,showLabels : true }" load="onMapLoad">
-              <esri-feature-layer url={{mapUrl}}></esri-feature-layer>
-              <div esri-legend target-id="legend"></div>
-            </esri-map> -->
-            <div id="map2" style="height: 390px">
-            </div>
+            
+            <div id="map2">
+            <div id="HomeButton2"></div>
+        </div>
           </div>
         </div>
         <div class="col-sm-12">
         <div class="col-sm-6 col23">
-          <rzslider ng-hide="!bool" style="width:150px; " rz-slider-model="slider_ticks_values_tooltip.value" rz-slider-options="slider_ticks_values_tooltip.options"></rzslider>
+          <rzslider ng-hide="!bool" style="width:250px; " rz-slider-model="slider_ticks_values_tooltip.value" rz-slider-options="slider_ticks_values_tooltip.options"></rzslider>
         </div>
         <div class="col-sm-3 col231">
           <button class="btn btn-default">Download All Data</button>
@@ -189,7 +198,7 @@
         </div>
       </div>
         <div class="col-sm-12 col24">
-            <table class="table table-hover" style="border:1px solid black">
+            <table class="table table-hover" style="border:1px solid black;margin-top: 15px;">
               <thead>
                 <tr>
                   <th>Neighborhood</th>
@@ -201,7 +210,6 @@
                 <td>Custom</td>
                 <td>{{ tableAnswer }}</td>
               </tr>
-              <!-- <p>{{ sum }}</p> -->
             </tbody>
          </table>
       </div>
@@ -258,8 +266,8 @@
         <div class="col-sm-2"></div>
       </div>
       <div class="row row33" style="padding: 5px;">
-        <div id="chart">
-        </div>
+        <canvas id="chart">
+          </canvas>
       </div>
       <div class="col-md-12" style="margin-top: 35px">
         <div class="col-md-6">
@@ -283,26 +291,26 @@
 </div>
 </div>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://js.arcgis.com/3.20"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
-    <script src="http://unpkg.com/angular-esri-map@1"></script>
-    <script src="js/drawneighborhood.js"></script>
-    <script src="js/loading.js"></script>
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="https://js.arcgis.com/3.20"></script>
+
+		<script src="http://unpkg.com/angular-esri-map@1"></script>
+		<script src="js/drawneighborhood.js"></script>
+		<script src="js/loading.js"></script>
 	<script>
 		 $(function () {
 			$('[data-toggle="tooltip"]').tooltip()
 		})
-	</script>
-  <script>
-  $(document).ready(function(){
+        
+        $(document).ready(function(){
+            var buttonFlag = 0;
       $('#drawButton').click(function () {
-          $(this).addClass("activeButton");
-          $(this).text("Drawing Activated!");
-      })
+             $(this).addClass("activeButton");
+          $(this).text("Drawing Activated!");              
+      });
+            
   });
   </script>
   </body>
