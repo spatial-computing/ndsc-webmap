@@ -11,6 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
 		<link rel="stylesheet" href="css/variable-map.css">
 		<link rel="stylesheet" href="css/loading.css">
+		<link rel="stylesheet" href="https://js.arcgis.com/3.21/dijit/themes/nihilo/nihilo.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.2.2/rzslider.min.css">
 
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.js"></script>
@@ -154,7 +155,7 @@ min-height: 750px;
 						<a class="btn btn-default" href="https://opendata.arcgis.com/datasets/{{downloadURL}}_0.csv">Download All Data</a>
 					</div>
           <div class="col-xs-3 col232">
-						<button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Save/Print Map</button>
+						<button class="btn btn-default" id="printButton" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Save/Print Map</button>
 					</div>
         </div>
 				<div class="col-xs-12 col24" ng-show="table == 'true'">
@@ -208,9 +209,9 @@ min-height: 750px;
         </div>
         <div class="row row32" style="padding-top: 5px;">
           <!-- <div class="col-xs-2"></div> -->
-          <div class="col-xs-12 row2col2 text-center">
-            <p style="color: black; font-weight: bold">Data for {{ mapData["variable"] }}</p>
-          </div>
+          <!-- <div class="col-xs-12 row2col2 text-center"> -->
+            <!-- <p style="color: black; font-weight: bold">Data for {{ mapData["variable"] }}</p> -->
+          <!-- </div> -->
           <!-- <div class="col-xs-2"></div> -->
         </div>
         <div class="row row33" style="padding: 5px;margin-bottom:30px;">
@@ -218,12 +219,13 @@ min-height: 750px;
           </canvas>
         </div>
         <div class="col-xs-12">
-          <div class="col-xs-6">
+          <!-- <div class="col-xs-6">
           <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Download Your Selection</button>
-        </div>
-        <div class="col-xs-6">
-        <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Save/Print Graph</button>
-      </div>
+        </div> -->
+        <!-- <div class="col-xs-12"> -->
+        <!-- <button class="btn btn-default" id="printChart" ng-click="getChart()" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Save/Print Graph</button> -->
+				<button class="btn btn-default" id="printChart" ng-click="getChart()" style="margin-left: 130px">Save/Print Graph</button>
+      <!-- </div> -->
         </div>
       </div>
     </div>
@@ -240,6 +242,8 @@ min-height: 750px;
 		<script src="http://unpkg.com/angular-esri-map@1"></script>
 		<script src="js/variable_map.js"></script>
 		<script src="js/loading.js"></script>
+		<script src="http://hongru.github.io/proj/canvas2image/canvas2image.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 		<script>
  $(function () {
  	$('[data-toggle="tooltip"]').tooltip()
