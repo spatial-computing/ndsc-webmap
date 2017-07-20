@@ -6,17 +6,17 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
     var map;
     var map2;
     var ext;
-    
+
     sessionStorage.var = JSON.stringify("Median Household Income");
     sessionStorage.varURL = JSON.stringify("http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/Income_MedianHouseholdIncome_2015_NDSC/FeatureServer/0");
     sessionStorage.mapYear = JSON.stringify(2015);
-    
+
     function sliderResize() {
         setTimeout(function(){
             $scope.$broadcast('reCalcViewDimensions');
         },500);
     }
-    
+
 
     function getMain(){
         return $http({
@@ -31,14 +31,14 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
             url: 'http://6370bd5f.ngrok.io/GS-Variables'
         });
     }
-    
+
     function getJSON(jsonURL){
         return $http({
             method: 'GET',
             url: jsonURL
         });
     }
-    
+
     function fetchData() {
         getMain().then(function(result1) {
             $scope.main = result1.data.data;
@@ -50,7 +50,7 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
             });
         });
     }
-    
+
     function mainFunc() {
         esriLoader.require([
             "esri/map",
@@ -78,7 +78,7 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
             "dojo/domReady!"
         ], function(Map, Extent, FeatureLayer, SimpleLineSymbol, SimpleFillSymbol,
                      TextSymbol, SimpleRenderer, LabelClass, Color, Graphic, esriLang, QueryTask, Query, CartographicLineSymbol, Draw, PictureFillSymbol, webMercatorUtils, Polygon, Legend, arrayUtils, parser, HomeButton) {
-            
+
             parser.parse();
 
             map = new Map("map", {
@@ -92,7 +92,7 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                 map: map
             }, "HomeButton");
             home.startup();
-            
+
             var labelField = "name";
 
             // create a renderer for the states layer to override default symbology
@@ -120,29 +120,29 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
             var json = {
               "labelExpressionInfo": {"value": "{name}"}
             };
-            
+
             var labelClass = new LabelClass(json);
             labelClass.symbol = nhdLabel;
-            
+
             var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0,112,255,255]), 2), new Color([173,216,230]));
 
             neighborhoods.setRenderer(new SimpleRenderer(symbol));
-            
+
             map.addLayer(neighborhoods);
-            
+
             //create highlight symbol for hover
             var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color("#191165"), 1), new Color([ 0, 197, 255]));
 
             map.on("load", function(){
                 map.graphics.enableMouseEvents();
             });
-            
+
             //get region selected on click
             var queryTask = new esri.tasks.QueryTask("http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Regions_LAT_2017_NDSC/FeatureServer/0");
             var query = new esri.tasks.Query();
             query.returnGeometry = true;
             query.outFields = ["name"];
-            
+
 
             var toolBar;
 
@@ -156,7 +156,7 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                 toolBar.on('draw-complete', function(e) {
                     addGraphic(e);
                 });
-                
+
                 // set the active tool once a button is clicked
                 $scope.activateDrawTool = activateDrawTool;
             }
@@ -188,22 +188,22 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                 $("#drawButton").removeClass("activeButton");
                 $("#drawButton").text("Click here to start drawing!");
             }
-            
+
             $scope.goToMap = function(){
 
-                
+
 
                 $('#mapCarousel').carousel('next');
                 myneighborhoodMap();
             }
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
             //Second Map
-            
+
             function myneighborhoodMap() {
                 $scope.sum = 0;
                 $scope.variable = JSON.parse(sessionStorage.var);
@@ -261,7 +261,7 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                     $scope.years.push($scope.variableObjects[0].year);
                     $scope.featureUrls.push($scope.variableObjects[0]["feature-serviceurl"] + "/0");
                 }
-                
+
                 $scope.years.reverse();
                 $scope.featureUrls.reverse();
 
@@ -278,7 +278,7 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                 var ind = 0;
 
                 $scope.calculateValues = function(ind){
-                        
+
                     queryTaskchart = new QueryTask($scope.featureUrls[ind]);
                     querychart = new Query();
                     var medianItems = [];
@@ -322,7 +322,7 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                                 data: {
                                     labels: $scope.years,
                                     datasets: [{
-                                        label: $scope.mapData["variable"],
+                                        label: $scope.variable,
                                         data: $scope.values,
                                         backgroundColor: [
                                             'rgba(255, 99, 132, 0.2)',
@@ -349,7 +349,17 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                                             ticks: {
                                                 beginAtZero:true,
                                                 min: startValue,
-                                            }
+                                            },
+                                            scaleLabel: {
+                                                display: true,
+                                                labelString: 'Data'
+                                              }
+                                        }],
+                                        xAxes: [{
+                                            scaleLabel: {
+                                                display: true,
+                                                labelString: 'Year'
+                                              }
                                         }]
                                     }
                                 }
@@ -374,7 +384,7 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
 
                 query.geometry = $scope.geom;
                 queryTask.execute(query, function(results){
-                
+
                 var resultItems = [];
                 var resultCount = results.features.length;
                 for (var i = 0; i < resultCount; i++) {
@@ -387,7 +397,7 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                 for (var i = 0; i < resultItems.length; i++) {
                     $scope.sum += resultItems[i];
                 }
-                
+
                 if ($scope.varMapDash[0].fieldtype == "total") {
                     $scope.tableAnswer = $scope.sum;
                 }
@@ -399,31 +409,31 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                 }
 
             }).then(function() {
-                
+
                 var neighborhoods2 = new FeatureLayer(neighborhoodsUrl, {
                     id: "neighborhoods",
                     outFields: ["*"],
                     infoTemplate: info,
                 });
-                
+
                 var censusTract = new FeatureLayer($scope.mapUrl, {
                     id: "censustract",
                     mode: FeatureLayer.MODE_ONDEMAND,
                     outFields: ["*"]
                 });
-                
+
                 map2 = new Map("map2", {
                     basemap: "gray",
                     center: [-118.2437, 34.2522],
                     zoom: 9,
                     showLabels : true,
                 });
-                
+
                 var home2 = new HomeButton({
                     map: map2
                 }, "HomeButton2");
                 home2.startup();
-                
+
                 var legend = new Legend({
                     map: map,
                     layerInfos: [{
@@ -432,30 +442,31 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                     }]
                 }, "legendDiv");
                 legend.startup();
-                
+
                 map2.addLayer(neighborhoods2);
-                
-                
-                
+
                 map2.on("load", function(){
                     map2.graphics.enableMouseEvents();
-                    
-                    calcMedian();
 
+                    calcMedian();
                     addCensusTract();
                 });
+
+                var labelLayer = map2.getLayer("layer3");
+                labelLayer.setOpacity(0);
+
             });
             }
-            
-            
-            
+
+
+
             $scope.newMap = function(topic){
                 $scope.mapdata = topic;
                 sessionStorage.var = JSON.stringify(topic.variable);
                 sessionStorage.varURL = JSON.stringify(topic["feature-serviceurl"]);
                 sessionStorage.mapYear =  JSON.stringify($scope.lastSliderUpdated);
             };
-            
+
             function tableValue() {
                 var queryTask = new QueryTask($scope.mapUrl);
                 var query = new Query();
@@ -464,7 +475,7 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
 
                 query.geometry = $scope.geom;
                 queryTask.execute(query, function(results){
-                
+
                     $scope.sum = 0;
                     var resultItems = [];
                     var resultCount = results.features.length;
@@ -491,7 +502,7 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                     $scope.$apply();
                 });
             }
-            
+
             function addCensusTract() {
                 $scope.newGeometry = webMercatorUtils.webMercatorToGeographic($scope.geom);
                 ext = $scope.newGeometry.getExtent();
@@ -510,9 +521,12 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                 query.returnGeometry = true;
                 query.outFields = ["*"];
 
-                getJSON(jsonURL).then(function(result) {                    
+                getJSON(jsonURL).then(function(result) {
 
                     $scope.jsonData = result.data.drawingInfo.renderer;
+                    $scope.downloadURL = result.data.serviceItemId;
+                    console.log(result.data);
+                    console.log($scope.downloadURL);
                     censusQuery.geometry = $scope.geom;
                     var symbol;
                     var drawGraphic;
@@ -549,7 +563,7 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                     });//queryTask ends
                 }); //http call
             }
-            
+
             function calcMedian() {
                 //Code to find the median value for LA county
                 var polygonExtent = new Extent();
@@ -584,25 +598,36 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                     $scope.$apply();
                 });
             }
-            
+
             function changeYear() {
-                
+
                 map.graphics.clear();
-
                 $scope.exploreRegion = "false";
-
                 var jsonURL = $scope.mapUrl + "?f=pjson"
                 getJSON(jsonURL).then(function(result) {
                     $scope.jsonData = result.data;
                     $scope.downloadURL = $scope.jsonData.serviceItemId;
+                    console.log($scope.downloadURL);
                 });
-                
                 calcMedian();
                 addCensusTract();
+
             }
 
+            var labelLayer = map.getLayer("layer1");
+            labelLayer.setOpacity(0);
+
         });//esriLoader ends
-    }                           
-    
+    }
+
     fetchData();
+
+    $scope.getChart = function(){
+
+        var canvas = document.getElementById('chart');
+        var dataURL = canvas.toDataURL();
+        document.getElementById('printChart').href = dataURL;
+        Canvas2Image.saveAsPNG(canvas);
+
+      }
 });
