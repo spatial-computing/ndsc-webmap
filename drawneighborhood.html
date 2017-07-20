@@ -22,7 +22,6 @@
 	  div.esriPopupWrapper .zoomTo
 		 {
   			display: none;
-
 		 }
      .activeButton {
        background-color: #90EE90
@@ -103,7 +102,6 @@
 
     <!-- <div id="mapCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
         <div class="carousel-inner">
-
     <div class="item active"> -->
       <div id="header-band" style=""><h4 class="text-center">CREATE YOUR OWN NEIGHBORHOOD</h4></div>
 
@@ -143,15 +141,6 @@
 
 
 <!--
-
-
-
-
-
-
-
-
-
 -->
 
 
@@ -180,7 +169,7 @@
         </div>
         <div class="col-sm-12 col22">
           <div id="mapDiv" style="display: inline-block; width:100%	;">
-            
+
             <div id="map2">
             <div id="HomeButton2"></div>
         </div>
@@ -191,7 +180,7 @@
           <rzslider ng-hide="!bool" style="width:250px; " rz-slider-model="slider_ticks_values_tooltip.value" rz-slider-options="slider_ticks_values_tooltip.options"></rzslider>
         </div>
         <div class="col-sm-3 col231">
-          <button class="btn btn-default">Download All Data</button>
+          <a class="btn btn-default" href="https://opendata.arcgis.com/datasets/{{downloadURL}}_0.csv">Download All Data</a>
         </div>
         <div class="col-sm-3 col232">
           <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Save/Print Map</button>
@@ -269,23 +258,17 @@
         <canvas id="chart">
           </canvas>
       </div>
-      <div class="col-md-12" style="margin-top: 35px">
-        <div class="col-md-6">
+      <!-- <div class="col-md-12" style="margin-top: 35px"> -->
+        <!-- <div class="col-md-6">
         <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Download Your Selection</button>
-      </div>
-      <div class="col-md-6">
-      <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Work in Progress!">Save/Print Graph</button>
+      </div> -->
+      <div class="col-md-12">
+      <button class="btn btn-default" id="printChart" ng-click="getChart()" style="margin-left: 130px">Save/Print Graph</button>
     </div>
-      </div>
+      <!-- </div> -->
     </div>
   </div>
-
-
 </div>
-
-
-
-
 
 </div>
 </div>
@@ -295,22 +278,22 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<script src="https://js.arcgis.com/3.20"></script>
-
 		<script src="http://unpkg.com/angular-esri-map@1"></script>
+    <script src="http://hongru.github.io/proj/canvas2image/canvas2image.js"></script>
 		<script src="js/drawneighborhood.js"></script>
 		<script src="js/loading.js"></script>
 	<script>
 		 $(function () {
 			$('[data-toggle="tooltip"]').tooltip()
 		})
-        
+
         $(document).ready(function(){
             var buttonFlag = 0;
       $('#drawButton').click(function () {
              $(this).addClass("activeButton");
-          $(this).text("Drawing Activated!");              
+          $(this).text("Drawing Activated!");
       });
-            
+
   });
   </script>
   </body>
