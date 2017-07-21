@@ -13,7 +13,7 @@ var menuApp = angular.module('menuApp', ['ui.filters']);
 			var refresh = function() {
 				$http({
 					method: 'GET',
-					url: 'http://b4fa31bb.ngrok.io/GS-Variables'
+					url: 'http://6370bd5f.ngrok.io/GS-Variables'
 				}).then(function (response){
 
 				  $scope.menus = response.data.data;			 
@@ -41,7 +41,7 @@ var menuApp = angular.module('menuApp', ['ui.filters']);
                 //dont know what this code does, we an remove it i guess 
 				$http({
 					method: 'GET',
-					url: 'http://b4fa31bb.ngrok.io/GS-Main'
+					url: 'http://6370bd5f.ngrok.io/GS-Main'
 				}).then(function (response){
 					$scope.main = response.data.data;
 					$scope.selectedYear;

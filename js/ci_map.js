@@ -280,7 +280,7 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                         $scope.sum += resultItems[i];
                     }
 
-                    $scope.tableAnswer[$scope.pick] = (Math.round(($scope.sum/results.features.length) * 10000) / 10000) ;
+                    $scope.tableAnswer[$scope.pick] = (Math.round(($scope.sum/resultItems.length) * 10000) / 10000) ;
                     $scope.tracking[$scope.pick] = count++;
                     $scope.$apply();
                 }

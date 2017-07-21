@@ -9,7 +9,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
       //get the data from neighborhood spreadsheet
       $http({
             method: 'GET',
-            url: 'http://localhost:3000/GS-Neighborhood'
+            url: 'http://6370bd5f.ngrok.io/GS-Neighborhood'
       }).then(function (response){
             $scope.neighborhood = response.data.data;
       });
@@ -17,7 +17,7 @@ angular.module('myModule', ['angular.filter','esri.map'])
       //get the data from region spreadsheet
       $http({
             method: 'GET',
-            url: 'http://localhost:3000/GS-Region'
+            url: 'http://6370bd5f.ngrok.io/GS-Region'
       }).then(function (response){
             $scope.regionData = response.data.data;
       });

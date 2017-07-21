@@ -281,30 +281,31 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
 
                     queryTaskchart = new QueryTask($scope.featureUrls[ind]);
                     querychart = new Query();
-                    var medianItems = [];
-                    querychart.geometry = polygonExtent;
+                    var tableItems = [];
+                    querychart.geometry = $scope.geom;
                     querychart.outFields = ["*"];
 
                     queryTaskchart.execute(querychart, function(result) {
 
                         for (var i = 0; i < result.features.length; i++) {
                             if(result.features[i].attributes[$scope.varMapDash[0].fieldname] != -9999)
-                                medianItems.push(result.features[i].attributes[$scope.varMapDash[0].fieldname]);
+                                tableItems.push(result.features[i].attributes[$scope.varMapDash[0].fieldname]);
                         }
-                        medianItems.sort(function(a, b){return a-b});
-                        if (medianItems.length % 2) {
-                            $scope.median = medianItems[(1 + medianItems.length)/2];
+
+                        var tableSum = 0;                
+                        for (var i = 0; i < tableItems.length; i++) {
+                            tableSum += tableItems[i];
                         }
-                        else {
-                            $scope.median = (medianItems[(medianItems.length)/2] + medianItems[((medianItems.length)/2)+1])/2;
-                        }
-                        $scope.median = Math.round($scope.median * 100) / 100;
-                        $scope.values.push($scope.median);
+
+                        var avg = tableSum/tableItems.length;
+                        avg = Math.round(avg * 100) / 100;
+
+                        $scope.values.push(avg);
                         if(min == null){
-                            min = $scope.median;
+                            min = avg;
                         }
-                        if($scope.median < min){
-                            min = $scope.median;
+                        if(avg < min){
+                            min = avg;
                         }
                         ind++;
                         if(ind == $scope.featureUrls.length){
@@ -402,10 +403,10 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                     $scope.tableAnswer = $scope.sum;
                 }
                 else if($scope.varMapDash[0].fieldtype == "percentage") {
-                    $scope.tableAnswer = (Math.round(($scope.sum/results.features.length) * 100) / 100) + " %" ;
+                    $scope.tableAnswer = (Math.round(($scope.sum/resultItems.length) * 100) / 100) + " %" ;
                 }
                 else if($scope.varMapDash[0].fieldtype == "income") {
-                    $scope.tableAnswer = "$ " + (Math.round(($scope.sum/results.features.length) * 100) / 100);
+                    $scope.tableAnswer = "$ " + (Math.round(($scope.sum/resultItems.length) * 100) / 100);
                 }
 
             }).then(function() {
@@ -494,10 +495,10 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                         $scope.tableAnswer = $scope.sum;
                     }
                     else if($scope.varMapDash[0].fieldtype == "percentage") {
-                        $scope.tableAnswer = (Math.round(($scope.sum/results.features.length) * 100) / 100) + " %" ;
+                        $scope.tableAnswer = (Math.round(($scope.sum/resultItems.length) * 100) / 100) + " %" ;
                     }
                     else if($scope.varMapDash[0].fieldtype == "income") {
-                        $scope.tableAnswer = "$ " + (Math.round(($scope.sum/results.features.length) * 100) / 100);
+                        $scope.tableAnswer = "$ " + (Math.round(($scope.sum/resultItems.length) * 100) / 100);
                     }
                     $scope.$apply();
                 });
@@ -525,8 +526,6 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
 
                     $scope.jsonData = result.data.drawingInfo.renderer;
                     $scope.downloadURL = result.data.serviceItemId;
-                    console.log(result.data);
-                    console.log($scope.downloadURL);
                     censusQuery.geometry = $scope.geom;
                     var symbol;
                     var drawGraphic;
@@ -607,7 +606,6 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                 getJSON(jsonURL).then(function(result) {
                     $scope.jsonData = result.data;
                     $scope.downloadURL = $scope.jsonData.serviceItemId;
-                    console.log($scope.downloadURL);
                 });
                 calcMedian();
                 addCensusTract();
