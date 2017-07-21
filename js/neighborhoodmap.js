@@ -20,28 +20,28 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
       function getMain(){
           return $http({
               method: 'GET',
-              url: 'http://localhost:3000/GS-Main'
+              url: 'http://6370bd5f.ngrok.io/GS-Main'
           });
       }
 
       function getRegions(){
           return $http({
               method: 'GET',
-              url: 'http://localhost:3000/GS-Region'
+              url: 'http://6370bd5f.ngrok.io/GS-Region'
           });
       }
 
       function getVariables(){
           return $http({
               method: 'GET',
-              url: 'http://localhost:3000/GS-Variables'
+              url: 'http://6370bd5f.ngrok.io/GS-Variables'
           });
       }
 
       function getNeighborhoods(){
           return $http({
               method: 'GET',
-              url: 'http://localhost:3000/GS-Neighborhood'
+              url: 'http://6370bd5f.ngrok.io/GS-Neighborhood'
           });
       }
 
@@ -278,8 +278,7 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
 
                   queryTaskchart = new QueryTask($scope.featureUrls[ind]);
                   querychart = new Query();
-                  var medianItems = [];
-                  console.log($scope.neighborhoodGeometry);
+                  var tableItems = [];
                   querychart.geometry = $scope.neighborhoodGeometry;
                   querychart.outFields = ["*"];
 
@@ -287,23 +286,23 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
 
                   for (var i = 0; i < result.features.length; i++) {
                     if(result.features[i].attributes[$scope.varMapDash[0].fieldname] != -9999)
-                      medianItems.push(result.features[i].attributes[$scope.varMapDash[0].fieldname]);
+                      tableItems.push(result.features[i].attributes[$scope.varMapDash[0].fieldname]);
                   }
-                  medianItems.sort(function(a, b){return a-b});
-                  if (medianItems.length % 2) {
-                    $scope.median = medianItems[(1 + medianItems.length)/2];
-                  }
-                  else {
-                    $scope.median = (medianItems[(medianItems.length)/2] + medianItems[((medianItems.length)/2)+1])/2;
-                  }
-                  $scope.median = Math.round($scope.median * 100) / 100;
-                  $scope.values.push($scope.median);
-                  if(min == null){
-                  min = $scope.median;
-                }
-                if($scope.median < min){
-                    min = $scope.median;
-                  }
+                  var tableSum = 0;                
+                    for (var i = 0; i < tableItems.length; i++) {
+                        tableSum += tableItems[i];
+                    }
+                    
+                    var avg = tableSum/tableItems.length;
+                    avg = Math.round(avg * 100) / 100;
+                    
+                    $scope.values.push(avg);
+                    if(min == null){
+                        min = avg;
+                    }
+                    if(avg < min){
+                        min = avg;
+                    }
                   ind++;
                   if(ind == $scope.featureUrls.length){
 
@@ -413,10 +412,10 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                   $scope.tableAnswer = Math.round($scope.sum * 100) / 100;
               }
               else if($scope.varMapDash[0].fieldtype == "percentage") {
-                  $scope.tableAnswer = (Math.round(($scope.sum/results.features.length) * 100) / 100) + " %" ;
+                  $scope.tableAnswer = (Math.round(($scope.sum/resultItems.length) * 100) / 100) + " %" ;
               }
               else if($scope.varMapDash[0].fieldtype == "income") {
-                  $scope.tableAnswer = "$ " + (Math.round(($scope.sum/results.features.length) * 100) / 100);
+                  $scope.tableAnswer = "$ " + (Math.round(($scope.sum/resultItems.length) * 100) / 100);
               }
               $scope.$apply();
             }//end of function showResults
