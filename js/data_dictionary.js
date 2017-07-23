@@ -1,122 +1,127 @@
-var menuApp = angular.module('menuApp', ['ui.filters']);
-			menuApp.controller("menuController", function ($scope, $http,$filter) {
-			var lookup = {};
-			var items;
-			var result = [];
-                
-            
-            // default input button checked code
-            $scope.inputBtnValue=1; 
-                
-                
+'use strict';
 
-			var refresh = function() {
-				$http({
-					method: 'GET',
-					url: 'http://6370bd5f.ngrok.io/GS-Variables'
-				}).then(function (response){
+angular.module('menuApp', ['ui.filters'])
+    .controller('menuController', function($scope, $http, $filter) {
+    
+    var lookup = {};
+    var items;
+    var result = [];
+    
+    // default input button checked code
+    $scope.inputBtnValue=1;
+    
+    function getMain(){
+        return $http({
+            method: 'GET',
+            url: 'http://6370bd5f.ngrok.io/GS-Main'
+        });
+    }
 
-				  $scope.menus = response.data.data;			 
-				  
-				  $scope.newmenu = $scope.menus;
+    function getVariables(){
+        return $http({
+            method: 'GET',
+            url: 'http://6370bd5f.ngrok.io/GS-Variables'
+        });
+    }
+    
+    function getJSON(jsonURL){
+        return $http({
+            method: 'GET',
+            url: jsonURL
+        });
+    }
+    
+    function fetchData() {
+        getMain().then(function(result1) {
+            $scope.main = result1.data.data;
 
-				  items = angular.copy($scope.menus);
-				  for (var item, i = 0; item = items[i++];) {
-				  var name = item.policyarea;
-					if (!(name in lookup) && name!=null && name!=="") {
-						lookup[name] = 1;
-						result.push(name);
-					}
-				  }
+            getVariables().then(function(result2) {
+                $scope.variables = result2.data.data;
+ 
+                mainFunc();
+            });
+        });
+    }
+    
+    function mainFunc() {				  
+        $scope.menu = $scope.variables;
+
+        items = angular.copy($scope.variables);
+        for (var item, i = 0; item = items[i++];) {
+            var name = item.policyarea;
+            if (!(name in lookup) && name!=null && name!=="") {
+                lookup[name] = 1;
+                result.push(name);
+            }
+        }
 				    
-                    //unique policy name 
-                    $scope.uniquePolicyName = result;                     
-                    $scope.flag = 1;
-					
-                    
-                   
+        //unique policy name 
+        $scope.uniquePolicyName = result;                     
+        $scope.flag = 1;
+        
+        $scope.popUp = function(variab) {
+            $scope.newVar = variab;
+            var years = $filter('filter')($scope.main, {'variable' : variab});  
+            $scope.yearss = years;
+        }
+        
+        $scope.downloadLink1 = function() {
+            var selOption = document.getElementById("sel1");
+            var strUser = selOption.options[selOption.selectedIndex].text;
+            if(strUser != "Select a Value") {
+                var mapUrl = $filter('filter')($scope.yearss, {'year' : strUser});
+                var jsonURL = mapUrl[0]["feature-serviceurl"] + "?f=pjson";
+                getJSON(jsonURL).then(function(result) {
+                    $scope.jsonData = result.data;
+                    $scope.downloadURL = "https://opendata.arcgis.com/datasets/" + $scope.jsonData.serviceItemId + "_0.csv";
+                    window.location = $scope.downloadURL;
+                });
+            }
+        }
+        
+        $scope.downloadLink2 = function() {
+            var selOption = document.getElementById("sel2");
+            var strUser = selOption.options[selOption.selectedIndex].text;
+            if(strUser != "Select a Value") {
+                var mapUrl = $filter('filter')($scope.yearss, {'year' : strUser});
+                var jsonURL = mapUrl[0]["feature-serviceurl"] + "?f=pjson";
+                getJSON(jsonURL).then(function(result) {
+                    $scope.jsonData = result.data;
+                    $scope.downloadURL = "https://opendata.arcgis.com/datasets/" + $scope.jsonData.serviceItemId + "_0.csv";
+                    window.location = $scope.downloadURL;
+                });
+            }
+        }
+        
+        $scope.sort = function(value) {
 
-				});
-
-                //dont know what this code does, we an remove it i guess 
-				$http({
-					method: 'GET',
-					url: 'http://6370bd5f.ngrok.io/GS-Main'
-				}).then(function (response){
-					$scope.main = response.data.data;
-					$scope.selectedYear;
-				});
-			  };
-			  
-                
-                refresh();
-
-
-
-
-
-			  $scope.popup = function(variab){
-			  	$scope.newVar = variab;
-			  	var years = [];
-				for (var p=0; p<$scope.main.length; p++){
-					if($scope.main[p]['variable'] == variab)
-						years.push($scope.main[p]);
-
-				}
-				 $scope.yearss = years;
-                  console.log("years");
-                  console.log($scope.yearss);
-			  }
-
-              
-              /*
-              
-			  $scope.yearSelected = function(variab,yr){
-					console.log("year is selected");
-                  //console.log("Var ",variab);
-					//console.log("year ",yr);
-					for (var p1=0; p1<$scope.main.length; p1++){
-						if($scope.main[p1]['variable'] == variab && $scope.main[p1]['year'] == yr){
-							$scope.downloadLink = $scope.main[p1]['open-dataurl'];
-							console.log($scope.downloadLink);
-							break;
-						}
-					}
-
-			  }
-              
-              */
-
-			  $scope.sort = function(value) {
-
-					if(value == 1)
-					{
-					$scope.flag = 1;
-					}
-					if(value == 2)
-					{
-					
-                        
-					$scope.flag = 2;                        
-					$scope.newmenu = angular.copy($scope.menus);
-					$scope.newmenu.sort(function(a, b){
-					a = a['dataset'];
-					b = b['dataset'];
+            if(value == 1)
+            {
+                $scope.flag = 1;
+            }
+            if(value == 2)
+            {                        
+                $scope.flag = 2;                        
+                $scope.menu = angular.copy($scope.variables);
+                $scope.menu.sort(function(a, b){
+                    a = a['dataset'];
+                    b = b['dataset'];
                     //need to modify this function 
-					if (a < b)
-						return -1;
+                    if (a < b)
+                        return -1;
 					if (a > b)
 						return 1;
-					return 0;
-					});
-					}
-				}
-
-				$scope.groupByPolicyName = function(policyAreaName){
-                    
-					var filteredData = [];
-					filteredData = $filter('filter')($scope.menus, {'policyarea' : policyAreaName});                    
-					return filteredData;
-
-				}
-			});
+                    return 0;
+                });
+            }
+        }
+        
+        $scope.groupByPolicyName = function(policyAreaName) {
+            var filteredData = [];
+            filteredData = $filter('filter')($scope.variables, {'policyarea' : policyAreaName});                    
+            return filteredData;
+        }
+    }
+    
+    fetchData();
+});
