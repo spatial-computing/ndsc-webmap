@@ -65,31 +65,32 @@ angular.module('menuApp', ['ui.filters'])
             $scope.yearss = years;
         }
         
-        $scope.downloadLink1 = function() {
-            var selOption = document.getElementById("sel1");
-            var strUser = selOption.options[selOption.selectedIndex].text;
-            if(strUser != "Select a Value") {
-                var mapUrl = $filter('filter')($scope.yearss, {'year' : strUser});
-                var jsonURL = mapUrl[0]["feature-serviceurl"] + "?f=pjson";
-                getJSON(jsonURL).then(function(result) {
-                    $scope.jsonData = result.data;
-                    $scope.downloadURL = "https://opendata.arcgis.com/datasets/" + $scope.jsonData.serviceItemId + "_0.csv";
-                    window.location = $scope.downloadURL;
-                });
+        $scope.downloadLink = function(sel) {
+            if(sel==1) {
+                var selOption = document.getElementById("sel1");
+                var strUser = selOption.options[selOption.selectedIndex].text;
+                if(strUser != "Select a Value") {
+                    var mapUrl = $filter('filter')($scope.yearss, {'year' : strUser});
+                    var jsonURL = mapUrl[0]["feature-serviceurl"] + "?f=pjson";
+                    getJSON(jsonURL).then(function(result) {
+                        $scope.jsonData = result.data;
+                        $scope.downloadURL = "https://opendata.arcgis.com/datasets/" + $scope.jsonData.serviceItemId + "_0.csv";
+                        window.location = $scope.downloadURL;
+                    });
+                }
             }
-        }
-        
-        $scope.downloadLink2 = function() {
-            var selOption = document.getElementById("sel2");
-            var strUser = selOption.options[selOption.selectedIndex].text;
-            if(strUser != "Select a Value") {
-                var mapUrl = $filter('filter')($scope.yearss, {'year' : strUser});
-                var jsonURL = mapUrl[0]["feature-serviceurl"] + "?f=pjson";
-                getJSON(jsonURL).then(function(result) {
-                    $scope.jsonData = result.data;
-                    $scope.downloadURL = "https://opendata.arcgis.com/datasets/" + $scope.jsonData.serviceItemId + "_0.csv";
-                    window.location = $scope.downloadURL;
-                });
+            else {
+                var selOption = document.getElementById("sel2");
+                var strUser = selOption.options[selOption.selectedIndex].text;
+                if(strUser != "Select a Value") {
+                    var mapUrl = $filter('filter')($scope.yearss, {'year' : strUser});
+                    var jsonURL = mapUrl[0]["feature-serviceurl"] + "?f=pjson";
+                    getJSON(jsonURL).then(function(result) {
+                        $scope.jsonData = result.data;
+                        $scope.downloadURL = "https://opendata.arcgis.com/datasets/" + $scope.jsonData.serviceItemId + "_0.csv";
+                        window.location = $scope.downloadURL;
+                    });
+                }
             }
         }
         
