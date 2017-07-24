@@ -2,26 +2,24 @@
 <html >
 	<head>
 		<title>Data Dictionary</title>
-		
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">		
-       
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">	
-        
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" /> 
-		
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
+
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        
+
         <link rel="stylesheet" href="css/data_dictionary.css">
 		<link rel="stylesheet" href="css/loading.css">
-
-
 </head>
-    
-    
+
+
 <body ng-app='menuApp' ng-controller='menuController' >
-   
+
     <!-- loading screen -->
     <div id="loader-wrapper">
         <div id="loader"></div>
@@ -65,19 +63,19 @@
 				<div class="col-xs-2 logo">
 					<img src="img/price.png" id="price-logo" style="height:91%;width:76%;padding-left:58px;padding-top:20px;">
 				</div>
-				
+
                 <div class="col-xs-8 heading" style="color: white;background-image: url('img/about_data.jpg'); background-size: 60%;"><h1 style="padding-top: 30px;padding-left: 250px;">DATA DICTIONARY</h1></div>
-				
+
                 <div class="col-xs-2 logo">
-					<img src="img/dornsife.png" id="dornsife-logo" style="height:86%;width:83%;padding-left:45px;">				
+					<img src="img/dornsife.png" id="dornsife-logo" style="height:86%;width:85%;padding-left:45px;">
                 </div>
              </div>
-            
+
             <!-- where do i start is not working . What is this?-->
 			<div class="row row2" style="background-color: #0c343d;">
 				<a href="#" style="text-align: center;color: white;vertical-align: middle;margin-left:20px;line-height:34px;text-decoration: underline;">Where do I start?</a>
 			</div>
-            
+
             <!-- sorting by differetn criteria code-->
 			<div class="row row3">
 				<p class="centeral" style="background-color: #a2c4c9;">SORT DATASETS:
@@ -95,11 +93,11 @@
 				<div class="col-xs-2 centeral" style="background-color:#0c343d;color:white;">SOURCE</div>
 				<div class="col-xs-2 centeral" style="background-color:#0c343d;color:white;">YEARS AVAILABLE</div>
             </div>
-            
+
 			<div class="row row4" style="overflow:scroll;width:100%;">
                 <!-- table shown when sorted by policy area when flag is 1 -->
-				
-              
+
+
                 <div class="row" ng-show="flag == 1" ng-repeat="a in uniquePolicyName" style="width:100%;margin-left:0px;">
 					<div class="col-xs-12 centeral" style="background-color:#d9ead3;width:100%;height:25%;text-transform: uppercase;font-weight: bold;">{{a}}</div>
 
@@ -108,7 +106,7 @@
 						<div class="col-xs-2" style="border:1px solid black;height:85px;overflow:scroll; overflow:auto;">
 							{{b.dataset}}
 						</div>
-						<div id="columnvariable" class="col-xs-2 popup" data-toggle="modal" data-target="#myModal1"  ng-click="popUp(b['variable']);">
+						<div id="columnvariable" class="col-xs-2 popup" data-toggle="modal" data-target="#myModal1"  ng-click="popup(b['variable']);">
 							{{b['variable']}}
 
 						</div>
@@ -134,11 +132,11 @@
 									<select class="form-control" id="sel1"  style="background-color:#0c343d;color:white;width:25%;margin:auto;" ng-model="modelSelectedYear" ng-options="d.year for d in yearss" >
                                         <option value="" disabled>Select a Value</option>
 									</select>
-                                        
-									<div style="height:20px;"></div>									  
-                                        
-                                         <a ng-click="downloadLink1();" class="btn btn-default" style="color: #0c343d; font-weight: bold; background-color:#d9ead3;border: 2px solid #0c343d;margin:auto;letter-spacing:1px;"   >Download</a>
-                               
+
+									<div style="height:20px;"></div>
+
+                                         <a href={{modelSelectedYear['open-dataurl']}} class="btn btn-default" style="color: #0c343d; font-weight: bold; background-color:#d9ead3;border: 2px solid #0c343d;margin:auto;letter-spacing:1px;" target="_blank"  >Download</a>
+
 									</div>
 									<div class="modal-footer">
 									  <button type="button" class="btn btn-default" data-dismiss="modal" style="color: #0c343d; font-weight: bold; background-color:#d9ead3;border: 2px solid #0c343d; letter-spacing:1px;">Cancel</button>
@@ -150,14 +148,14 @@
 					</div>
 
 				</div>
-                
+
                 <!-- table shown when sorted by alphabetical when flag is 2 -->
-				<div class="row" ng-show="flag == 2" ng-repeat="c in menu" style="width:100%;margin-left:0px;">
+				<div class="row" ng-show="flag == 2" ng-repeat="c in newmenu" style="width:100%;margin-left:0px;">
 
 						<div class="col-xs-2" style="border:1px solid black;height:85px; overflow:scroll; overflow:auto;">
 							{{c.dataset}}
 						</div>
-						<div class="col-xs-2 popup" data-toggle="modal" data-target="#myModal2" id="columnvariable"  ng-click="popUp(c['variable']);" style="border:1px solid black;height:85px; overflow:scroll; overflow:auto;" >
+						<div class="col-xs-2 popup" data-toggle="modal" data-target="#myModal2" id="columnvariable"  ng-click="popup(c['variable']);" style="border:1px solid black;height:85px; overflow:scroll; overflow:auto;" >
 							{{c['variable']}}
 
 						</div>
@@ -181,14 +179,14 @@
 									  <h4 class="modal-title">Download Data for {{ newVar }}</h4>
 									</div>
 									<div class="modal-body" style="text-align:center;">
-									<select class="form-control" id="sel2"  style="background-color:#0c343d;color:white;width:25%;margin:auto;" ng-model="modelSelectedYear" ng-options="d.year for d in yearss" >	
+									<select class="form-control" id="sel2"  style="background-color:#0c343d;color:white;width:25%;margin:auto;" ng-model="modelSelectedYear" ng-options="d.year for d in yearss" >
                                         <option value="" disabled>Select a Value</option>
 									</select>
-                                        
-									<div style="height:20px;"></div>									  
-                                        
-                                         <a ng-click="downloadLink2();" class="btn btn-default" style="color: #0c343d; font-weight: bold; background-color:#d9ead3;border: 2px solid #0c343d;margin:auto;" target="_blank">Download</a>
-                               
+
+									<div style="height:20px;"></div>
+
+                                         <a href={{modelSelectedYear['open-dataurl']}} class="btn btn-default" style="color: #0c343d; font-weight: bold; background-color:#d9ead3;border: 2px solid #0c343d;margin:auto;" target="_blank">Download</a>
+
 									</div>
 									<div class="modal-footer">
 									  <button type="button" class="btn btn-default" data-dismiss="modal" style="color: #0c343d; font-weight: bold; background-color:#d9ead3;border: 2px solid #0c343d; letter-spacing:1px;">Cancel</button>
@@ -199,7 +197,7 @@
 						</div>
 
 				</div>
-			
+
             </div>
 
 			<div class="row row5">
@@ -207,8 +205,8 @@
 			</div>
 		</div>
 	</div>
-    
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>  
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
@@ -216,6 +214,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="js/data_dictionary.js"></script>
 		<script src="js/loading.js"></script>
-    
+
 	</body>
 </html>
