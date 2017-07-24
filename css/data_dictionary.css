@@ -1,7 +1,6 @@
-
 body{
     overflow: scroll;
-    min-width: 1300px;
+    min-width: 1200px;
 	min-height: 750px;
 }
 
@@ -12,7 +11,7 @@ body{
 
 #main-nav a {
   color: #FFFFFF;
-  font-weight: bold;
+  font-weight: 450;
   font-size: 15px;
 }
 
@@ -339,7 +338,15 @@ a:hover {
     from {opacity: 0;}
     to {opacity:1 ;}
 }
-	@media (max-width: 1350px) {
+
+.navbar-brand {
+  margin-top: -5px;
+}
+
+.icon-bar {
+    background-color:#000;
+}
+@media (max-width: 1250px) {
   .navbar-header {
       float: none;
   }
@@ -375,4 +382,3 @@ a:hover {
       display:block !important;
   }
 }
-
