@@ -6,9 +6,9 @@
 body
 		 {
 			 overflow:scroll;
-			 min-width: 1300px;
+			 min-width: 1200px;
 			 min-height: 750px;
-		
+
 		 }
 #main-nav {
   background-color: #990000;
@@ -80,7 +80,6 @@ body
 }
 
 #title-image {
-  height: 23%;
   width:100%;
 }
 
@@ -208,7 +207,7 @@ margin-left: 18%;
 	position: absolute;
 	color: white;
    top: 15%;
-  left: 20%;
+  left: 10%;
 
 }
 .title-text-homepage
@@ -228,13 +227,13 @@ font: 1.125em ;
 .title-text_line2
 {
 	position: absolute;
-	left: 40%;
+	left: 30%;
 	bottom: 25%;
 	color: white;
 	height:100%;
-    justify-content: center;
-    align-items: center;
-    display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 	top: 20%;
 }
 
