@@ -40,7 +40,7 @@ body
 }
 
 .icon-bar {
-    background-color:#000;
+    background-color: white;
 }
 @media (max-width: 1250px) {
   .navbar-header {
@@ -194,13 +194,10 @@ margin-left: 18%;
 .title-text
 {
 	position: absolute;
-
-
 	color: white;
    top: 40%;
-  left: 45%;
+  left: 50%;
   transform: translate(-50%, -50%);
-
 }
 .title-text_composite
 {
@@ -208,7 +205,6 @@ margin-left: 18%;
 	color: white;
    top: 15%;
   left: 10%;
-
 }
 .title-text-homepage
 {
@@ -224,10 +220,22 @@ margin-left: 18%;
 	margin-bottom: 1%;
 font: 1.125em ;
 }
+
+.page-title
+{
+position: absolute;
+color: white;
+top: 30%;
+width: 100%;
+text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+text-align: center;
+}
+
 .title-text_line2
 {
 	position: absolute;
-	left: 30%;
+  width: 100%;
+  text-align: center;
 	bottom: 25%;
 	color: white;
 	height:100%;
@@ -275,6 +283,25 @@ font: 1.125em ;
     justify-content: center;
     align-items: center;
     display: flex;
+    width: 80%;
+    text-align: center;
+
+}
+
+.text_thumbnails_ci
+{
+	  height:100%;
+    position: absolute;
+    top: -12%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 93%;
+    text-align: center;
+    /*text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    color: white;*/
+    /*text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;*/
+    color: #003333;
 
 }
 
