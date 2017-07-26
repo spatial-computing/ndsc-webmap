@@ -1,7 +1,7 @@
 <html ng-app='myModule' ng-controller='myController'>
   <head>
     <title>Explore Neighborhood</title>
-	  
+
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -17,17 +17,17 @@
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 	  <meta name=viewport content="initial-scale=1">
 	  <style>
-	  div.esriPopupWrapper .zoomTo 
+	  div.esriPopupWrapper .zoomTo
 		 {
-  			display: none;	
+  			display: none;
 
 		 }
 		  body
 		 {
 			 overflow:scroll;
-			 min-width: 1300px;
+			 min-width: 1200px;
 			 min-height: 750px;
-		
+
 		 }
 	  </style>
   </head>
@@ -73,16 +73,16 @@
         <div class="col-xs-2 ">
           <img src="img/price.png" id="price-logo" style="width:60%;">
         </div>
-        <div class="col-xs-8 " style="position:relative;">
+        <div class="col-xs-8 " style="position:relative; overflow:hidden; height: 29%">
           <img src="img/exp_neighborhoods.jpg" id="title-image" >
-			<h1 class="title-text_composite">
+			<h1 class="page-title">
 			<b> EXPLORE YOUR NEIGHBORHOOD</b>
 
 			</h1>
 
         </div>
         <div class="col-xs-2">
-          <img src="img/dornsife.png" id="dornsife-logo" style="width:60%;">
+          <img src="img/dornsife.png" id="dornsife-logo" style="width:70%;">
         </div>
       </div>
     </div>
@@ -119,17 +119,16 @@
   <div class="search">
     <h4>SEARCH BY REGION NAME</h4>
       <div id="searchRegionName"></div>
-  
+
   </div>
   <div class="search">
     <h4>SEARCH BY STREET ADDRESS</h4>
       <div id="searchStreetAddress1"></div>
-	  
+
   </div>
   </div>
 <div style="clear:both";></div>
   <div class="band" style=""></div>
-
   </div>
 
   <div class="item">
@@ -144,7 +143,7 @@
            <li ng-repeat="region in neighborhood | filter: regionpick">
              <a href="neighborhoodmap.html" ng-click="neighborhoodmap(region.neighborhood)">{{region.neighborhood}}</a>
            </li>
-           
+
          </ul>
    </div>
 
@@ -160,14 +159,13 @@
   <p style="margin-top: 10px; margin-left: 10px; color: #004d4d">Why use L.A. Times Neighborhoods?</p>
   <div class="search">
   <h4>SEARCH BY NEIGHBORHOOD NAME</h4>
-      
+
       <div id="searchNeighborHoodName"></div>
-	 
+
   </div>
   <div class="search">
   <h4>SEARCH BY STREET ADDRESS</h4>
       <div id="searchStreetAddress2"></div>
-	  
   </div>
   </div>
  <div style="clear:both";></div>
@@ -189,9 +187,9 @@
     <script src="js/neighborhood.js"></script>
     <script src="js/loading.js"></script>
 	  <script>
-		
+
 			$('[data-toggle="tooltip"]').tooltip();
-		
+
 	  </script>
   </body>
 </html>
