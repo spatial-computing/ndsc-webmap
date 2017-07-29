@@ -7,7 +7,6 @@ angular.module('menuApp', ['ui.filters'])
     var items;
     var result = [];
     
-    // default input button checked code
     $scope.inputBtnValue=1;
     
     function getMain(){
@@ -55,7 +54,6 @@ angular.module('menuApp', ['ui.filters'])
             }
         }
 				    
-        //unique policy name 
         $scope.uniquePolicyName = result;                     
         $scope.flag = 1;
         

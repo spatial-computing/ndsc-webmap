@@ -128,7 +128,6 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
         TextSymbol, SimpleRenderer, LabelClass, Color, Graphic, esriLang, Legend,
         arrayUtils, parser, Query, QueryTask, HomeButton, Print, dom, Button, esriConfig) {
 
-            // load the map centered on the United States
             parser.parse();
             
             map = new Map("map", {
@@ -162,7 +161,6 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
             
             var labelField = "name";
             
-            // create a renderer for the states layer to override default symbology
             var nhdColor = new Color("#FF3300");
             var nhdLine = new SimpleLineSymbol("solid", nhdColor, 1.5);
             var nhdSymbol = new SimpleFillSymbol("solid", nhdLine, null);
@@ -170,7 +168,6 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
 
             var neighborhoodsUrl = "http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Neighborhoods_LAT_2017_NDSC/FeatureServer/0";
 
-            //var neighborhoodsUrl = $scope.mapData["Feature-service URL"] + "/0";
             var censusTract = new FeatureLayer($scope.mapUrl, {
                 id: "censustract",
                 mode: FeatureLayer.MODE_ONDEMAND,
@@ -285,10 +282,9 @@ angular.module('myModule', ['angular.filter','esri.map', 'rzModule', 'ui.bootstr
                     $scope.$apply();
                 }
 
-            }); //map.on(click)
+            }); 
             
             function calcMedian() {
-                //Code to find the median value for LA county
                 var polygonExtent = new Extent();
                 polygonExtent.xmin = -118.953532;
                 polygonExtent.ymin = 32.792291;

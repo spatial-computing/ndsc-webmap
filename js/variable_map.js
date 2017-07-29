@@ -91,10 +91,7 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
         TextSymbol, SimpleRenderer, LabelClass, Color, Graphic, esriLang, Legend,
         arrayUtils, parser, Query, QueryTask, HomeButton, Print, dom, Button, esriConfig) {
 
-            // load the map centered on the United States
             parser.parse();
-
-//            esriConfig.defaults.io.proxyUrl = "/proxy/";
 
             map = new Map("map", {
                 basemap: 'gray',
@@ -103,26 +100,10 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                 showLabels : true
             });
 
-            // var printer = new Print({
-            //   map: map,
-            //   url: $scope.mapUrl
-            // }, dom.byId("printButton"));
-            // printer.startup();
-            //
-            // printer.on('error',function(error){
-            //   console.log(error);
-            // })
-
             var home = new HomeButton({
                 map: map
             }, "HomeButton");
             home.startup();
-
-//            var printer = new Print({
-//                map: map,
-//                url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
-//            }, dom.byId("printButton"));
-//            printer.startup();
 
             $scope.mapData = JSON.parse(sessionStorage.mapStore);
             $scope.sliderYear = JSON.parse(sessionStorage.mapYear);
@@ -234,7 +215,6 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                             startValue = 0;
                         }
 
-
                         var myChart = new Chart(ctx, {
                             type: 'line',
                             data: {
@@ -281,7 +261,7 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                                     }]
                                 }
                             }
-                        });//chart code
+                        });
 
                     }
                 }).then(function(){
@@ -292,7 +272,6 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                 });
             }
             $scope.calculateValues(ind);
-
 
             var queryTask0 = new QueryTask("http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Neighborhoods_LAT_2017_NDSC/FeatureServer/0");
             var query0 = new Query();
@@ -309,7 +288,6 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
 
             var labelField = "name";
 
-            // create a renderer for the states layer to override default symbology
             var nhdColor = new Color("#FF3300");
             var nhdLine = new SimpleLineSymbol("solid", nhdColor, 1.5);
             var nhdSymbol = new SimpleFillSymbol("solid", nhdLine, null);
@@ -317,7 +295,6 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
 
             var neighborhoodsUrl = "http://services1.arcgis.com/ZIL9uO234SBBPGL7/arcgis/rest/services/LA_County_Neighborhoods_LAT_2017_NDSC/FeatureServer/0";
 
-            //var neighborhoodsUrl = $scope.mapData["Feature-service URL"] + "/0";
             var censusTract = new FeatureLayer($scope.mapUrl, {
                 id: "censustract",
                 mode: FeatureLayer.MODE_ONDEMAND,
@@ -329,9 +306,9 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
             info.setContent("${name}");
 
             var neighborhoods = new FeatureLayer(neighborhoodsUrl, {
-            id: "neighborhoods",
-            outFields: ["*"],
-            infoTemplate: info,
+                id: "neighborhoods",
+                outFields: ["*"],
+                infoTemplate: info,
             });
 
             var nhdLabel = new TextSymbol().setColor(nhdColor);
@@ -339,7 +316,7 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
             nhdLabel.font.setFamily("arial");
 
             var json = {
-              "labelExpressionInfo": {"value": "{name}"}
+                "labelExpressionInfo": {"value": "{name}"}
             };
 
             var labelClass = new LabelClass(json);
@@ -354,12 +331,9 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
             }, "legendDiv");
             legend.startup();
 
-
             map.addLayers([censusTract,neighborhoods]);
 
-
-            var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(
-                SimpleLineSymbol.STYLE_SOLID, new Color("#191165"), 1), new Color([255,0,0,0.5]));
+            var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color("#191165"), 1), new Color([255,0,0,0.5]));
 
             map.on("load", function(){
                 map.graphics.enableMouseEvents();
@@ -445,12 +419,9 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
                     $scope.$apply();
                 }
 
-            }); //map.on(click)
-
-
+            });
 
             function calcMedian() {
-                //Code to find the median value for LA county
                 var polygonExtent = new Extent();
                 polygonExtent.xmin = -118.953532;
                 polygonExtent.ymin = 32.792291;
@@ -513,33 +484,15 @@ angular.module('myModule', ['esri.map','rzModule', 'ui.bootstrap'])
             var labelLayer = map.getLayer("layer1");
             labelLayer.setOpacity(0);
 
-        }); //esriLoader
+        }); 
     }
-
-
 
     fetchData();
 
     $scope.getChart = function(){
-
         var canvas = document.getElementById('chart');
         var dataURL = canvas.toDataURL();
         document.getElementById('printChart').href = dataURL;
         Canvas2Image.saveAsPNG(canvas);
-
-      }
-
-//       $scope.printMap = function(div)
-//     {
-//       var element = document.getElementById(div);
-//     html2canvas((element), {
-//         useCORS: true,
-//         allowTaint: false,
-//         onrendered: function(canvas) {
-//             var img = canvas.toDataURL();
-//             window.open(img);
-//       }
-//     });
-// }
-
+    }
 });
