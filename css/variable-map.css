@@ -1,239 +1,219 @@
 #main-nav {
-  background-color: #990000;
-  border-radius: 0px;
+    background-color: #990000;
+    border-radius: 0px;
 }
-
-
 #main-nav a {
-  color: #FFFFFF;
-  font-weight: bold;
-  font-size: 14px;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 14px;
 }
-
 #main-nav a:hover {
-  color: 	greenyellow;
+    color: greenyellow;
 }
-
-.nav > li > a:hover, .nav > li > a:focus {
-  background-color: transparent;
-  color: #d9ead3ff;
+.nav > li > a:hover,
+.nav > li > a:focus {
+    background-color: transparent;
+    color: #d9ead3ff;
 }
-
 #home-icon {
-  color: #000000;
-  font-size: 25px;
+    color: #000000;
+    font-size: 25px;
 }
-
 .navbar-brand {
-  margin-top: -5px;
+    margin-top: -5px;
 }
-
 .icon-bar {
-    background-color:#000;
+    background-color: #000;
 }
-
 #title-image {
-  height: 23%;
-  width:100%;
+    height: 23%;
+    width: 100%;
 }
-
-
-#price-logo, #dornsife-logo {
-  margin-top: 10px;
-  height: 20%;
-  width: 100%;
+#price-logo,
+#dornsife-logo {
+    margin-top: 10px;
+    height: 20%;
+    width: 100%;
 }
-
-.col-xs-1, .col-sm-1, .col-md-1, .col-xs-2, .col-xs-8, .col-xs-10, .col-sm-10, .col-md-10 {
-  padding-left: 5px;
-  padding-right: 5px;
+.col-xs-1,
+.col-sm-1,
+.col-md-1,
+.col-xs-2,
+.col-xs-8,
+.col-xs-10,
+.col-sm-10,
+.col-md-10 {
+    padding-left: 5px;
+    padding-right: 5px;
 }
-
 .navbar {
-  margin-bottom: 0px;
+    margin-bottom: 0px;
 }
-
-#header-band
-{
-  background-color: #003333;
-  color: white;
-  margin-top: -10px;
-  margin-bottom: -10px;
+#header-band {
+    background-color: #003333;
+    color: white;
+    margin-top: -10px;
+    margin-bottom: -10px;
 }
-
-#footer-band
-{
-  background-color:  cadetblue;
-  color: white;
-  margin-bottom: -10px;
+#footer-band {
+    background-color: cadetblue;
+    color: white;
+    margin-bottom: -10px;
 }
-
 .middle-div {
-  height: 130px;
-  width: 80px;
-  background-color: #cceeff;
-  text-align: center;
-  vertical-align: middle;
-  line-height: 110px;
-  float: left;
- }
-
+    height: 130px;
+    width: 80px;
+    background-color: #cceeff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 110px;
+    float: left;
+}
 .arrow-right {
-  height: 0px;
-  border-top: 65px solid transparent;
-  border-bottom: 65px solid transparent;
-  border-left: 65px solid #cceeff;
-  float: left;
+    height: 0px;
+    border-top: 65px solid transparent;
+    border-bottom: 65px solid transparent;
+    border-left: 65px solid #cceeff;
+    float: left;
 }
-
 .middle {
-  height: 130px;
-  width: 80px;
-  background-color: #cceeff;
-  text-align: center;
-  vertical-align: middle;
-  line-height: 110px;
-  float: right;
- }
-
-.arrow-left {
-  height: 0px;
-  border-top: 65px solid transparent;
-  border-bottom: 65px solid transparent;
-  border-right: 65px solid #cceeff;
-  float: right;
+    height: 130px;
+    width: 80px;
+    background-color: #cceeff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 110px;
+    float: right;
 }
+.arrow-left {
+    height: 0px;
+    border-top: 65px solid transparent;
+    border-bottom: 65px solid transparent;
+    border-right: 65px solid #cceeff;
+    float: right;
+}
+
 /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 800px}
 
-    /* Set gray background color and 100% height */
-    .sidenav {
-      background-color: #ffffff;
-      height: 100%;
-    }
-	.col2 {
+.row.content {
+    height: 800px
+}
 
-      height: 100%;
-    }
-	.white {
-	  background-color: #bcdbe0;
-	  border: 1px solid black;
-	  height: 25%;
+/* Set gray background color and 100% height */
+
+.sidenav {
+    background-color: #ffffff;
+    height: 100%;
+}
+.col2 {
+    height: 100%;
+}
+.white {
+    background-color: #bcdbe0;
+    border: 1px solid black;
+    height: 25%;
     overflow: hidden;
     padding-bottom: 20px;
     border-radius: 3%;
-	}
-	.col12 {
-	  padding-top:15px;
-	  background-color: #ffffff;
-	  height: 35%;
-	}
-	.col21 {
-	  padding-top:1px;
-	  background-color: #f1f1f1;
-	  border: 1px solid black;
-	  height: 3%;
+}
+.col12 {
+    padding-top: 15px;
+    background-color: #ffffff;
+    height: 35%;
+}
+.col21 {
+    padding-top: 1px;
+    background-color: #f1f1f1;
+    border: 1px solid black;
+    height: 3%;
     border-radius: 3%;
-	}
-	.col22 {
-	  padding-top:15px;
-	  background-color: #ffffff;
-	  height: 50%;
-	}
-	.col23 {
-	  padding-top:20px;
-	  background-color: #ffffff;
-	  height: 7%;
-	}
-	.col24 {
-	  padding-top:5px;
-	  background-color: #ffffff;
-	  height: 37%;
-	}
-	.col31 {
-	  padding-top:15px;
-	  background-color: #ffffff;
-	  height: 100%;
-	}
-	.col311 {
-	  background-color: #ffffff;
-	  height: 40%;
-	}
-
-  .col312 {
-	  background-color: #ffffff;
-	  height: 40%;
-	}
-
-	.col313 {
-	  background-color: #f1f1f1;
-	  border:1px solid #000000;
-	  height: 50%;
+}
+.col22 {
+    padding-top: 15px;
+    background-color: #ffffff;
+    height: 50%;
+}
+.col23 {
+    padding-top: 20px;
+    background-color: #ffffff;
+    height: 7%;
+}
+.col24 {
+    padding-top: 5px;
+    background-color: #ffffff;
+    height: 37%;
+}
+.col31 {
+    padding-top: 15px;
+    background-color: #ffffff;
+    height: 100%;
+}
+.col311 {
+    background-color: #ffffff;
+    height: 40%;
+}
+.col312 {
+    background-color: #ffffff;
+    height: 40%;
+}
+.col313 {
+    background-color: #f1f1f1;
+    border: 1px solid #000000;
+    height: 50%;
     margin-top: 10px;
     color: black;
     text-align: center;
     margin-left: 15px;
     width: 130px;
     border-radius: 3%;
-	}
-	.col32 {
-	  padding-top:15px;
-	  background-color: #bcdbe0;
-	  border: 1px solid black;
-	  height: 262px;
+}
+.col32 {
+    padding-top: 15px;
+    background-color: #bcdbe0;
+    border: 1px solid black;
+    height: 262px;
     width: 230px;
     border-radius: 3%;
-	}
-	.row31{
-		height:25%;
-	}
-	.row32{
-		height:5%;
-	}
-	.row33{
-		background-color:#ffffff;
-
+}
+.row31 {
+    height: 25%;
+}
+.row32 {
+    height: 5%;
+}
+.row33 {
+    background-color: #ffffff;
     margin-top: 30px
-	}
-
-  #chart {
-    height:300px;
+}
+#chart {
+    height: 300px;
     width: 350px
-  }
-
-	.row2col2{
-		background-color:#f1f1f1;
-		border: 1px solid black;
-		height:100%;
+}
+.row2col2 {
+    background-color: #f1f1f1;
+    border: 1px solid black;
+    height: 100%;
     margin-top: 10px;
     padding-top: 2px;
     width: auto;
-
-	}
-
-
-  .varButton{
-
+}
+.varButton {
     background-color: #bcdbe0;
-	  border: 1px solid black;
+    border: 1px solid black;
     height: 50px;
     width: 130px;
     margin-bottom: 0px;
     border-radius: 3%;
-  }
-
-  .exploreButton{
+}
+.exploreButton {
     background-color: #bcdbe0;
-	  border: 1px solid black;
+    border: 1px solid black;
     height: 70px;
     width: 130px;
-
     margin-top: 0px;
     border-radius: 3%;
-
-  }
-  .varButton a{
-
+}
+.varButton a {
     text-decoration: none;
     font-size: 12px;
     color: black;
@@ -241,48 +221,40 @@
     padding-left: 10px;
     text-align: center;
     position: relative;
-
-  }
-
-  .exploreButton a{
-
+}
+.exploreButton a {
     text-decoration: none;
     font-size: 12px;
     color: black;
     display: table-cell;
     /*padding-left: 20px;*/
+    
     padding-top: 10px;
     text-align: center;
     position: relative;
-
-  }
-
-  .aboutContent {
-
+}
+.aboutContent {
     color: black;
     margin-left: 0
-
-  }
-
-  .col231 button, .col232 button {
+}
+.col231 button,
+.col232 button {
     color: #0c343d
-   /*padding-top:20px;*/
+    /*padding-top:20px;*/
+}
+.col231,
+.col232 {
+    padding-top: 30px;
+}
 
-  }
-  .col231, .col232 {
+/* On small screens, set height to 'auto' for sidenav and grid */
 
-   padding-top:30px;
-
-
-  }
-
-
-
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
+@media screen and (max-width: 767px) {
+    .sidenav {
         height: auto;
         padding: 15px;
-      }
-      .row.content {height: auto;}
     }
+    .row.content {
+        height: auto;
+    }
+}
