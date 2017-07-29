@@ -1,11 +1,19 @@
-.regList ul li{display:inline-block; width:320px; padding-right: 30px; overflow: visible;}
-.regList ul li{display:block; font-weight: bold;}
-.regList {overflow-y: scroll !important;}
-.regMenu a
-{
-
-    display:block;
-    text-decoration:none;
+.regList ul li {
+    display: inline-block;
+    width: 320px;
+    padding-right: 30px;
+    overflow: visible;
+}
+.regList ul li {
+    display: block;
+    font-weight: bold;
+}
+.regList {
+    overflow-y: scroll !important;
+}
+.regMenu a {
+    display: block;
+    text-decoration: none;
     border: 1.45px solid #004d4d;
     padding: 15px;
     background-color: #d9ead3;
@@ -15,57 +23,46 @@
     overflow: visible;
 }
 .regMenu {
-  padding-left: 0 px
+    padding-left: 0 px
 }
-
 .listHeading {
-  font-weight: bold;
-  color: #004d4d;
-  text-transform: uppercase;
-  text-align: center;
+    font-weight: bold;
+    color: #004d4d;
+    text-transform: uppercase;
+    text-align: center;
 }
 .mapTitle {
-  background-color: #004d4d;
-  color: white;
-  margin-top: 10px
+    background-color: #004d4d;
+    color: white;
+    margin-top: 10px
 }
-
 .search {
-  color: #004d4d;
-  height: 185px;
-  width: 300px;
-  background-color: #d0e0e3
+    color: #004d4d;
+    height: 185px;
+    width: 300px;
+    background-color: #d0e0e3
 }
-
 .search h4 {
-  text-align: center;
-  padding-top: 40px
+    text-align: center;
+    padding-top: 40px
 }
-
 .search input {
-  padding-left: 70px
+    padding-left: 70px
 }
-
 #map {
-  height: 390px;
+    height: 390px;
 }
-
-.band
-{
-  background-color: #003333;
-  color: white;
-  height: 20px;
-  margin-top: 1%;
+.band {
+    background-color: #003333;
+    color: white;
+    height: 20px;
+    margin-top: 1%;
 }
-
-.regList{
-  display: inline-block;
-   height: 380px;
-   max-height: 380px;
-
+.regList {
+    display: inline-block;
+    height: 380px;
+    max-height: 380px;
 }
-
-
 .arcgisSearch .searchGroup .searchInput {
-  margin-left: 12%
+    margin-left: 12%
 }

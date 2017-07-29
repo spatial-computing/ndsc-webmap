@@ -1,82 +1,66 @@
-.second_header
-{
-	background-color: #d9ead3;
-	font-size: 20px;
+.second_header {
+    background-color: #d9ead3;
+    font-size: 20px;
 }
-#create
-{
-	float: right;
-	margin-right: 23%;
-	line-height:1.8;
+#create {
+    float: right;
+    margin-right: 23%;
+    line-height: 1.8;
 }
-#find
-{
-	margin-left: 12%;
-	line-height:1.8;
+#find {
+    margin-left: 12%;
+    line-height: 1.8;
 }
-.header
-{
-	background-color: cadetblue;
-	color: white;
-	text-align: center;
-	font-size: 20px;
-
+.header {
+    background-color: cadetblue;
+    color: white;
+    text-align: center;
+    font-size: 20px;
 }
-.col-xs-7
-{
-	padding-right: 0px;
+.col-xs-7 {
+    padding-right: 0px;
 }
-.col-xs-5
-{
-	padding-left: 0;
+.col-xs-5 {
+    padding-left: 0;
 }
-
 #circle {
-      width: 300px;
-      height: 300px;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-      border-radius: 50%;
-      background: #d9ead3;
-	  text-align: center;
-	  vertical-align: middle;
-	  display: table-cell;
-
-    }
-#circle:hover
-{
-	 box-shadow: 0 0 0 10px aqua;
+    width: 300px;
+    height: 300px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background: #d9ead3;
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
 }
-
-.circle_div
-{
-	margin-top: 4%;
-	margin-bottom: 4%;
+#circle:hover {
+    box-shadow: 0 0 0 10px aqua;
 }
-
+.circle_div {
+    margin-top: 4%;
+    margin-bottom: 4%;
+}
 #diamond {
-	margin-left: 20%;
-	margin-top: 6%;
-	width: 0;
-	height: 0;
-	border: 150px solid transparent;
-	border-bottom-color: #d9ead3;
-	position: relative;
-	top: -150px;
-
+    margin-left: 20%;
+    margin-top: 6%;
+    width: 0;
+    height: 0;
+    border: 150px solid transparent;
+    border-bottom-color: #d9ead3;
+    position: relative;
+    top: -150px;
 }
 #diamond:after {
-	content: '';
-	position: absolute;
-	left: -150px;
-	top: 150px;
-	width: 0;
-	height: 0;
-	border: 150px solid transparent;
-	border-top-color: #d9ead3;
+    content: '';
+    position: absolute;
+    left: -150px;
+    top: 150px;
+    width: 0;
+    height: 0;
+    border: 150px solid transparent;
+    border-top-color: #d9ead3;
 }
-
-#margin-bottom
-{
-	height: 47%;
+#margin-bottom {
+    height: 47%;
 }
