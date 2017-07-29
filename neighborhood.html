@@ -1,195 +1,175 @@
 <html ng-app='myModule' ng-controller='myController'>
-  <head>
-    <title>Explore Neighborhood</title>
-
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/exp_neighborhood.css">
-    <link rel="stylesheet" href="css/loading.css">
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
-	  <meta name=viewport content="initial-scale=1">
-	  <style>
-	  div.esriPopupWrapper .zoomTo
-		 {
-  			display: none;
-
-		 }
-		  body
-		 {
-			 overflow:scroll;
-			 min-width: 1200px;
-			 min-height: 750px;
-
-		 }
-	  </style>
-  </head>
-  <body style="font-family:Lato;">
-    <div id="loader-wrapper">
-      <div id="loader"></div>
-
-      <div class="loader-section section-left"></div>
-      <div class="loader-section section-right"></div>
-    </div>
-
-    <div id="content">
-      <nav id="main-nav" class="navbar fixed-top">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.html"><span id="home-icon" class="glyphicon glyphicon-home"></span><span class="sr-only">(current)</span></a>
-          </div>
-
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-              <li><a href="about.html">About</a></li>
-              <li><a href="data_dictionary.html">Data Dictionary</a></li>
-              <li><a href="explorevariables.html">Explore Variables</a></li>
-              <li><a href="neighborhood_lp.html">Explore Neighborhoods</a></li>
-              <li><a href="exp_comp_ind.html">Explore Composite Indicators</a></li>
-              <li><a href="data_stories.html">Data Stories</a></li>
-              <li><a href="about_data.html">Learn About The Data</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="login.html">Login/Sign Up</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-<div class="container-fluid">
-      <div class="row">
-        <div class="col-xs-2 ">
-          <img src="img/price.png" id="price-logo" style="width:60%;">
-        </div>
-        <div class="col-xs-8 " style="position:relative; overflow:hidden; height: 29%">
-          <img src="img/exp_neighborhoods.jpg" id="title-image" >
-			<h1 class="page-title">
-			<b> EXPLORE YOUR NEIGHBORHOOD</b>
-
-			</h1>
-
-        </div>
-        <div class="col-xs-2">
-          <img src="img/dornsife.png" id="dornsife-logo" style="width:70%;">
-        </div>
+   <head>
+      <title>Explore Neighborhood</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+      <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="css/exp_neighborhood.css">
+      <link rel="stylesheet" href="css/loading.css">
+      <link rel="shortcut icon" href="img/favicon.ico">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+      <meta name=viewport content="initial-scale=1">
+      <style>
+         div.esriPopupWrapper .zoomTo
+         {
+         display: none;
+         }
+         body
+         {
+         overflow:scroll;
+         min-width: 1200px;
+         min-height: 750px;
+         }
+      </style>
+   </head>
+   <body style="font-family:Lato;">
+      <div id="loader-wrapper">
+         <div id="loader"></div>
+         <div class="loader-section section-left"></div>
+         <div class="loader-section section-right"></div>
       </div>
-    </div>
-
-
-
-      <div id="mapCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-          <div class="carousel-inner">
-
-      <div class="item active">
-        <div id="header-band" style=""><h4 class="text-center">SELECT YOUR REGION</h4></div>
-
-      <div class="col-xs-3" style="display:inline-block">
-        <h4 class="listHeading">L.A. TIMES REGIONS</h4>
-
-      <div class="regList" style="">
-            <ul class="regMenu" style="padding-left: 0px; height: 101%">
-               <li ng-repeat="region in neighborhood | unique: 'region'">
-                 <a href="#" ng-click=neighborhoods(region)>{{region.region}}</a>
-               </li>
-             </ul>
-       </div>
-
-    </div>
-  <div class="col-xs-6" style="display:inline-block">
-      <h4 class="mapTitle" style="text-align: center; margin-bottom:3px">Select a Region Using Map or List</h4>
-  <div id="mapDiv" style="">
-  <esri-map id="map" map-options="{ basemap: 'gray', center: [-118.2437, 34.2522], zoom: 9,showLabels : true }" load="onMapLoad">
-  </esri-map>
-  </div>
-  </div>
-  <div class="col-xs-3">
-  <p style="margin-top: 10px; margin-left: 10px; color: #004d4d">Why use L.A. Times Neighborhoods?</p>
-  <div class="search">
-    <h4>SEARCH BY REGION NAME</h4>
-      <div id="searchRegionName"></div>
-
-  </div>
-  <div class="search">
-    <h4>SEARCH BY STREET ADDRESS</h4>
-      <div id="searchStreetAddress1"></div>
-
-  </div>
-  </div>
-<div style="clear:both";></div>
-  <div class="band" style=""></div>
-  </div>
-
-  <div class="item">
-    <div id="header-band" style=""><h4 class="text-center">SELECT YOUR NEIGHBORHOOD</h4></div>
-
-  <div class="col-xs-3" style="display:inline-block">
-    <button class="col-xs-1" style="display:inline; margin-top: 20px" onclick="$('#mapCarousel').carousel('prev')"><i class="fa fa-chevron-left" style="color:black;"></i></button>
-    <div class="col-xs-11" style="display:inline-block"><h4 class="listHeading">{{ regionpick }} Neighborhoods</h4></div>
-
-  <div class="regList" style="display: inline-block; height: 390px; overflow-y: scroll">
-        <ul class="regMenu" style="padding-left: 0px">
-           <li ng-repeat="region in neighborhood | filter: regionpick">
-             <a href="neighborhoodmap.html" ng-click="neighborhoodmap(region.neighborhood)">{{region.neighborhood}}</a>
-           </li>
-
-         </ul>
-   </div>
-
-  </div>
-  <div class="col-xs-6" style="display:inline-block">
-  <h4 class="mapTitle" style="text-align: center; margin-bottom:3px">Select a Neighborhood Using Map or List</h4>
-  <div id="mapDiv" style="">
-  <div id="map2" style="height: 390px">
-  </div>
-  </div>
-  </div>
-  <div class="col-xs-3">
-  <p style="margin-top: 10px; margin-left: 10px; color: #004d4d">Why use L.A. Times Neighborhoods?</p>
-  <div class="search">
-  <h4>SEARCH BY NEIGHBORHOOD NAME</h4>
-
-      <div id="searchNeighborHoodName"></div>
-
-  </div>
-  <div class="search">
-  <h4>SEARCH BY STREET ADDRESS</h4>
-      <div id="searchStreetAddress2"></div>
-  </div>
-  </div>
- <div style="clear:both";></div>
-  <div class="band" style=""></div>
-  </div>
-
-  </div>
-  </div>
-</div>
-
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://js.arcgis.com/3.20"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
-    <script src="http://unpkg.com/angular-esri-map@1"></script>
-    <script src="js/neighborhood.js"></script>
-    <script src="js/loading.js"></script>
-	  <script>
-
-			$('[data-toggle="tooltip"]').tooltip();
-
-	  </script>
-  </body>
+      <div id="content">
+         <nav id="main-nav" class="navbar fixed-top">
+            <div class="container-fluid">
+               <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="index.html"><span id="home-icon" class="glyphicon glyphicon-home"></span><span class="sr-only">(current)</span></a>
+               </div>
+               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav">
+                     <li><a href="about.html">About</a></li>
+                     <li><a href="data_dictionary.html">Data Dictionary</a></li>
+                     <li><a href="explorevariables.html">Explore Variables</a></li>
+                     <li><a href="neighborhood_lp.html">Explore Neighborhoods</a></li>
+                     <li><a href="exp_comp_ind.html">Explore Composite Indicators</a></li>
+                     <li><a href="data_stories.html">Data Stories</a></li>
+                     <li><a href="about_data.html">Learn About The Data</a></li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                     <li><a href="login.html">Login/Sign Up</a></li>
+                  </ul>
+               </div>
+            </div>
+         </nav>
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-xs-2 ">
+                  <img src="img/price.png" id="price-logo" style="width:60%;">
+               </div>
+               <div class="col-xs-8 " style="position:relative; overflow:hidden; height: 29%">
+                  <img src="img/exp_neighborhoods.jpg" id="title-image" >
+                  <h1 class="page-title">
+                     <b> EXPLORE YOUR NEIGHBORHOOD</b>
+                  </h1>
+               </div>
+               <div class="col-xs-2">
+                  <img src="img/dornsife.png" id="dornsife-logo" style="width:70%;">
+               </div>
+            </div>
+         </div>
+         <div id="mapCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+            <div class="carousel-inner">
+               <div class="item active">
+                  <div id="header-band" style="">
+                     <h4 class="text-center">SELECT YOUR REGION</h4>
+                  </div>
+                  <div class="col-xs-3" style="display:inline-block">
+                     <h4 class="listHeading">L.A. TIMES REGIONS</h4>
+                     <div class="regList" style="">
+                        <ul class="regMenu" style="padding-left: 0px; height: 101%">
+                           <li ng-repeat="region in neighborhood | unique: 'region'">
+                              <a href="#" ng-click=neighborhoods(region)>{{region.region}}</a>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="col-xs-6" style="display:inline-block">
+                     <h4 class="mapTitle" style="text-align: center; margin-bottom:3px">Select a Region Using Map or List</h4>
+                     <div id="mapDiv" style="">
+                        <esri-map id="map" map-options="{ basemap: 'gray', center: [-118.2437, 34.2522], zoom: 9,showLabels : true }" load="onMapLoad">
+                        </esri-map>
+                     </div>
+                  </div>
+                  <div class="col-xs-3">
+                     <p style="margin-top: 10px; margin-left: 10px; color: #004d4d">Why use L.A. Times Neighborhoods?</p>
+                     <div class="search">
+                        <h4>SEARCH BY REGION NAME</h4>
+                        <div id="searchRegionName"></div>
+                     </div>
+                     <div class="search">
+                        <h4>SEARCH BY STREET ADDRESS</h4>
+                        <div id="searchStreetAddress1"></div>
+                     </div>
+                  </div>
+                  <div style="clear:both";></div>
+                  <div class="band" style=""></div>
+               </div>
+               <div class="item">
+                  <div id="header-band" style="">
+                     <h4 class="text-center">SELECT YOUR NEIGHBORHOOD</h4>
+                  </div>
+                  <div class="col-xs-3" style="display:inline-block">
+                     <button class="col-xs-1" style="display:inline; margin-top: 20px" onclick="$('#mapCarousel').carousel('prev')"><i class="fa fa-chevron-left" style="color:black;"></i></button>
+                     <div class="col-xs-11" style="display:inline-block">
+                        <h4 class="listHeading">{{ regionpick }} Neighborhoods</h4>
+                     </div>
+                     <div class="regList" style="display: inline-block; height: 390px; overflow-y: scroll">
+                        <ul class="regMenu" style="padding-left: 0px">
+                           <li ng-repeat="region in neighborhood | filter: regionpick">
+                              <a href="neighborhoodmap.html" ng-click="neighborhoodmap(region.neighborhood)">{{region.neighborhood}}</a>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="col-xs-6" style="display:inline-block">
+                     <h4 class="mapTitle" style="text-align: center; margin-bottom:3px">Select a Neighborhood Using Map or List</h4>
+                     <div id="mapDiv" style="">
+                        <div id="map2" style="height: 390px">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xs-3">
+                     <p style="margin-top: 10px; margin-left: 10px; color: #004d4d">Why use L.A. Times Neighborhoods?</p>
+                     <div class="search">
+                        <h4>SEARCH BY NEIGHBORHOOD NAME</h4>
+                        <div id="searchNeighborHoodName"></div>
+                     </div>
+                     <div class="search">
+                        <h4>SEARCH BY STREET ADDRESS</h4>
+                        <div id="searchStreetAddress2"></div>
+                     </div>
+                  </div>
+                  <div style="clear:both";></div>
+                  <div class="band" style=""></div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <script src="https://js.arcgis.com/3.20"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
+      <script src="http://unpkg.com/angular-esri-map@1"></script>
+      <script src="js/neighborhood.js"></script>
+      <script src="js/loading.js"></script>
+      <script>
+         $('[data-toggle="tooltip"]').tooltip();
+         
+      </script>
+   </body>
 </html>
