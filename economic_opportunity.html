@@ -9,138 +9,129 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/loading.css">
+    <link rel="shortcut icon" href="img/favicon.ico">
   </head>
   <body style="font-family:Lato;">
     <div id="loader-wrapper">
       <div id="loader"></div>
-
       <div class="loader-section section-left"></div>
       <div class="loader-section section-right"></div>
     </div>
-
     <div id="content">
-    <nav id="main-nav" class="navbar">
+      <nav id="main-nav" class="navbar">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html"><span id="home-icon" class="glyphicon glyphicon-home"></span><span class="sr-only">(current)</span></a>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li><a href="about.html">About</a></li>
+              <li><a href="data_dictionary.html">Data Dictionary</a></li>
+              <li><a href="explorevariables.html">Explore Variables</a></li>
+              <li><a href="neighborhood_lp.html">Explore Neighborhoods</a></li>
+              <li><a href="exp_comp_ind.html">Explore Composite Indicators</a></li>
+              <li><a href="data_stories.html">Data Stories</a></li>
+              <li><a href="about_data.html">Learn About The Data</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="login.html">Login/Sign Up</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
       <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html"><span id="home-icon" class="glyphicon glyphicon-home"></span><span class="sr-only">(current)</span></a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="about.html">About</a></li>
-            <li><a href="data_dictionary.html">Data Dictionary</a></li>
-            <li><a href="explorevariables.html">Explore Variables</a></li>
-            <li><a href="neighborhood_lp.html">Explore Neighborhoods</a></li>
-            <li><a href="exp_comp_ind.html">Explore Composite Indicators</a></li>
-            <li><a href="data_stories.html">Data Stories</a></li>
-            <li><a href="about_data.html">Learn About The Data</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="login.html">Login/Sign Up</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-xs-2 ">
-          <img src="img/price.png" id="price-logo" style="width:60%;">
-        </div>
-        <div class="col-xs-8" style="position:relative; overflow:hidden; height: 29%">
-          <img src="img/Economic_Opportunity_Indicator_Header.jpg" id="title-image" >
-			<h1 class="page-title" style="top: 20%">
-			<b> COMPOSITE INDICATOR:</b><br>
-			<b>{{composite[0].compositeindicator}}</b>
-			</h1>
-
-
-        </div>
-        <div class="col-xs-2">
+        <div class="row">
+          <div class="col-xs-2 ">
+            <img src="img/price.png" id="price-logo" style="width:60%;">
+          </div>
+          <div class="col-xs-8" style="position:relative; overflow:hidden; height: 29%">
+            <img src="img/Economic_Opportunity_Indicator_Header.jpg" id="title-image" >
+			         <h1 class="page-title" style="top: 20%">
+			            <b> COMPOSITE INDICATOR:</b><br>
+			            <b>{{composite[0].compositeindicator}}</b>
+			         </h1>
+         </div>
+         <div class="col-xs-2">
            <img src="img/dornsife.png" id="dornsife-logo" style="width:70%;">
+         </div>
+       </div>
+     </div>
+
+     <div id="header-band"><h4 class="text-center">&nbsp;</h4></div>
+
+     <div class="container" style="padding-left:0; padding-right:0;width:100%; display:table; margin-left:1%; margin-right:0.5%;">
+	      <div class="row" style="padding-left:0;">
+	         <br>
+           <div class="col-xs-2 "  id="what_comp_ind" class="no-wrap" style="display:table-cell; height:100%;">
+             <br>
+		           <h5 class="text-center"><b>WHAT IS A COMPOSITE INDICATOR?</b></h5>
+	              In order to better understand how neighborhood environments contribute to resident well-being and social mobility, we created three custom indicators. <br>These indicators were developed by selecting and combining specific variables to create comprehensive measurements of three key dimensions of neighborhood<br> opportunity:economic opportunity,risk & vulnerability, and connectedness.
+		           <br>
+		           <br>
+		            CLick "Learn More" below for more nformation about how individual indicators were created.
+	             <br>
+		           <br>
+		          <a href="exp_comp_ind.html" class="btn btn-default" style="width: 100%; text-align: center; margin-left: 0px">Back to Composite Indicators</a>
+		           <br>
+		           <br>
+          </div>
+          <div class="col-xs-8" class="responsive nowrap" style="display:table-cell;height:100%;">
+		          <div class="about_indicator">
+			             <h4 class="text-center"><b>About {{composite[0].compositeindicator}}</b></h4>
+                    {{composite[0].aboutindicator}}
+			             <br>
+			             <br>
+		          </div>
+		          <div class="about_indicator">
+			             <h4 class="text-center"><b>How the Indicator was created</b></h4>
+                    {{composite[0].aboutcreation}}
+			              <br>
+			              <br>
+		          </div>
+		          <div class="about_indicator">
+			             <h4 class="text-center"><b>Understanding the measurement</b></h4>
+                    {{composite[0].understandingthemeasurement}}
+			              <br>
+			              <br>
+			              <br>
+		                <br>
+		         </div>
+         </div>
+         <div class="col-xs-2 " id="eco_histogram" class="no-wrap" style="display:table-cell;height:100%; ">
+		         <br>
+             <div class="distribution_eco_opp">
+		             Distribution of Economic Opportunity in Los Angeles County
+		         </div>
+		         <div class="distribution_eco_opp">
+		            <br>
+		            <br>
+			          <br>
+			          <br>
+			          <br>
+			          <br>
+			          <br>
+			          <br>
+			          <br>
+			          <br>
+			          <br>
+		        </div>
+		        <u>What is this chart?</u><br><br><br>
+		          <a ng-click="CIMap('eco')" href="ci_map.html">
+                <div class="distribution_eco_opp" id="ec_opp_arrow">
+		              Explore Economic Opportunity in Los Angeles County &#8680;
+		                <br>
+		                <br>
+		            </div>
+              </a>
+          </div>
         </div>
-      </div>
-    </div>
-
-
-
-    <div id="header-band"><h4 class="text-center">&nbsp;</h4></div>
-
-
-<div class="container" style="padding-left:0; padding-right:0;width:100%; display:table; margin-left:1%; margin-right:0.5%;">
-	<div class="row" style="padding-left:0;">
-	<br>
-    <div class="col-xs-2 "  id="what_comp_ind" class="no-wrap" style="display:table-cell; height:100%;">
-      <br>
-		<h5 class="text-center"><b>WHAT IS A COMPOSITE INDICATOR?</b></h5>
-	   In order to better understand how neighborhood environments contribute to resident well-being and social mobility, we created three custom indicators. <br>These indicators were developed by selecting and combining specific variables to create comprehensive measurements of three key dimensions of neighborhood<br> opportunity:economic opportunity,risk & vulnerability, and connectedness.
-		<br>
-		<br>
-		CLick "Learn More" below for more nformation about how individual indicators were created.
-	  <br>
-		<br>
-		<a href="exp_comp_ind.html" class="btn btn-default" style="width: 100%; text-align: center; margin-left: 0px">Back to Composite Indicators</a>
-		<br>
-		<br>
-    </div>
-    <div class="col-xs-8" class="responsive nowrap" style="display:table-cell;height:100%;">
-		<div class="about_indicator">
-			<h4 class="text-center"><b>About {{composite[0].compositeindicator}}</b></h4>
-        {{composite[0].aboutindicator}}
-			<br>
-			<br>
-		</div>
-
-		<div class="about_indicator">
-			<h4 class="text-center"><b>How the Indicator was created</b></h4>
-        {{composite[0].aboutcreation}}
-			<br>
-			<br>
-		</div>
-		<div class="about_indicator">
-			<h4 class="text-center"><b>Understanding the measurement</b></h4>
-        {{composite[0].understandingthemeasurement}}
-			<br>
-			<br>
-			<br>
-			<br>
-
-		</div>
-    </div>
-    <div class="col-xs-2 " id="eco_histogram" class="no-wrap" style="display:table-cell;height:100%; ">
-		<br>
-       <div class="distribution_eco_opp">
-
-		Distribution of Economic Opportunity in Los Angeles County
-		</div>
-		<div class="distribution_eco_opp">
-		<br>
-		<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-
-		</div>
-		<u>What is this chart?</u><br><br><br>
-		<a ng-click="CIMap('eco')" href="ci_map.html"><div class="distribution_eco_opp" id="ec_opp_arrow">
-		Explore Economic Opportunity in Los Angeles County &#8680;
-		<br>
-		<br>
-		</div></a>
-    </div>
-</div>
 	  </div>
     <br>
     <div id="header-band"><h4 class="text-center">&nbsp;</h4></div>
@@ -156,5 +147,6 @@
     <script src="http://unpkg.com/angular-esri-map@1"></script>
     <script src="js/main.js"></script>
     <script src="js/loading.js"></script>
+
   </body>
 </html>
