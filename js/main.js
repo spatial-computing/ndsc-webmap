@@ -17,7 +17,7 @@ app.controller('myController', function($scope,$http,$filter) {
         });
     }
     
-    function getRegions(){
+    function getRegion(){
         return $http({
             method: 'GET',
             url: 'http://6370bd5f.ngrok.io/GS-Region'
@@ -195,4 +195,4 @@ app.controller('myController', function($scope,$http,$filter) {
     }
     
     fetchData();
-}
+});

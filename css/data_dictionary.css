@@ -17,7 +17,7 @@ body {
 }
 #main-nav a {
     color: #FFFFFF;
-    font-weight: 475;
+    font-weight: bold;
     font-size: 15px;
 }
 #main-nav a:hover {
